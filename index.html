@@ -153,26 +153,43 @@
         }
         html.dark .hl-saktah { color: #f87171; }
  
-        /* Interactive Keyboard Styles */
-        .arabic-key {
-            transition: all 0.2s ease;
+/* Upgraded 3D Mechanical Keyboard Styles */
+        .arabic-key, .meem-arabic-key {
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            box-shadow: 0 4px 0 0 #cbd5e1 !important; /* Slate 300 base shadow */
+            transform: translateY(0) !important;
+            border-width: 2px !important;
+            border-radius: 0.75rem !important;
+            font-size: 1.5rem !important; /* Slightly larger text */
         }
-        .arabic-key:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        
+        html.dark .arabic-key, html.dark .meem-arabic-key {
+            box-shadow: 0 4px 0 0 #334155 !important; /* Slate 700 dark shadow */
         }
-        .arabic-key.selected {
-            background-color: #14b8a6;
-            color: white;
-            border-color: #0d9488;
+        
+        /* Hover State (Key lifts up slightly) */
+        .arabic-key:hover, .meem-arabic-key:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 0 0 #cbd5e1 !important;
         }
- 
-        @keyframes popIn {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        
+        html.dark .arabic-key:hover, html.dark .meem-arabic-key:hover {
+            box-shadow: 0 6px 0 0 #334155 !important;
         }
-        .rule-pop {
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        
+        /* Active Click State (Key snaps down) */
+        .arabic-key:active, .meem-arabic-key:active {
+            transform: translateY(4px) !important;
+            box-shadow: 0 0 0 0 transparent !important;
+        }
+        
+        /* Selected (Pressed & Locked) State */
+        .arabic-key.selected, .meem-arabic-key.selected {
+            background-color: #14b8a6 !important; /* Brand 500 */
+            color: white !important;
+            border-color: #0f766e !important; /* Brand 700 */
+            transform: translateY(4px) !important;
+            box-shadow: 0 0 0 0 transparent !important;
         }
  
         /* Analyzer specific hover effects */
@@ -243,7 +260,7 @@
             <button onclick="switchTab('intro')" class="nav-btn active w-full text-left px-4 py-3 rounded-lg text-sm font-medium bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 transition-colors whitespace-nowrap md:whitespace-normal" data-target="intro">Introduction</button>
             <button onclick="switchTab('makharij')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="makharij">Makharij (Articulation)</button>
             <button onclick="switchTab('sifat')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="sifat">Sifat (Attributes)</button>
-            <button onclick="switchTab('nasal')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="nasal">Noon & Meem Rules</button>
+            <button onclick="switchTab('nasal')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="nasal">Nun, Meem & Alif Lam</button>
             <button onclick="switchTab('madd')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="madd">Ahkam Al-Madd</button>
             <button onclick="switchTab('waqf')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="waqf">Waqf (Pausing)</button>
             <button onclick="switchTab('advanced')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="advanced">Advanced (Gharib)</button>
@@ -445,11 +462,29 @@
                             <svg class="accordion-icon w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
                         <div class="accordion-content px-5">
-                            <ul class="space-y-3 text-gray-600 dark:text-gray-300 mb-4 transition-colors">
-                                <li><strong>Deep Throat (Vocal cords):</strong> Hamzah (ء) and Ha (ه)</li>
-                                <li><strong>Middle Throat (Epiglottis):</strong> 'Ayn (ع) and Ha (ح)</li>
-                                <li><strong>Closest Throat (Uvula):</strong> Ghayn (غ) and Kha (خ)</li>
-                            </ul>
+<div class="space-y-3 mb-4 transition-colors">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-gray-50 dark:bg-slate-700/30 p-2 rounded-lg border border-gray-100 dark:border-slate-600/50">
+                                    <span class="text-sm text-gray-600 dark:text-gray-300"><strong>Deep Throat:</strong> Vocal cords</span>
+                                    <div class="flex gap-2 mt-2 sm:mt-0">
+                                        <button onclick="playLetterSound('ء')" class="w-10 h-10 bg-white dark:bg-slate-800 border border-purple-200 dark:border-purple-800 hover:bg-purple-500 hover:text-white dark:hover:bg-purple-500 rounded text-xl font-arabic font-bold text-purple-700 dark:text-purple-300 shadow-sm transition-colors" title="Test Makhraj">ء</button>
+                                        <button onclick="playLetterSound('ه')" class="w-10 h-10 bg-white dark:bg-slate-800 border border-purple-200 dark:border-purple-800 hover:bg-purple-500 hover:text-white dark:hover:bg-purple-500 rounded text-xl font-arabic font-bold text-purple-700 dark:text-purple-300 shadow-sm transition-colors" title="Test Makhraj">ه</button>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-gray-50 dark:bg-slate-700/30 p-2 rounded-lg border border-gray-100 dark:border-slate-600/50">
+                                    <span class="text-sm text-gray-600 dark:text-gray-300"><strong>Middle Throat:</strong> Epiglottis</span>
+                                    <div class="flex gap-2 mt-2 sm:mt-0">
+                                        <button onclick="playLetterSound('ع')" class="w-10 h-10 bg-white dark:bg-slate-800 border border-purple-200 dark:border-purple-800 hover:bg-purple-500 hover:text-white dark:hover:bg-purple-500 rounded text-xl font-arabic font-bold text-purple-700 dark:text-purple-300 shadow-sm transition-colors" title="Test Makhraj">ع</button>
+                                        <button onclick="playLetterSound('ح')" class="w-10 h-10 bg-white dark:bg-slate-800 border border-purple-200 dark:border-purple-800 hover:bg-purple-500 hover:text-white dark:hover:bg-purple-500 rounded text-xl font-arabic font-bold text-purple-700 dark:text-purple-300 shadow-sm transition-colors" title="Test Makhraj">ح</button>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-gray-50 dark:bg-slate-700/30 p-2 rounded-lg border border-gray-100 dark:border-slate-600/50">
+                                    <span class="text-sm text-gray-600 dark:text-gray-300"><strong>Closest Throat:</strong> Uvula</span>
+                                    <div class="flex gap-2 mt-2 sm:mt-0">
+                                        <button onclick="playLetterSound('غ')" class="w-10 h-10 bg-white dark:bg-slate-800 border border-purple-200 dark:border-purple-800 hover:bg-purple-500 hover:text-white dark:hover:bg-purple-500 rounded text-xl font-arabic font-bold text-purple-700 dark:text-purple-300 shadow-sm transition-colors" title="Test Makhraj">غ</button>
+                                        <button onclick="playLetterSound('خ')" class="w-10 h-10 bg-white dark:bg-slate-800 border border-purple-200 dark:border-purple-800 hover:bg-purple-500 hover:text-white dark:hover:bg-purple-500 rounded text-xl font-arabic font-bold text-purple-700 dark:text-purple-300 shadow-sm transition-colors" title="Test Makhraj">خ</button>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="tri-lingual-card p-5 rounded-xl shadow-sm mb-2 relative !border-purple-400">
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="flex flex-col gap-2 mt-2">
@@ -504,8 +539,18 @@
                             <svg class="accordion-icon w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
                         <div class="accordion-content px-5">
-                            <p class="text-gray-600 dark:text-gray-300 mb-2 transition-colors"><strong>Lips:</strong> Fa (ف), Ba (ب), Meem (م), Waw (و).</p>
-                            <p class="text-gray-600 dark:text-gray-300 transition-colors"><strong>Nasal Passage:</strong> Origin of the <em>Ghunnah</em> (nasal resonance). Blocks sound for N and M.</p>
+                        <div class="space-y-3 mb-4 transition-colors">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-gray-50 dark:bg-slate-700/30 p-2 rounded-lg border border-gray-100 dark:border-slate-600/50">
+                                    <span class="text-sm text-gray-600 dark:text-gray-300"><strong>Al-Shafatan:</strong> The Lips</span>
+                                    <div class="flex gap-2 mt-2 sm:mt-0">
+                                        <button onclick="playLetterSound('ف')" class="w-10 h-10 bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 rounded text-xl font-arabic font-bold text-emerald-700 dark:text-emerald-300 shadow-sm transition-colors" title="Test Makhraj">ف</button>
+                                        <button onclick="playLetterSound('ب')" class="w-10 h-10 bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 rounded text-xl font-arabic font-bold text-emerald-700 dark:text-emerald-300 shadow-sm transition-colors" title="Test Makhraj">ب</button>
+                                        <button onclick="playLetterSound('م')" class="w-10 h-10 bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 rounded text-xl font-arabic font-bold text-emerald-700 dark:text-emerald-300 shadow-sm transition-colors" title="Test Makhraj">م</button>
+                                        <button onclick="playLetterSound('و')" class="w-10 h-10 bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-500 hover:text-white dark:hover:bg-emerald-500 rounded text-xl font-arabic font-bold text-emerald-700 dark:text-emerald-300 shadow-sm transition-colors" title="Test Makhraj">و</button>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mt-3 pl-2 transition-colors"><strong>Al-Khaishum (Nasal Passage):</strong> Origin of the <em>Ghunnah</em> (nasal resonance). Sound is diverted here naturally for Nun (ن) and Meem (م).</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -516,7 +561,75 @@
         <section id="sifat" class="tab-content">
             <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2 transition-colors">Sifat Al-Huruf</h2>
             <p class="text-gray-600 dark:text-gray-300 mb-8 transition-colors">The Intrinsic (Permanent) and Extrinsic (Temporary) attributes defining a letter's acoustic nature.</p>
- 
+<!-- Characteristics With Opposites (NEW) -->
+            <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4 border-b border-gray-200 dark:border-slate-700 pb-2 transition-colors">Characteristics With Opposites</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mb-6 transition-colors">Every Arabic letter possesses exactly one characteristic from each of these opposing pairs. They act as the "DNA" of the letter, dictating the physical flow of breath and sound.</p>
+            
+            <div class="grid lg:grid-cols-2 gap-6 mb-10 mt-6">
+                <!-- Pair 1: Breath -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-5 transition-colors relative hover:-translate-y-1 duration-300">
+                    <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-gray-500 text-[10px] font-bold px-2 py-1 rounded-full z-10 border border-white dark:border-slate-800">VS</div>
+                    <h4 class="text-center text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4">Flow of Breath</h4>
+                    <div class="flex gap-4">
+                        <div class="flex-1 bg-sky-50 dark:bg-sky-900/20 p-4 rounded-lg border border-sky-100 dark:border-sky-800/50">
+                            <strong class="block text-sky-700 dark:text-sky-400 mb-1">Hams (Whispering)</strong>
+                            <p class="text-xs text-sky-900/70 dark:text-sky-200/70">Breath flows freely out. <br><span class="font-arabic text-sm mt-2 block text-sky-800 dark:text-sky-300" dir="rtl">ف ح ث ه ش خ ص س ك ت</span></p>
+                        </div>
+                        <div class="flex-1 bg-rose-50 dark:bg-rose-900/20 p-4 rounded-lg border border-rose-100 dark:border-rose-800/50 text-right">
+                            <strong class="block text-rose-700 dark:text-rose-400 mb-1">Jahr (Voiced)</strong>
+                            <p class="text-xs text-rose-900/70 dark:text-rose-200/70">Breath is trapped/stopped. <br><span class="text-xs mt-2 block italic text-rose-800/70 dark:text-rose-300/70">All other letters</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pair 2: Sound -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-5 transition-colors relative hover:-translate-y-1 duration-300">
+                    <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-gray-500 text-[10px] font-bold px-2 py-1 rounded-full z-10 border border-white dark:border-slate-800">VS</div>
+                    <h4 class="text-center text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4">Flow of Sound</h4>
+                    <div class="flex gap-4">
+                        <div class="flex-1 bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-100 dark:border-amber-800/50">
+                            <strong class="block text-amber-700 dark:text-amber-400 mb-1">Shiddah (Strength)</strong>
+                            <p class="text-xs text-amber-900/70 dark:text-amber-200/70">Sound stops abruptly. <br><span class="font-arabic text-sm mt-2 block text-amber-800 dark:text-amber-300" dir="rtl">أ ج د ق ط ب ك ت</span></p>
+                        </div>
+                        <div class="flex-1 bg-emerald-50 dark:bg-emerald-900/20 p-4 rounded-lg border border-emerald-100 dark:border-emerald-800/50 text-right">
+                            <strong class="block text-emerald-700 dark:text-emerald-400 mb-1">Rakhawah (Softness)</strong>
+                            <p class="text-xs text-emerald-900/70 dark:text-emerald-200/70">Sound flows smoothly. <br><span class="text-xs mt-2 block italic text-emerald-800/70 dark:text-emerald-300/70">(Tawassut/Medium is in between)</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pair 3: Elevation -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-5 transition-colors relative hover:-translate-y-1 duration-300">
+                    <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-gray-500 text-[10px] font-bold px-2 py-1 rounded-full z-10 border border-white dark:border-slate-800">VS</div>
+                    <h4 class="text-center text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4">Direction of Tongue</h4>
+                    <div class="flex gap-4">
+                        <div class="flex-1 bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-100 dark:border-purple-800/50">
+                            <strong class="block text-purple-700 dark:text-purple-400 mb-1">Isti'la (Elevation)</strong>
+                            <p class="text-xs text-purple-900/70 dark:text-purple-200/70">Back of tongue rises (Heavy). <br><span class="font-arabic text-sm mt-2 block text-purple-800 dark:text-purple-300" dir="rtl">خ ص ض غ ط ق ظ</span></p>
+                        </div>
+                        <div class="flex-1 bg-teal-50 dark:bg-teal-900/20 p-4 rounded-lg border border-teal-100 dark:border-teal-800/50 text-right">
+                            <strong class="block text-teal-700 dark:text-teal-400 mb-1">Istifal (Lowering)</strong>
+                            <p class="text-xs text-teal-900/70 dark:text-teal-200/70">Tongue stays low (Light). <br><span class="text-xs mt-2 block italic text-teal-800/70 dark:text-teal-300/70">All other letters</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pair 4: Adhesion -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 p-5 transition-colors relative hover:-translate-y-1 duration-300">
+                    <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-gray-500 text-[10px] font-bold px-2 py-1 rounded-full z-10 border border-white dark:border-slate-800">VS</div>
+                    <h4 class="text-center text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4">Adhesion of Tongue</h4>
+                    <div class="flex gap-4">
+                        <div class="flex-1 bg-indigo-50 dark:bg-indigo-900/20 p-4 rounded-lg border border-indigo-100 dark:border-indigo-800/50">
+                            <strong class="block text-indigo-700 dark:text-indigo-400 mb-1">Itbaq (Adhesion)</strong>
+                            <p class="text-xs text-indigo-900/70 dark:text-indigo-200/70">Tongue sticks to the palate. <br><span class="font-arabic text-sm mt-2 block text-indigo-800 dark:text-indigo-300" dir="rtl">ص ض ط ظ</span></p>
+                        </div>
+                        <div class="flex-1 bg-fuchsia-50 dark:bg-fuchsia-900/20 p-4 rounded-lg border border-fuchsia-100 dark:border-fuchsia-800/50 text-right">
+                            <strong class="block text-fuchsia-700 dark:text-fuchsia-400 mb-1">Infitah (Separation)</strong>
+                            <p class="text-xs text-fuchsia-900/70 dark:text-fuchsia-200/70">Space between tongue & palate.<br><span class="text-xs mt-2 block italic text-fuchsia-800/70 dark:text-fuchsia-300/70">All other letters</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div> 
             <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4 border-b border-gray-200 dark:border-slate-700 pb-2 transition-colors">Characteristics Without Opposites</h3>
             <div class="grid md:grid-cols-2 gap-6 mb-12 mt-6">
                 <!-- Safir -->
@@ -537,21 +650,45 @@
                     </div>
                 </div>
  
-                <!-- Qalqalah -->
-                <div class="tri-lingual-card p-5 rounded-xl shadow-sm relative !border-brand-500 hover:-translate-y-1 transition-transform duration-300">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex flex-col gap-2 mt-2">
-                            <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/113001.mp3')" class="play-btn flex items-center justify-center w-10 h-10 bg-brand-500 text-white rounded-full shadow-md hover:bg-brand-600 focus:outline-none flex-shrink-0" title="Listen to verse">
-                                <svg class="w-5 h-5 ml-1 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                            </button>
+<!-- Qalqalah (Expanded) -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-brand-100 dark:border-brand-900/50 overflow-hidden flex flex-col md:col-span-2 transition-colors hover:-translate-y-1 duration-300">
+                    <div class="bg-brand-50 dark:bg-brand-900/30 px-6 py-4 border-b border-brand-100 dark:border-brand-900/50 flex justify-between items-center transition-colors">
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-800 dark:text-brand-400">Qalqalah (Echoing / Bouncing)</h3>
+                            <p class="text-xs text-brand-600 dark:text-brand-300 mt-1">A distinctive bounce produced when these letters have a Sukoon.</p>
                         </div>
-                        <span class="font-arabic text-2xl md:text-3xl text-right text-gray-800 dark:text-white transition-colors w-full pl-4" dir="rtl">
-                            قُلْ أَعُوذُ بِرَبِّ <span class="hl-ar transition-colors">ٱلْفَلَقِ</span>
-                        </span>
+                        <span class="font-arabic font-bold text-xl text-brand-900 dark:text-brand-200 tracking-widest px-3 py-1 bg-brand-200 dark:bg-brand-800/50 rounded-lg shadow-sm">ق ط ب ج د</span>
                     </div>
-                    <div class="border-t border-gray-100 dark:border-slate-700/50 pt-3 transition-colors">
-                        <p class="text-gray-600 dark:text-gray-300 font-medium italic transition-colors">Qul a'oodhu birabbil-<span class="hl-en transition-colors">falaq</span> (113:1)</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 transition-colors"><strong class="uppercase">Qalqalah (Echoing):</strong> A distinctive bounce produced when these letters have a Sukoon. Applies to: <span class="font-arabic font-bold text-base px-1 text-gray-700 dark:text-gray-200">ق ط ب ج د</span></p>
+                    <div class="p-6 flex flex-col md:flex-row gap-6">
+                        <!-- Qalqalah Sughra -->
+                        <div class="flex-1 bg-gray-50 dark:bg-slate-700/50 p-4 rounded-lg border border-gray-200 dark:border-slate-600 transition-colors relative">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <strong class="block text-brand-600 dark:text-brand-400 text-sm">Sughra (Minor Echo)</strong>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Occurs in the middle of a word or continuous reading. The bounce is light and quick.</p>
+                                </div>
+                                <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/096001.mp3')" class="play-btn w-10 h-10 flex items-center justify-center bg-brand-500 text-white rounded-full shadow hover:bg-brand-600 flex-shrink-0" title="Listen to minor echo"><svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
+                            </div>
+                            <div class="text-right font-arabic text-2xl md:text-3xl dark:text-white mb-2" dir="rtl">
+                                ٱ<span class="text-brand-500 dark:text-brand-400 font-bold">قْ</span>رَأْ بِٱسْمِ رَبِّكَ
+                            </div>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 font-medium italic text-right border-t border-gray-200 dark:border-slate-600 pt-2 mt-2">i<span class="text-brand-500 font-bold">q</span>ra' bismi rabbika (96:1)</p>
+                        </div>
+                        
+                        <!-- Qalqalah Kubra -->
+                        <div class="flex-1 bg-gray-50 dark:bg-slate-700/50 p-4 rounded-lg border border-gray-200 dark:border-slate-600 transition-colors relative">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <strong class="block text-red-600 dark:text-red-400 text-sm">Kubra (Major Echo)</strong>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Occurs at the end of a word when stopping (Waqf). The bounce is heavy and pronounced.</p>
+                                </div>
+                                <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/113001.mp3')" class="play-btn w-10 h-10 flex items-center justify-center bg-red-500 text-white rounded-full shadow hover:bg-red-600 flex-shrink-0" title="Listen to major echo"><svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
+                            </div>
+                            <div class="text-right font-arabic text-2xl md:text-3xl dark:text-white mb-2" dir="rtl">
+                                قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَ<span class="text-red-500 dark:text-red-400 font-bold">قِ</span>
+                            </div>
+                            <p class="text-xs text-gray-600 dark:text-gray-300 font-medium italic text-right border-t border-gray-200 dark:border-slate-600 pt-2 mt-2">...birabbil-fala<span class="text-red-500 font-bold">q</span> (113:1)</p>
+                        </div>
                     </div>
                 </div>
  
@@ -725,7 +862,7 @@
  
         <!-- ================= SECTION: NASAL RULES ================= -->
         <section id="nasal" class="tab-content">
-            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2 transition-colors">Ahkam Noon Sakinah & Tanween</h2>
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2 transition-colors">Ahkam Nun Sakinah & Tanween</h2>
             <p class="text-gray-600 dark:text-gray-300 mb-8 transition-colors">Morphophonemic rules governing unvoweled Nasal consonants.</p>
  
             <!-- INTERACTIVE RULE BUILDER -->
@@ -733,7 +870,7 @@
                 <div class="bg-gradient-to-r from-brand-50 to-white dark:from-slate-700 dark:to-slate-800 px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center transition-colors">
                     <div>
                         <h3 class="text-lg font-bold text-brand-800 dark:text-brand-400">Interactive Rule Builder</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Select any letter below to see what happens when a Noon Sakinah meets it.</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Select any letter below to see what happens when a Nun Sakinah meets it.</p>
                     </div>
                     <span class="bg-brand-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">TOOL</span>
                 </div>
@@ -767,7 +904,7 @@
                         <svg class="accordion-icon w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content px-5">
-                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm transition-colors">When followed by the 6 throat letters (ء, ه, ع, ح, غ, خ), the Noon is pronounced crisply with no extra nasalization.</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm transition-colors">When followed by the 6 throat letters (ء, ه, ع, ح, غ, خ), the Nun is pronounced crisply with no extra nasalization.</p>
                         <div class="tri-lingual-card p-5 rounded-xl shadow-sm mb-2 relative">
                             <div class="flex justify-between items-start mb-4">
                                 <div class="flex flex-col gap-2 mt-2">
@@ -821,7 +958,7 @@
                         <svg class="accordion-icon w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content px-5">
-                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm transition-colors">Triggered ONLY when followed by Ba (ب). The Noon converts to a hidden Meem with a 2-beat Ghunnah.</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm transition-colors">Triggered ONLY when followed by Ba (ب). The Nun converts to a hidden Meem with a 2-beat Ghunnah.</p>
                         <div class="tri-lingual-card p-5 rounded-xl shadow-sm mb-2 relative">
                             <div class="flex justify-between items-start mb-4">
                                 <div class="flex flex-col gap-2 mt-2">
@@ -848,7 +985,7 @@
                         <svg class="accordion-icon w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </button>
                     <div class="accordion-content px-5">
-                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm transition-colors">Followed by remaining 15 letters. The Noon is hidden; the tongue hovers near the next letter's articulation point, sustaining a 2-beat Ghunnah.</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm transition-colors">Followed by remaining 15 letters. The Nun is hidden; the tongue hovers near the next letter's articulation point, sustaining a 2-beat Ghunnah.</p>
                         <div class="tri-lingual-card p-5 rounded-xl shadow-sm mb-2 relative">
                             <div class="flex justify-between items-start mb-4">
                                 <div class="flex flex-col gap-2 mt-2">
@@ -983,7 +1120,128 @@
                     </div>
                 </div>
             </div>
+<!-- ================= ALIF LAM SHAMSIYYAH & QAMARIYYAH ================= -->
+            <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4 border-t border-gray-200 dark:border-slate-700 pt-8 mt-8 transition-colors">The Definite Article (Alif Lam: ال)</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-6 transition-colors">When a noun begins with the definite article "Al-" (ال), the connecting Hamzah <strong>always</strong> takes a Fathah ("A"). Then, depending on the letter that follows, the Lam (ل) is either pronounced clearly or merged.</p>
 
+            <div class="grid md:grid-cols-2 gap-6 mb-4">
+                <!-- Example 1: Qamariyyah -->
+                <div class="tri-lingual-card p-5 rounded-xl shadow-sm relative !border-brand-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex flex-col gap-2 mt-2">
+                            <span class="bg-brand-100 text-brand-700 dark:bg-brand-900/50 dark:text-brand-300 text-xs font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider mb-2 text-center">Moon Letters</span>
+                            <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/101001.mp3')" class="play-btn flex items-center justify-center w-10 h-10 bg-brand-500 text-white rounded-full shadow-md hover:bg-brand-600 focus:outline-none flex-shrink-0" title="Listen to verse">
+                                <svg class="w-5 h-5 ml-1 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                            </button>
+                        </div>
+                        <span class="font-arabic text-2xl md:text-3xl text-right text-gray-800 dark:text-white transition-colors w-full pl-4" dir="rtl">
+                            <span class="text-brand-500 dark:text-brand-400 font-bold">ٱلْـ</span>قَارِعَةُ
+                        </span>
+                    </div>
+                    <div class="border-t border-gray-100 dark:border-slate-700/50 pt-3 transition-colors">
+                        <strong class="block text-brand-700 dark:text-brand-400 mb-1 text-sm">Alif Lam Qamariyyah</strong>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 font-medium italic transition-colors"><span class="text-brand-500 dark:text-brand-400 font-bold">A<span class="underline">l</span>-</span>qaari'ah (101:1)</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors">The Lam has a visible Sukoon and is pronounced sharply and clearly because it is followed by a "Moon Letter" (like Qaaf).</p>
+                    </div>
+                </div>
+
+                <!-- Example 2: Shamsiyyah -->
+                <div class="tri-lingual-card p-5 rounded-xl shadow-sm relative !border-brand-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex flex-col gap-2 mt-2">
+                            <span class="bg-brand-100 text-brand-700 dark:bg-brand-900/50 dark:text-brand-300 text-xs font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider mb-2 text-center">Sun Letters</span>
+                            <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/055001.mp3')" class="play-btn flex items-center justify-center w-10 h-10 bg-brand-500 text-white rounded-full shadow-md hover:bg-brand-600 focus:outline-none flex-shrink-0" title="Listen to verse">
+                                <svg class="w-5 h-5 ml-1 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                            </button>
+                        </div>
+                        <span class="font-arabic text-2xl md:text-3xl text-right text-gray-800 dark:text-white transition-colors w-full pl-4" dir="rtl">
+                            <span class="text-brand-500 dark:text-brand-400 font-bold">ٱلـ</span>رَّحْمَـٰنُ
+                        </span>
+                    </div>
+                    <div class="border-t border-gray-100 dark:border-slate-700/50 pt-3 transition-colors">
+                        <strong class="block text-brand-700 dark:text-brand-400 mb-1 text-sm">Alif Lam Shamsiyyah</strong>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 font-medium italic transition-colors"><span class="text-brand-500 dark:text-brand-400 font-bold">A<span class="line-through opacity-50">l</span>-r</span>ahmaan (55:1)</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors">The Lam has no Sukoon and is swallowed/merged (Idgham) into the following "Sun Letter" (like Ra), which gets a Shaddah.</p>
+                    </div>
+                </div>
+            </div>
+<!-- ================= MARATIB AL-GHUNNAH ================= -->
+            <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4 border-t border-gray-200 dark:border-slate-700 pt-8 mt-8 transition-colors">Levels of Ghunnah (Maratib Al-Ghunnah)</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-6 transition-colors">Ghunnah is the inherent nasal resonance in Nun and Meem. However, its strength and duration vary across four distinct levels depending on the rule being applied.</p>
+
+            <div class="space-y-3 mb-4">
+                <!-- Level 1: Akmal -->
+                <div class="flex items-stretch bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden transition-colors hover:-translate-y-0.5 duration-200">
+                    <div class="w-3 bg-amber-600 flex-shrink-0"></div>
+                    <div class="p-4 flex-1 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                        <div>
+                            <div class="flex items-center gap-3 mb-1">
+                                <span class="bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Level 1</span>
+                                <h4 class="font-bold text-gray-800 dark:text-white">Akmal (Most Complete)</h4>
+                                <div class="flex gap-0.5 ml-2">
+                                    <div class="w-1.5 h-3 bg-amber-600 rounded-sm"></div><div class="w-1.5 h-3 bg-amber-600 rounded-sm"></div><div class="w-1.5 h-3 bg-amber-600 rounded-sm"></div><div class="w-1.5 h-3 bg-amber-600 rounded-sm"></div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">The longest and strongest nasal sound. Applied during <strong>Shaddah</strong> (نّ / مّ) and <strong>Idgham with Ghunnah</strong>.</p>
+                        </div>
+                        <div class="font-arabic text-2xl text-amber-600 dark:text-amber-400 font-bold bg-amber-50 dark:bg-slate-700/50 px-4 py-2 rounded-lg text-center border border-amber-100 dark:border-slate-600" dir="rtl">إِنَّ / مِمَّا</div>
+                    </div>
+                </div>
+
+                <!-- Level 2: Kamil -->
+                <div class="flex items-stretch bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden transition-colors hover:-translate-y-0.5 duration-200">
+                    <div class="w-3 bg-amber-500 flex-shrink-0 opacity-80"></div>
+                    <div class="p-4 flex-1 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                        <div>
+                            <div class="flex items-center gap-3 mb-1">
+                                <span class="bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Level 2</span>
+                                <h4 class="font-bold text-gray-800 dark:text-white">Kamil (Complete)</h4>
+                                <div class="flex gap-0.5 ml-2">
+                                    <div class="w-1.5 h-3 bg-amber-500 rounded-sm"></div><div class="w-1.5 h-3 bg-amber-500 rounded-sm"></div><div class="w-1.5 h-3 bg-amber-500 rounded-sm"></div><div class="w-1.5 h-3 bg-gray-200 dark:bg-slate-600 rounded-sm"></div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Slightly less intense than Level 1. Applied during <strong>Ikhfa</strong> (Concealment) and <strong>Iqlab</strong> (Conversion).</p>
+                        </div>
+                        <div class="font-arabic text-2xl text-amber-500 dark:text-amber-400 font-bold bg-amber-50 dark:bg-slate-700/50 px-4 py-2 rounded-lg text-center border border-amber-100 dark:border-slate-600" dir="rtl">مِن شَرِّ /ۢ بَصِيرٌ</div>
+                    </div>
+                </div>
+
+                <!-- Level 3: Naqis -->
+                <div class="flex items-stretch bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden transition-colors hover:-translate-y-0.5 duration-200">
+                    <div class="w-3 bg-amber-400 flex-shrink-0 opacity-60"></div>
+                    <div class="p-4 flex-1 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                        <div>
+                            <div class="flex items-center gap-3 mb-1">
+                                <span class="bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Level 3</span>
+                                <h4 class="font-bold text-gray-800 dark:text-white">Naqis (Incomplete)</h4>
+                                <div class="flex gap-0.5 ml-2">
+                                    <div class="w-1.5 h-3 bg-amber-400 rounded-sm"></div><div class="w-1.5 h-3 bg-amber-400 rounded-sm"></div><div class="w-1.5 h-3 bg-gray-200 dark:bg-slate-600 rounded-sm"></div><div class="w-1.5 h-3 bg-gray-200 dark:bg-slate-600 rounded-sm"></div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">The natural, un-stretched nasal sound present in Nun and Meem when they have a <strong>Sukoon</strong> (Izhar).</p>
+                        </div>
+                        <div class="font-arabic text-2xl text-amber-500 dark:text-amber-400 font-bold bg-amber-50 dark:bg-slate-700/50 px-4 py-2 rounded-lg text-center border border-amber-100 dark:border-slate-600" dir="rtl">مِنْهُمْ / أَنْعَمْتَ</div>
+                    </div>
+                </div>
+
+                <!-- Level 4: Anqas -->
+                <div class="flex items-stretch bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden transition-colors hover:-translate-y-0.5 duration-200">
+                    <div class="w-3 bg-amber-300 flex-shrink-0 opacity-40"></div>
+                    <div class="p-4 flex-1 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                        <div>
+                            <div class="flex items-center gap-3 mb-1">
+                                <span class="bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Level 4</span>
+                                <h4 class="font-bold text-gray-800 dark:text-white">Anqas (Most Incomplete)</h4>
+                                <div class="flex gap-0.5 ml-2">
+                                    <div class="w-1.5 h-3 bg-amber-300 rounded-sm"></div><div class="w-1.5 h-3 bg-gray-200 dark:bg-slate-600 rounded-sm"></div><div class="w-1.5 h-3 bg-gray-200 dark:bg-slate-600 rounded-sm"></div><div class="w-1.5 h-3 bg-gray-200 dark:bg-slate-600 rounded-sm"></div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">The absolute shortest inherent nasal sound. Present when Nun and Meem carry a <strong>Vowel</strong> (Fathah, Kasrah, Dammah).</p>
+                        </div>
+                        <div class="font-arabic text-2xl text-amber-500 dark:text-amber-400 font-bold bg-amber-50 dark:bg-slate-700/50 px-4 py-2 rounded-lg text-center border border-amber-100 dark:border-slate-600" dir="rtl">نَ / مِ / نُ</div>
+                    </div>
+                </div>
+            </div>
         </section>
  
         <!-- ================= SECTION: MADD ================= -->
@@ -1029,18 +1287,18 @@
                     </div>
                 </div>
  
-                <!-- CARD 2: 4-5 BEATS -->
+<!-- CARD 2: MADD MUTTASIL (Attached) -->
                 <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-sky-100 dark:border-sky-900/50 overflow-hidden flex flex-col transition-colors">
                     <div class="bg-sky-50 dark:bg-sky-900/30 px-6 py-4 border-b border-sky-100 dark:border-sky-900/50 flex justify-between items-center transition-colors">
-                        <h3 class="text-lg font-bold text-sky-800 dark:text-sky-400">Madd Far'i (Secondary)</h3>
+                        <h3 class="text-lg font-bold text-sky-800 dark:text-sky-400">Madd Muttasil (Attached)</h3>
                         <span class="text-xs bg-sky-200 dark:bg-sky-800/50 text-sky-900 dark:text-sky-200 px-2 py-1 rounded-full font-semibold transition-colors">4-5 Beats</span>
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 transition-colors">Triggered when a Madd letter is followed by a Hamzah (ء). The phonetic tension of the glottal stop requires the preceding vowel to swell.</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 transition-colors"><strong class="text-sky-600 dark:text-sky-400">Mandatory to stretch.</strong> Triggered when a Madd letter is followed by a Hamzah (ء) <strong>within the exact same word</strong>.</p>
                         
                         <div class="flex items-center justify-between bg-gray-50 dark:bg-slate-700/50 p-3 rounded-lg border border-gray-200 dark:border-slate-600 mb-6 mt-auto transition-colors">
-                            <span class="font-arabic text-2xl md:text-3xl text-sky-700 dark:text-sky-400 transition-colors" dir="rtl"><span class="font-bold">يَـٰٓأَيُّهَا</span> ٱلنَّاسُ ٱعْبُدُوا۟ رَبَّكُمُ...</span>
-                            <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/002021.mp3')" class="play-btn w-10 h-10 flex items-center justify-center bg-gray-200 dark:bg-slate-600 text-gray-600 dark:text-gray-300 hover:bg-sky-500 hover:dark:bg-sky-500 hover:text-white rounded-full transition-colors flex-shrink-0" title="Listen to verse"><svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
+                            <span class="font-arabic text-2xl md:text-3xl text-sky-700 dark:text-sky-400 transition-colors" dir="rtl">إِذَا <span class="font-bold">جَآءَ</span> نَصْرُ ٱللَّهِ...</span>
+                            <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/110001.mp3')" class="play-btn w-10 h-10 flex items-center justify-center bg-gray-200 dark:bg-slate-600 text-gray-600 dark:text-gray-300 hover:bg-sky-500 hover:dark:bg-sky-500 hover:text-white rounded-full transition-colors flex-shrink-0" title="Listen to verse"><svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                         </div>
                         
                         <!-- Metronome Tool -->
@@ -1050,19 +1308,90 @@
                                     <svg class="w-4 h-4 text-sky-500 dark:text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 
                                     Visual Timer
                                 </span>
-                                <button onclick="simulateMadd(4.5, 'madd-bar-4', this)" class="bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold py-1.5 px-3 rounded shadow-sm transition-all focus:outline-none">Simulate length</button>
+                                <button onclick="simulateMadd(4.5, 'madd-bar-muttasil', this)" class="bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold py-1.5 px-3 rounded shadow-sm transition-all focus:outline-none">Simulate</button>
                             </div>
                             <div class="relative w-full h-3 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden flex transition-colors">
-                                <div id="madd-bar-4" class="absolute top-0 left-0 h-full bg-sky-500 w-0 z-0"></div>
+                                <div id="madd-bar-muttasil" class="absolute top-0 left-0 h-full bg-sky-500 w-0 z-0"></div>
                                 <div class="w-[22.22%] h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
                                 <div class="w-[22.22%] h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
                                 <div class="w-[22.22%] h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
                                 <div class="w-[22.22%] h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
                                 <div class="w-[11.11%] h-full z-10 box-border"></div>
                             </div>
-                            <div class="flex justify-between text-[10px] text-sky-600 dark:text-sky-400 font-bold uppercase px-1 mt-1 transition-colors">
-                                <span>0</span>
-                                <span>4-5 Beats</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3: MADD MUNFASIL (Detached) -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-blue-100 dark:border-blue-900/50 overflow-hidden flex flex-col transition-colors">
+                    <div class="bg-blue-50 dark:bg-blue-900/30 px-6 py-4 border-b border-blue-100 dark:border-blue-900/50 flex justify-between items-center transition-colors">
+                        <h3 class="text-lg font-bold text-blue-800 dark:text-blue-400">Madd Munfasil (Detached)</h3>
+                        <span class="text-xs bg-blue-200 dark:bg-blue-800/50 text-blue-900 dark:text-blue-200 px-2 py-1 rounded-full font-semibold transition-colors">4-5 Beats</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 transition-colors"><strong class="text-blue-600 dark:text-blue-400">Permissible to stretch</strong> (though 4-5 is standard in Hafs). Triggered when a Madd letter is at the end of a word, and the Hamzah (ء) is at the <strong>beginning of the next word</strong>.</p>
+                        
+                        <div class="flex items-center justify-between bg-gray-50 dark:bg-slate-700/50 p-3 rounded-lg border border-gray-200 dark:border-slate-600 mb-6 mt-auto transition-colors">
+                            <span class="font-arabic text-2xl md:text-3xl text-blue-700 dark:text-blue-400 transition-colors" dir="rtl"><span class="font-bold">يَـٰٓأَيُّهَا</span> ٱلنَّاسُ...</span>
+                            <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/002021.mp3')" class="play-btn w-10 h-10 flex items-center justify-center bg-gray-200 dark:bg-slate-600 text-gray-600 dark:text-gray-300 hover:bg-blue-500 hover:dark:bg-blue-500 hover:text-white rounded-full transition-colors flex-shrink-0" title="Listen to verse"><svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
+                        </div>
+                        
+                        <!-- Metronome Tool -->
+                        <div class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-lg p-4 transition-colors">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-1 transition-colors">
+                                    <svg class="w-4 h-4 text-blue-500 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 
+                                    Visual Timer
+                                </span>
+                                <button onclick="simulateMadd(4.5, 'madd-bar-munfasil', this)" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold py-1.5 px-3 rounded shadow-sm transition-all focus:outline-none">Simulate</button>
+                            </div>
+                            <div class="relative w-full h-3 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden flex transition-colors">
+                                <div id="madd-bar-munfasil" class="absolute top-0 left-0 h-full bg-blue-500 w-0 z-0"></div>
+                                <div class="w-[22.22%] h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
+                                <div class="w-[22.22%] h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
+                                <div class="w-[22.22%] h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
+                                <div class="w-[22.22%] h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
+                                <div class="w-[11.11%] h-full z-10 box-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4: MADD ARID LI-SUKUN -->
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-amber-100 dark:border-amber-900/50 overflow-hidden flex flex-col transition-colors">
+                    <div class="bg-amber-50 dark:bg-amber-900/30 px-6 py-4 border-b border-amber-100 dark:border-amber-900/50 flex justify-between items-center transition-colors">
+                        <h3 class="text-lg font-bold text-amber-800 dark:text-amber-400">Madd Arid Li-Sukun</h3>
+                        <span class="text-xs bg-amber-200 dark:bg-amber-800/50 text-amber-900 dark:text-amber-200 px-2 py-1 rounded-full font-semibold transition-colors">2, 4, or 6 Beats</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 transition-colors">The most frequent elongation in recitation. Occurs when you <strong>stop on a word</strong>, causing the last letter to take a temporary Sukoon, and the letter right before it is a Madd letter.</p>
+                        
+                        <div class="flex items-center justify-between bg-gray-50 dark:bg-slate-700/50 p-3 rounded-lg border border-gray-200 dark:border-slate-600 mb-6 mt-auto transition-colors">
+                            <span class="font-arabic text-2xl md:text-3xl text-amber-700 dark:text-amber-400 transition-colors" dir="rtl">...رَبِّ ٱلْعَـٰلَمِ<span class="font-bold">ينَ</span></span>
+                            <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/001002.mp3')" class="play-btn w-10 h-10 flex items-center justify-center bg-gray-200 dark:bg-slate-600 text-gray-600 dark:text-gray-300 hover:bg-amber-500 hover:dark:bg-amber-500 hover:text-white rounded-full transition-colors flex-shrink-0" title="Listen to verse"><svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
+                        </div>
+                        
+                        <!-- Metronome Tool -->
+                        <div class="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-lg p-4 transition-colors">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-1 transition-colors">
+                                    <svg class="w-4 h-4 text-amber-500 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 
+                                    Visual Timer
+                                </span>
+                                <div class="flex gap-1">
+                                    <button onclick="simulateMadd(2, 'madd-bar-arid', this)" class="bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold py-1 px-2 rounded shadow-sm transition-all focus:outline-none">2</button>
+                                    <button onclick="simulateMadd(4, 'madd-bar-arid', this)" class="bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold py-1 px-2 rounded shadow-sm transition-all focus:outline-none">4</button>
+                                    <button onclick="simulateMadd(6, 'madd-bar-arid', this)" class="bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold py-1 px-2 rounded shadow-sm transition-all focus:outline-none">6</button>
+                                </div>
+                            </div>
+                            <div class="relative w-full h-3 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden flex transition-colors">
+                                <div id="madd-bar-arid" class="absolute top-0 left-0 h-full bg-amber-500 w-0 z-0"></div>
+                                <div class="w-1/6 h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
+                                <div class="w-1/6 h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
+                                <div class="w-1/6 h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
+                                <div class="w-1/6 h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
+                                <div class="w-1/6 h-full border-r border-white/50 dark:border-slate-800/50 z-10 box-border"></div>
+                                <div class="w-1/6 h-full z-10 box-border"></div>
                             </div>
                         </div>
                     </div>
@@ -1081,6 +1410,27 @@
                                 <span class="font-arabic text-4xl text-red-700 dark:text-red-400 transition-colors" dir="rtl">ٱلْحَآقَّةُ</span>
                                 <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/069001.mp3')" class="play-btn w-12 h-12 flex items-center justify-center bg-gray-200 dark:bg-slate-600 text-gray-600 dark:text-gray-300 hover:bg-red-500 hover:dark:bg-red-500 hover:text-white rounded-full transition-colors flex-shrink-0" title="Listen to verse (Al-Haaqqah 69:1)"><svg class="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                             </div>
+<!-- Muqatta'at Expansion -->
+                    <div class="border-t border-red-100 dark:border-red-900/50 p-6 bg-red-50/50 dark:bg-red-900/20 transition-colors">
+                        <h4 class="font-bold text-red-800 dark:text-red-400 mb-3">Special Case: Disconnected Letters (Al-Muqatta'at)</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">When reciting the mysterious letters at the beginning of certain Surahs, you must read the Arabic <em>name</em> of the letter. If that name contains a Madd letter followed by a Sukoon, it requires a mandatory 6-beat stretch.</p>
+                        
+                        <div class="flex flex-col md:flex-row gap-4 items-center bg-white dark:bg-slate-800 p-4 rounded-lg border border-red-100 dark:border-slate-700 shadow-sm transition-colors">
+                            <div class="flex items-center gap-4 w-full md:w-auto md:flex-1">
+                                <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/002001.mp3')" class="play-btn w-12 h-12 flex items-center justify-center bg-red-100 dark:bg-slate-700 text-red-600 dark:text-red-400 hover:bg-red-500 hover:dark:bg-red-500 hover:text-white rounded-full transition-colors flex-shrink-0" title="Listen to Alif-Lam-Meem"><svg class="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
+                                <span class="font-arabic text-4xl text-gray-800 dark:text-white tracking-widest" dir="rtl">الٓمٓ</span>
+                            </div>
+                            <div class="hidden md:block text-gray-300 dark:text-slate-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </div>
+                            <div class="w-full md:w-auto md:flex-1 text-right">
+                                <span class="font-arabic text-2xl text-red-700 dark:text-red-400 block mb-1" dir="rtl">
+                                    أَلِف ـ لَ<span class="font-bold">امْ</span> ـ مِ<span class="font-bold">يمْ</span>
+                                </span>
+                                <span class="text-xs text-gray-500 dark:text-gray-400 font-mono">Alif (1) - L<span class="text-red-500 font-bold">aaaaaa</span>m (6) - M<span class="text-red-500 font-bold">eeeeee</span>m (6)</span>
+                            </div>
+                        </div>
+                    </div>
                         </div>
                         
                         <div class="w-full md:w-1/2">
@@ -1589,7 +1939,7 @@
                     <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 transition-colors">A strict rule resolving two unvoweled consonants colliding across words.</p>
                     <ul class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-6 transition-colors">
                         <li><strong>Deletion of Madd:</strong> <em>Wa qaalaa alhamdu</em> becomes <em>Wa qaalal-hamdu</em>.</li>
-                        <li><strong>The Noon Qutni (Tiny Noon):</strong> When a Tanween meets a Sukoon, an artificial 'ni' is injected to bridge the gap. Occurs exactly 33 times across verses in the Quran.</li>
+                        <li><strong>The Nun Qutni (Tiny Nun):</strong> When a Tanween meets a Sukoon, an artificial 'ni' is injected to bridge the gap. Occurs exactly 33 times across verses in the Quran.</li>
                     </ul>
     <!-- ILTIQA' AL-SAKINAYN EXAMPLES -->
     <div class="grid md:grid-cols-2 gap-6 mb-8 mt-2">
@@ -1612,7 +1962,7 @@
             </div>
         </div>
 
-        <!-- Example 2: Noon Qutni -->
+        <!-- Example 2: Nun Qutni -->
         <div class="tri-lingual-card p-5 rounded-xl shadow-sm relative !border-brand-500 hover:-translate-y-1 transition-transform duration-300">
             <div class="flex justify-between items-start mb-4">
                 <div class="flex flex-col gap-2 mt-2">
@@ -1625,19 +1975,19 @@
                 </span>
             </div>
             <div class="border-t border-gray-100 dark:border-slate-700/50 pt-3 transition-colors">
-                <strong class="block text-brand-700 dark:text-brand-400 mb-1 text-sm">2. The Noon Qutni</strong>
+                <strong class="block text-brand-700 dark:text-brand-400 mb-1 text-sm">2. The Nun Qutni</strong>
                 <p class="text-xs text-gray-600 dark:text-gray-300 font-medium italic transition-colors">Jazaa'a<span class="text-brand-500 dark:text-brand-400 font-bold">n-il-h</span>usna (18:88)</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors">An artificial 'ni' is added to bridge the Tanween (an unwritten noon) with the Sukoon on the Laam.</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors">An artificial 'ni' is added to bridge the Tanween (an unwritten Nun) with the Sukoon on the Laam.</p>
             </div>
         </div>
     </div>
  
-                    <!-- NOON QUTNI DATABASE TABLE -->
+                    <!-- Nun QUTNI DATABASE TABLE -->
                     <div class="mt-6 border-t border-gray-100 dark:border-slate-700 pt-4">
                         <button onclick="document.getElementById('qutni-table').classList.toggle('hidden')" class="w-full text-center text-sm font-semibold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 py-3 rounded-lg hover:bg-brand-100 dark:hover:bg-brand-900/50 transition-colors">
                             <span class="flex items-center justify-center gap-2">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
-                                View All 33 Instances of Noon Qutni
+                                View All 33 Instances of Nun Qutni
                             </span>
                         </button>
                         
@@ -1707,55 +2057,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- ALIF LAM SHAMSIYYAH & QAMARIYYAH -->
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 transition-colors mt-6">
-                    <h3 class="text-xl font-bold text-brand-700 dark:text-brand-400 mb-3 border-b border-gray-100 dark:border-slate-700 pb-2 transition-colors">The Definite Article (Alif Lam: ال)</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 transition-colors">When a noun begins with the definite article "Al-" (ال), the connecting Hamzah <strong>always</strong> takes a Fathah ("A"). Then, depending on the letter that follows, the Lam (ل) is either pronounced clearly or merged.</p>
 
-                    <div class="grid md:grid-cols-2 gap-6 mb-2">
-                        <!-- Example 1: Qamariyyah -->
-                        <div class="tri-lingual-card p-5 rounded-xl shadow-sm relative !border-brand-500 hover:-translate-y-1 transition-transform duration-300">
-                            <div class="flex justify-between items-start mb-4">
-                                <div class="flex flex-col gap-2 mt-2">
-                                    <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/101001.mp3](https://everyayah.com/data/Alafasy_128kbps/101001.mp3)')" class="play-btn flex items-center justify-center w-10 h-10 bg-brand-500 text-white rounded-full shadow-md hover:bg-brand-600 focus:outline-none flex-shrink-0" title="Listen to verse">
-                                        <svg class="w-5 h-5 ml-1 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                                    </button>
-                                </div>
-                                <span class="font-arabic text-2xl md:text-3xl text-right text-gray-800 dark:text-white transition-colors w-full pl-4" dir="rtl">
-                                    <span class="text-brand-500 dark:text-brand-400 font-bold">ٱلْـ</span>قَارِعَةُ
-                                </span>
-                            </div>
-                            <div class="border-t border-gray-100 dark:border-slate-700/50 pt-3 transition-colors">
-                                <strong class="block text-brand-700 dark:text-brand-400 mb-1 text-sm">1. Alif Lam Qamariyyah (Moon Letters)</strong>
-                                <p class="text-xs text-gray-600 dark:text-gray-300 font-medium italic transition-colors"><span class="text-brand-500 dark:text-brand-400 font-bold">A<span class="underline">l</span>-</span>qaari'ah (101:1)</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors">The Lam has a visible Sukoon and is pronounced sharply and clearly because it is followed by a "Moon Letter" (like Qaaf).</p>
-                            </div>
-                        </div>
-
-                        <!-- Example 2: Shamsiyyah -->
-                        <div class="tri-lingual-card p-5 rounded-xl shadow-sm relative !border-brand-500 hover:-translate-y-1 transition-transform duration-300">
-                            <div class="flex justify-between items-start mb-4">
-                                <div class="flex flex-col gap-2 mt-2">
-                                    <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/055001.mp3](https://everyayah.com/data/Alafasy_128kbps/055001.mp3)')" class="play-btn flex items-center justify-center w-10 h-10 bg-brand-500 text-white rounded-full shadow-md hover:bg-brand-600 focus:outline-none flex-shrink-0" title="Listen to verse">
-                                        <svg class="w-5 h-5 ml-1 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                                    </button>
-                                </div>
-                                <span class="font-arabic text-2xl md:text-3xl text-right text-gray-800 dark:text-white transition-colors w-full pl-4" dir="rtl">
-                                    <span class="text-brand-500 dark:text-brand-400 font-bold">ٱلـ</span>رَّحْمَـٰنُ
-                                </span>
-                            </div>
-                            <div class="border-t border-gray-100 dark:border-slate-700/50 pt-3 transition-colors">
-                                <strong class="block text-brand-700 dark:text-brand-400 mb-1 text-sm">2. Alif Lam Shamsiyyah (Sun Letters)</strong>
-                                <p class="text-xs text-gray-600 dark:text-gray-300 font-medium italic transition-colors"><span class="text-brand-500 dark:text-brand-400 font-bold">A<span class="line-through opacity-50">l</span>-r</span>ahmaan (55:1)</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors">The Lam has no Sukoon and is swallowed/merged (Idgham) into the following "Sun Letter" (like Ra), which gets a Shaddah.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <!-- ADVANCED IDGHAM -->
                 <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 transition-colors mt-6">
                     <h3 class="text-xl font-bold text-brand-700 dark:text-brand-400 mb-3 border-b border-gray-100 dark:border-slate-700 pb-2 transition-colors">Advanced Idgham (Consonant Merging)</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-6 transition-colors">Beyond Noon and Meem, when any two unvoweled and voweled consonants collide, they may merge completely depending on their anatomical relationship (Makhraj and Sifat).</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-6 transition-colors">Beyond Nun and Meem, when any two unvoweled and voweled consonants collide, they may merge completely depending on their anatomical relationship (Makhraj and Sifat).</p>
 
                     <div class="grid md:grid-cols-3 gap-6">
                         <!-- Mutamathilayn -->
@@ -1818,6 +2124,47 @@
                             </div>
                         </div>
                     </div>
+<!-- Idgham Kamil vs Naqis -->
+                    <h4 class="text-lg font-bold text-gray-800 dark:text-white mt-8 mb-4 border-b border-gray-100 dark:border-slate-700 pb-2 transition-colors">Degrees of Merging (Kamil vs. Naqis)</h4>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Idgham Kamil -->
+                        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-emerald-100 dark:border-emerald-900/50 p-5 flex flex-col transition-colors relative hover:-translate-y-1 duration-300">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300 text-xs font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider">Kamil (Complete)</span>
+                                <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/010089.mp3')" class="play-btn flex items-center justify-center w-8 h-8 bg-emerald-500 text-white rounded-full shadow-md hover:bg-emerald-600 focus:outline-none flex-shrink-0" title="Listen to verse">
+                                    <svg class="w-4 h-4 ml-0.5 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                                </button>
+                            </div>
+                            <div class="text-center my-4">
+                                <div class="font-arabic text-3xl md:text-4xl text-emerald-900 dark:text-emerald-300 tracking-wider leading-relaxed" dir="rtl">
+                                    أُجِيبَـ<span class="text-emerald-300 dark:text-emerald-800 line-through">ت</span> <span class="text-emerald-600 dark:text-emerald-400 font-bold">دَّ</span>عْوَتُكُمَا
+                                </div>
+                            </div>
+                            <div class="border-t border-emerald-100 dark:border-emerald-800/50 pt-3 mt-auto">
+                                <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">The first letter completely vanishes (both its body and attributes). Because it is a 100% successful merge, the Uthmani script visually marks this with a <strong>Shaddah ( ّ )</strong> on the second letter.</p>
+                                <p class="text-xs font-semibold text-emerald-700 dark:text-emerald-400 italic">Example: The Ta (ت) is completely swallowed by the Daal (د).</p>
+                            </div>
+                        </div>
+
+                        <!-- Idgham Naqis -->
+                        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-amber-100 dark:border-amber-900/50 p-5 flex flex-col transition-colors relative hover:-translate-y-1 duration-300">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300 text-xs font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider">Naqis (Incomplete)</span>
+                                <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/027022.mp3')" class="play-btn flex items-center justify-center w-8 h-8 bg-amber-500 text-white rounded-full shadow-md hover:bg-amber-600 focus:outline-none flex-shrink-0" title="Listen to verse">
+                                    <svg class="w-4 h-4 ml-0.5 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                                </button>
+                            </div>
+                            <div class="text-center my-4">
+                                <div class="font-arabic text-3xl md:text-4xl text-amber-900 dark:text-amber-300 tracking-wider leading-relaxed" dir="rtl">
+                                    أَحَ<span class="text-amber-600 dark:text-amber-400 font-bold">ط</span>تُ
+                                </div>
+                            </div>
+                            <div class="border-t border-amber-100 dark:border-amber-800/50 pt-3 mt-auto">
+                                <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">The first letter merges, but leaves behind a powerful attribute (like <em>Isti'la/Itbaq</em> - heaviness). Because the merge isn't complete, there is <strong>NO Shaddah</strong> drawn.</p>
+                                <p class="text-xs font-semibold text-amber-700 dark:text-amber-400 italic">Example: The heavy 'Ta' (ط) merges into the light 'Ta' (ت), leaving a heavy flavor behind.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
         </section>
@@ -1840,7 +2187,17 @@
                     <option value="surah-114">Surah An-Nas (114) - Mankind</option>
                 </select>
             </div>
-
+<!-- Filter Toggles -->
+            <div class="mb-6 flex flex-wrap gap-2 justify-center border-t border-b border-gray-100 dark:border-slate-700 py-4 transition-colors">
+                <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mr-2 self-center">Highlight:</span>
+                <button onclick="filterRules('all', this)" class="filter-btn ring-2 ring-offset-2 ring-brand-500 dark:ring-offset-slate-800 text-xs font-bold px-3 py-1.5 rounded-full bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200 transition-all focus:outline-none">All Rules</button>
+                <button onclick="filterRules('Madd', this)" class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 transition-all focus:outline-none">Madd (Stretches)</button>
+                <button onclick="filterRules('Qalqalah', this)" class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 transition-all focus:outline-none">Qalqalah (Echoes)</button>
+                <button onclick="filterRules('Ghunnah', this)" class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 transition-all focus:outline-none">Ghunnah (Nasal)</button>
+                <button onclick="filterRules('Tafkheem', this)" class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300 transition-all focus:outline-none">Tafkheem (Heavy)</button>
+                <button onclick="filterRules('Ikhfa', this)" class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 transition-all focus:outline-none">Ikhfa (Hidden)</button>
+                <button onclick="filterRules('Izhar', this)" class="filter-btn text-xs font-bold px-3 py-1.5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 transition-all focus:outline-none">Izhar (Clear)</button>
+            </div>
             <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-200 dark:border-slate-700 overflow-hidden transition-colors flex flex-col h-full">
 
                 <!-- ================= SURAH AL-FATIHAH ================= -->
@@ -1884,7 +2241,7 @@
                                 <span class="text-lg text-gray-400 mr-1">٦</span>
                             </span>
                             <span class="inline-flex items-center gap-2 align-middle mr-4">
-                                <span>صِرَاطَ الَّذِينَ أَ<span class="analyzer-word text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-400 cursor-pointer px-1" onclick="showRule('Izhar', 'Clear Pronunciation', 'Noon Sakinah followed by Ayn (ع) is pronounced clearly without extra nasalization.', 'bg-blue-500')">نْعَ</span>مْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا <span class="analyzer-word text-red-600 dark:text-red-400 font-bold border-b-2 border-red-400 cursor-pointer px-1" onclick="showRule('Madd Lazim & Istitalah', 'Compulsory Elongation & Dhaad Extension', 'Mandatory 6-beat stretch due to the Shaddah, coupled with the unique sound extension (Istitalah) of the letter Dhaad tracking the lateral edge of the tongue.', 'bg-red-500')">الضَّالِّينَ</span></span>
+                                <span>صِرَاطَ الَّذِينَ أَ<span class="analyzer-word text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-400 cursor-pointer px-1" onclick="showRule('Izhar', 'Clear Pronunciation', 'Nun Sakinah followed by Ayn (ع) is pronounced clearly without extra nasalization.', 'bg-blue-500')">نْعَ</span>مْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا <span class="analyzer-word text-red-600 dark:text-red-400 font-bold border-b-2 border-red-400 cursor-pointer px-1" onclick="showRule('Madd Lazim & Istitalah', 'Compulsory Elongation & Dhaad Extension', 'Mandatory 6-beat stretch due to the Shaddah, coupled with the unique sound extension (Istitalah) of the letter Dhaad tracking the lateral edge of the tongue.', 'bg-red-500')">الضَّالِّينَ</span></span>
                                 <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/001007.mp3](https://everyayah.com/data/Alafasy_128kbps/001007.mp3)')" class="play-btn flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 rounded-full hover:bg-brand-500 hover:text-white hover:dark:bg-brand-500 hover:dark:text-white transition-colors focus:outline-none" title="Play Verse 7"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                                 <span class="text-lg text-gray-400 mr-1">٧</span>
                             </span>
@@ -1921,7 +2278,7 @@
                                 <span class="text-lg text-gray-400 mr-1">٣</span>
                             </span>
                             <span class="inline-flex items-center gap-2 align-middle mr-4">
-                                <span>وَلَمْ يَكُ<span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-500 cursor-pointer px-1" onclick="showRule('Idgham bila Ghunnah', 'Merging without Nasalization', 'The Noon Sakinah merges completely into the following Laam (ل) without any sustained nasal sound.', 'bg-amber-500')">ن لَّ</span>هُۥ كُفُوًا <span class="analyzer-word text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-500 cursor-pointer px-1" onclick="showRule('Izhar', 'Clear Pronunciation', 'The Tanween Fathah is immediately followed by a Hamzah (أ), triggering the clear and crisp pronunciation of the hidden Noon sound.', 'bg-blue-500')">أَ</span>حَ<span class="analyzer-word text-red-600 dark:text-red-400 font-bold border-b-2 border-red-400 cursor-pointer px-1" onclick="showRule('Qalqalah Kubra', 'Major Echoing', 'The letter Daal (د) creates a strong bouncing echo upon stopping, as it acquires a temporary Sukoon.', 'bg-red-500')">دٌۢ</span></span>
+                                <span>وَلَمْ يَكُ<span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-500 cursor-pointer px-1" onclick="showRule('Idgham bila Ghunnah', 'Merging without Nasalization', 'The Nun Sakinah merges completely into the following Laam (ل) without any sustained nasal sound.', 'bg-amber-500')">ن لَّ</span>هُۥ كُفُوًا <span class="analyzer-word text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-500 cursor-pointer px-1" onclick="showRule('Izhar', 'Clear Pronunciation', 'The Tanween Fathah is immediately followed by a Hamzah (أ), triggering the clear and crisp pronunciation of the hidden Nun sound.', 'bg-blue-500')">أَ</span>حَ<span class="analyzer-word text-red-600 dark:text-red-400 font-bold border-b-2 border-red-400 cursor-pointer px-1" onclick="showRule('Qalqalah Kubra', 'Major Echoing', 'The letter Daal (د) creates a strong bouncing echo upon stopping, as it acquires a temporary Sukoon.', 'bg-red-500')">دٌۢ</span></span>
                                 <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/112004.mp3](https://everyayah.com/data/Alafasy_128kbps/112004.mp3)')" class="play-btn flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 rounded-full hover:bg-brand-500 hover:text-white hover:dark:bg-brand-500 hover:dark:text-white transition-colors focus:outline-none" title="Play Verse 4"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                                 <span class="text-lg text-gray-400 mr-1">٤</span>
                             </span>
@@ -1946,7 +2303,7 @@
                                 <span class="text-lg text-gray-400 mr-1">١</span>
                             </span>
                             <span class="inline-flex items-center gap-2 align-middle mr-4">
-                                <span>وَمِ<span class="analyzer-word text-emerald-600 dark:text-emerald-400 font-bold border-b-2 border-emerald-400 cursor-pointer px-1" onclick="showRule('Ikhfa', 'Concealment', 'The Noon Sakinah is hidden into the following Sheen (ش), maintaining a 2-beat nasal tone.', 'bg-emerald-500')">ن شَ</span>رِّ مَا خَلَ<span class="analyzer-word text-red-600 dark:text-red-400 font-bold border-b-2 border-red-400 cursor-pointer px-1" onclick="showRule('Qalqalah Kubra', 'Major Echoing', 'The letter Qaaf (ق) bounces strongly when stopped upon.', 'bg-red-500')">قَ</span></span>
+                                <span>وَمِ<span class="analyzer-word text-emerald-600 dark:text-emerald-400 font-bold border-b-2 border-emerald-400 cursor-pointer px-1" onclick="showRule('Ikhfa', 'Concealment', 'The Nun Sakinah is hidden into the following Sheen (ش), maintaining a 2-beat nasal tone.', 'bg-emerald-500')">ن شَ</span>رِّ مَا خَلَ<span class="analyzer-word text-red-600 dark:text-red-400 font-bold border-b-2 border-red-400 cursor-pointer px-1" onclick="showRule('Qalqalah Kubra', 'Major Echoing', 'The letter Qaaf (ق) bounces strongly when stopped upon.', 'bg-red-500')">قَ</span></span>
                                 <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/113002.mp3](https://everyayah.com/data/Alafasy_128kbps/113002.mp3)')" class="play-btn flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 rounded-full hover:bg-brand-500 hover:text-white hover:dark:bg-brand-500 hover:dark:text-white transition-colors focus:outline-none" title="Play Verse 2"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                                 <span class="text-lg text-gray-400 mr-1">٢</span>
                             </span>
@@ -1956,7 +2313,7 @@
                                 <span class="text-lg text-gray-400 mr-1">٣</span>
                             </span>
                             <span class="inline-flex items-center gap-2 align-middle mr-4">
-                                <span>وَمِن شَرِّ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah', 'Nasalization', 'The doubled Noon (نّ) requires a mandatory, sustained 2-beat nasal resonance.', 'bg-amber-500')">النَّ</span>فَّاثَاتِ فِي الْعُقَ<span class="analyzer-word text-red-600 dark:text-red-400 font-bold border-b-2 border-red-400 cursor-pointer px-1" onclick="showRule('Qalqalah Kubra', 'Major Echoing', 'The letter Daal (د) creates a strong bouncing echo upon stopping.', 'bg-red-500')">دِ</span></span>
+                                <span>وَمِن شَرِّ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah', 'Nasalization', 'The doubled Nun (نّ) requires a mandatory, sustained 2-beat nasal resonance.', 'bg-amber-500')">النَّ</span>فَّاثَاتِ فِي الْعُقَ<span class="analyzer-word text-red-600 dark:text-red-400 font-bold border-b-2 border-red-400 cursor-pointer px-1" onclick="showRule('Qalqalah Kubra', 'Major Echoing', 'The letter Daal (د) creates a strong bouncing echo upon stopping.', 'bg-red-500')">دِ</span></span>
                                 <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/113004.mp3](https://everyayah.com/data/Alafasy_128kbps/113004.mp3)')" class="play-btn flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 rounded-full hover:bg-brand-500 hover:text-white hover:dark:bg-brand-500 hover:dark:text-white transition-colors focus:outline-none" title="Play Verse 4"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                                 <span class="text-lg text-gray-400 mr-1">٤</span>
                             </span>
@@ -1981,32 +2338,32 @@
                         <div class="mb-10 text-xl text-gray-500 dark:text-gray-400 font-arabic tracking-wide">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
                         <div class="font-arabic text-4xl md:text-5xl leading-[2.5] md:leading-[3] text-gray-800 dark:text-white transition-colors" dir="rtl">
                             <span class="inline-flex items-center gap-2 align-middle mr-4">
-                                <span>قُلْ أَعُوذُ بِرَبِّ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Noon, ending with the sharp whistling characteristic of the letter Seen upon stopping.', 'bg-amber-500')">النَّاسِ</span></span>
+                                <span>قُلْ أَعُوذُ بِرَبِّ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Nun, ending with the sharp whistling characteristic of the letter Seen upon stopping.', 'bg-amber-500')">النَّاسِ</span></span>
                                 <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/114001.mp3](https://everyayah.com/data/Alafasy_128kbps/114001.mp3)')" class="play-btn flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 rounded-full hover:bg-brand-500 hover:text-white hover:dark:bg-brand-500 hover:dark:text-white transition-colors focus:outline-none" title="Play Verse 1"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                                 <span class="text-lg text-gray-400 mr-1">١</span>
                             </span>
                             <span class="inline-flex items-center gap-2 align-middle mr-4">
-                                <span>مَلِكِ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Noon.', 'bg-amber-500')">النَّاسِ</span></span>
+                                <span>مَلِكِ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Nun.', 'bg-amber-500')">النَّاسِ</span></span>
                                 <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/114002.mp3](https://everyayah.com/data/Alafasy_128kbps/114002.mp3)')" class="play-btn flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 rounded-full hover:bg-brand-500 hover:text-white hover:dark:bg-brand-500 hover:dark:text-white transition-colors focus:outline-none" title="Play Verse 2"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                                 <span class="text-lg text-gray-400 mr-1">٢</span>
                             </span>
                             <span class="inline-flex items-center gap-2 align-middle mr-4">
-                                <span>إِلَٰهِ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Noon.', 'bg-amber-500')">النَّاسِ</span></span>
+                                <span>إِلَٰهِ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Nun.', 'bg-amber-500')">النَّاسِ</span></span>
                                 <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/114003.mp3](https://everyayah.com/data/Alafasy_128kbps/114003.mp3)')" class="play-btn flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 rounded-full hover:bg-brand-500 hover:text-white hover:dark:bg-brand-500 hover:dark:text-white transition-colors focus:outline-none" title="Play Verse 3"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                                 <span class="text-lg text-gray-400 mr-1">٣</span>
                             </span>
                             <span class="inline-flex items-center gap-2 align-middle mr-4">
-                                <span>مِ<span class="analyzer-word text-emerald-600 dark:text-emerald-400 font-bold border-b-2 border-emerald-400 cursor-pointer px-1" onclick="showRule('Ikhfa', 'Concealment', 'The Noon Sakinah is hidden into the following Sheen (ش).', 'bg-emerald-500')">ن شَ</span>رِّ الْوَسْوَاسِ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Noon.', 'bg-amber-500')">الْخَنَّاسِ</span></span>
+                                <span>مِ<span class="analyzer-word text-emerald-600 dark:text-emerald-400 font-bold border-b-2 border-emerald-400 cursor-pointer px-1" onclick="showRule('Ikhfa', 'Concealment', 'The Nun Sakinah is hidden into the following Sheen (ش).', 'bg-emerald-500')">ن شَ</span>رِّ الْوَسْوَاسِ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Nun.', 'bg-amber-500')">الْخَنَّاسِ</span></span>
                                 <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/114004.mp3](https://everyayah.com/data/Alafasy_128kbps/114004.mp3)')" class="play-btn flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 rounded-full hover:bg-brand-500 hover:text-white hover:dark:bg-brand-500 hover:dark:text-white transition-colors focus:outline-none" title="Play Verse 4"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                                 <span class="text-lg text-gray-400 mr-1">٤</span>
                             </span>
                             <span class="inline-flex items-center gap-2 align-middle mr-4">
-                                <span>الَّذِي يُوَسْوِسُ فِي صُدُورِ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Noon.', 'bg-amber-500')">النَّاسِ</span></span>
+                                <span>الَّذِي يُوَسْوِسُ فِي صُدُورِ <span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Nun.', 'bg-amber-500')">النَّاسِ</span></span>
                                 <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/114005.mp3](https://everyayah.com/data/Alafasy_128kbps/114005.mp3)')" class="play-btn flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 rounded-full hover:bg-brand-500 hover:text-white hover:dark:bg-brand-500 hover:dark:text-white transition-colors focus:outline-none" title="Play Verse 5"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                                 <span class="text-lg text-gray-400 mr-1">٥</span>
                             </span>
                             <span class="inline-flex items-center gap-2 align-middle mr-4">
-                                <span>مِ<span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah', 'Nasalization', 'Sustained 2-beat nasal sound on the doubled Noon.', 'bg-amber-500')">نَ الْجِنَّةِ</span> وَ<span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Noon.', 'bg-amber-500')">النَّاسِ</span></span>
+                                <span>مِ<span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah', 'Nasalization', 'Sustained 2-beat nasal sound on the doubled Nun.', 'bg-amber-500')">نَ الْجِنَّةِ</span> وَ<span class="analyzer-word text-amber-500 dark:text-amber-400 font-bold border-b-2 border-amber-400 cursor-pointer px-1" onclick="showRule('Ghunnah & Safir', 'Nasalization & Whistling', 'Sustained 2-beat nasal sound on the doubled Nun.', 'bg-amber-500')">النَّاسِ</span></span>
                                 <button onclick="playAudio(this, '[https://everyayah.com/data/Alafasy_128kbps/114006.mp3](https://everyayah.com/data/Alafasy_128kbps/114006.mp3)')" class="play-btn flex items-center justify-center w-8 h-8 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-300 rounded-full hover:bg-brand-500 hover:text-white hover:dark:bg-brand-500 hover:dark:text-white transition-colors focus:outline-none" title="Play Verse 6"><svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>
                                 <span class="text-lg text-gray-400 mr-1">٦</span>
                             </span>
@@ -2150,7 +2507,7 @@
             });
         }
  
-        /* ================= NOON QUTNI DATABASE ================= */
+        /* ================= Nun QUTNI DATABASE ================= */
         const qutniData = [
             { id: 1, name: "Al-Baqarah", no: 2, verse: 180 },
             { id: 2, name: "Al-A'raf", no: 7, verse: 8 },
@@ -2170,7 +2527,7 @@
             { id: 16, name: "Maryam", no: 19, verse: 61 },
             { id: 17, name: "Al-Hajj", no: 22, verse: 11 },
             { id: 18, name: "Al-Hajj", no: 22, verse: 25 },
-            { id: 19, name: "Al-Muminoon", no: 23, verse: 38 },
+            { id: 19, name: "Al-MumiNun", no: 23, verse: 38 },
             { id: 20, name: "Al-Furqan", no: 25, verse: 4 },
             { id: 21, name: "Al-Furqan", no: 25, verse: 37 },
             { id: 22, name: "Ash-Shu'ara", no: 26, verse: 123 },
@@ -2227,10 +2584,10 @@
             btnElement.classList.add('selected', 'dark:bg-brand-500');
  
             const rules = {
-                izhar: { letters: ['ء','ه','ع','ح','غ','خ'], name: 'Izhar (Clear)', color: 'blue', desc: 'The Noon is pronounced crisply and clearly with no extended nasalization.' },
-                idghamGhunnah: { letters: ['ي','ن','م','و'], name: 'Idgham w/ Ghunnah', color: 'amber', desc: 'The Noon merges into the next letter with a sustained 2-beat nasal resonance.' },
-                idghamNoGhunnah: { letters: ['ل','ر'], name: 'Idgham w/o Ghunnah', color: 'amber', desc: 'The Noon completely disappears, merging fully into the next letter with NO nasalization.' },
-                iqlab: { letters: ['ب'], name: 'Iqlab (Conversion)', color: 'purple', desc: 'The Noon converts into a hidden Meem (م) with a 2-beat Ghunnah.' }
+                izhar: { letters: ['ء','ه','ع','ح','غ','خ'], name: 'Izhar (Clear)', color: 'blue', desc: 'The Nun is pronounced crisply and clearly with no extended nasalization.' },
+                idghamGhunnah: { letters: ['ي','ن','م','و'], name: 'Idgham w/ Ghunnah', color: 'amber', desc: 'The Nun merges into the next letter with a sustained 2-beat nasal resonance.' },
+                idghamNoGhunnah: { letters: ['ل','ر'], name: 'Idgham w/o Ghunnah', color: 'amber', desc: 'The Nun completely disappears, merging fully into the next letter with NO nasalization.' },
+                iqlab: { letters: ['ب'], name: 'Iqlab (Conversion)', color: 'purple', desc: 'The Nun converts into a hidden Meem (م) with a 2-beat Ghunnah.' }
             };
  
             let foundRule = null;
@@ -2245,7 +2602,7 @@
             }
  
             if (!foundRule) {
-                foundRule = { name: 'Ikhfa (Concealment)', color: 'emerald', desc: 'The Noon is hidden; the tongue hovers near the next letter sustaining a 2-beat Ghunnah.' };
+                foundRule = { name: 'Ikhfa (Concealment)', color: 'emerald', desc: 'The Nun is hidden; the tongue hovers near the next letter sustaining a 2-beat Ghunnah.' };
             }
  
             const eqDiv = document.getElementById('rule-equation');
@@ -2386,7 +2743,7 @@
             },
             {
                 id: 3,
-                question: "What rule is triggered when a Noon Sakinah is immediately followed by the letter Ba (ب)?",
+                question: "What rule is triggered when a Nun Sakinah is immediately followed by the letter Ba (ب)?",
                 options: ["Iqlab (Conversion to hidden Meem)", "Ikhfa (Concealment)", "Idgham (Merging)", "Izhar (Clear Pronunciation)"],
                 answer: 0
             },
@@ -2411,7 +2768,7 @@
             },
             {
                 id: 7,
-                question: "Listen to the audio. Identify the rule applied to the highlighted Noon in <strong>'min sharri'</strong>.",
+                question: "Listen to the audio. Identify the rule applied to the highlighted Nun in <strong>'min sharri'</strong>.",
                 audioVerse: "113004",
                 options: ["Izhar (Clear Pronunciation)", "Idgham (Merging)", "Iqlab (Conversion)", "Ikhfa (Concealment)"],
                 answer: 3
@@ -2450,7 +2807,47 @@
 
  
         const formEl = document.getElementById('quiz-form');
- 
+function filterRules(ruleKeyword, btnElement) {
+            // 1. Update active button styling
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-offset-2', 'ring-brand-500', 'dark:ring-offset-slate-800');
+            });
+            if (btnElement) {
+                btnElement.classList.add('ring-2', 'ring-offset-2', 'ring-brand-500', 'dark:ring-offset-slate-800');
+            }
+
+            // 2. Filter the words
+            const allWords = document.querySelectorAll('.analyzer-word');
+            allWords.forEach(word => {
+                // Smooth transition for text color and underline
+                word.style.transition = 'color 0.3s ease, border-color 0.3s ease';
+                
+                if (ruleKeyword === 'all') {
+                    // Restore original colors and underlines
+                    word.style.color = '';
+                    word.style.borderBottomColor = '';
+                    word.style.fontWeight = '';
+                } else {
+                    const onclickText = word.getAttribute('onclick') || '';
+                    if (onclickText.includes(ruleKeyword)) {
+                        // Keep highlighting for the matched rule
+                        word.style.color = '';
+                        word.style.borderBottomColor = '';
+                        word.style.fontWeight = '';
+                    } else {
+                        // Make non-matching words look like perfectly normal text
+                        // (Takes the color of the surrounding verse, removes the underline)
+                        word.style.color = 'inherit';
+                        word.style.borderBottomColor = 'transparent';
+                        word.style.fontWeight = 'inherit';
+                    }
+                }
+            });
+            
+            // 3. Reset the info panel below
+            document.getElementById('analyzer-default').classList.remove('hidden');
+            document.getElementById('analyzer-active').classList.add('hidden');
+        } 
         function renderQuiz() {
             formEl.innerHTML = '';
             quizData.forEach((q, qIndex) => {
@@ -2570,12 +2967,18 @@
             renderQuiz();
         }
  
-        // Initialize App
+// Initialize App
         document.addEventListener('DOMContentLoaded', () => {
             renderQuiz();
             initRuleBuilder();
             initMeemRuleBuilder();
             initQutniTable();
+            
+            // Protect all Arabic script from being butchered by Google Translate
+            document.querySelectorAll('.font-arabic, .arabic-key, .meem-arabic-key').forEach(el => {
+                el.classList.add('notranslate');
+                el.setAttribute('translate', 'no');
+            });
         });
 
  
@@ -2633,7 +3036,20 @@
         function getPauseIcon() {
             return `<svg class="w-5 h-5 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>`;
         }
- 
+/* ================= ISOLATED LETTER AUDIO (MAKHRAJ TEST) ================= */
+        function playLetterSound(letter) {
+            if ('speechSynthesis' in window) {
+                // In Tajwid, to find a letter's Makhraj, we add a Hamzah with a Fathah before it, and give the letter a Sukoon.
+                const textToSpeak = 'أَ' + letter + 'ْ';
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'ar-SA'; // Saudi Arabic voice
+                utterance.rate = 0.5; // Slow down heavily for phonetic clarity
+                utterance.pitch = 0.9;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Your browser does not support text-to-speech audio.");
+            }
+        } 
         /* ================= VISUAL METRONOME LOGIC ================= */
         function simulateMadd(beats, barId, btn) {
             const bar = document.getElementById(barId);
