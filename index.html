@@ -211,7 +211,196 @@
         .goog-tooltip { display: none !important; }
         .goog-tooltip:hover { display: none !important; }
         .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+/* ================= ARABIC FONT SCALING SYSTEM (UPDATED) ================= */
+        :root {
+            --arabic-scale: 1; /* Default scale is 100% */
+        }
+        
+        /* 1. Global Arabic Fixes for Spacing & Overlaps */
+        .font-arabic {
+            /* Fix horizontal overlaps/breaks caused by Tailwind's tracking classes */
+            letter-spacing: normal !important; 
+            /* Fix vertical overlaps of Harakat by forcing a massive 2.5x line height */
+            line-height: calc(2.5em * var(--arabic-scale)) !important; 
+            /* Prevent the tall text from being clipped by containers */
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+        }
+        
+        /* 2. Dynamically scale the font size based on the slider */
+        .font-arabic.text-lg { font-size: calc(1.125rem * var(--arabic-scale)) !important; }
+        .font-arabic.text-xl { font-size: calc(1.25rem * var(--arabic-scale)) !important; }
+        .font-arabic.text-2xl { font-size: calc(1.5rem * var(--arabic-scale)) !important; }
+        .font-arabic.text-3xl { font-size: calc(1.875rem * var(--arabic-scale)) !important; }
+        .font-arabic.text-4xl { font-size: calc(2.25rem * var(--arabic-scale)) !important; }
+        
+        /* Handle responsive desktop sizes */
+        @media (min-width: 768px) {
+            .font-arabic.md\:text-3xl { font-size: calc(1.875rem * var(--arabic-scale)) !important; }
+            .font-arabic.md\:text-4xl { font-size: calc(2.25rem * var(--arabic-scale)) !important; }
+        }
+/* ================= SMART AUDIO VISUALIZER ================= */
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(20, 184, 166, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0); }
+        }
+        
+        .is-playing {
+            animation: pulse-ring 1.5s infinite cubic-bezier(0.66, 0, 0, 1) !important;
+            /* Make the button look 'pressed' and darker */
+            transform: scale(0.95) !important;
+            opacity: 0.9;
+        }
+/* ================= 3D FLASHCARDS ================= */
+        .flashcard-container {
+            perspective: 1000px;
+        }
+        .flashcard-inner {
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        /* When the 'flipped' class is added via JS, rotate it */
+        .flashcard-container.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden; /* Safari support */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        /* The back starts already flipped 180deg so it's hidden */
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+/* ================= SPACED REPETITION ================= */
+        .card-mastered {
+            opacity: 0.25;
+            transform: scale(0.95);
+            pointer-events: none; /* Disables clicking after mastered */
+            transition: all 0.5s ease;
+            order: 99; /* Pushes it to the bottom of the grid! */
+        }
+        .card-practice {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            border-radius: 1rem;
+            box-shadow: 0 0 0 4px theme('colors.rose.500'); /* Red glowing border */
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+/* ================= SMART TOOLTIPS ================= */
+        .tajwid-term {
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-decoration-color: theme('colors.brand.500');
+            cursor: help;
+            position: relative;
+        }
+        .tajwid-term:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-5px);
+            background-color: theme('colors.slate.800');
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            white-space: nowrap;
+            z-index: 50;
+            pointer-events: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        html.dark .tajwid-term:hover::after {
+            background-color: theme('colors.gray.200');
+            color: theme('colors.slate.900');
+        }
+
+        /* ================= KEYBOARD FOCUS RING ================= */
+        .card-keyboard-focus .flashcard-inner {
+            box-shadow: 0 0 0 4px theme('colors.brand.400');
+            transform: translateY(-4px);
+        }
+/* ================= ULTIMATE MAKHARIJ LETTER ALIGNMENT FIX ================= */
+        #makharij .font-arabic,
+        #makharij span.font-arabic,
+        #makharij .font-arabic span {
+            line-height: 1 !important; /* Kills the massive verse line-height */
+            padding-top: 0 !important; /* Removes the top spacing pushing it down */
+            padding-bottom: 0.2em !important; /* A tiny nudge upward to balance the Arabic baseline */
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            vertical-align: middle !important;
+        }
+/* ================= AUDIO RIPPLES & RECORDING ================= */
+        .audio-playing-ripple {
+            animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            /* Emerald green glow to match your play buttons */
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); 
+        }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .recording-pulse {
+            animation: record-pulse 1s infinite alternate;
+            background-color: theme('colors.red.500') !important;
+            color: white !important;
+        }
+        @keyframes record-pulse {
+            from { transform: scale(1); box-shadow: 0 0 0 rgba(239, 68, 68, 0.4); }
+            to { transform: scale(1.15); box-shadow: 0 0 15px rgba(239, 68, 68, 0.8); }
+        }
+/* ================= FIX: FLASHCARD OVERFLOW ================= */
+        /* Forces all flashcards to be taller to fit the new pro features */
+        .flashcard-container {
+            height: 22rem !important; /* Increases height from original h-56 */
+        }
+        
+        /* Spreads the content evenly inside the back of the card so it doesn't bunch up */
+        .flashcard-back {
+            justify-content: space-between !important; 
+            padding-top: 1.5rem !important;
+            padding-bottom: 1.5rem !important;
+        }
+        
+        /* Makes the description text slightly tighter to save space */
+        .flashcard-back p {
+            margin-bottom: 0.5rem !important;
+            line-height: 1.3 !important;
+        }
+/* ================= TAJWID COLOR TOGGLE (READING MODE) ================= */
+        body.hide-tajwid-colors .font-arabic span,
+        body.hide-tajwid-colors .font-arabic .hl-ar,
+        body.hide-tajwid-colors .font-arabic .hl-saktah,
+        body.hide-tajwid-colors .analyzer-word {
+            color: inherit !important;
+            background-color: transparent !important;
+            border-color: transparent !important;
+            text-shadow: none !important;
+            text-decoration: none !important;
+            font-weight: normal !important;
+        }
+        
+        /* Keep the analyzer words clickable even when hidden so users can check their guesses */
+        body.hide-tajwid-colors .analyzer-word:hover {
+            background-color: rgba(148, 163, 184, 0.1) !important;
+            border-radius: 0.25rem;
+        }
     </style>
+
 </head>
 <body class="flex flex-col md:flex-row min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300">
  
@@ -232,16 +421,7 @@
                 </select>
             </div>
  
-            <!-- DARK MODE TOGGLE -->
-            <div class="mt-3 flex items-center justify-between bg-gray-50 dark:bg-slate-700/50 p-3 rounded-lg border border-gray-100 dark:border-slate-600 transition-colors">
-                <span class="text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider flex items-center gap-1">
-                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                    Dark Mode
-                </span>
-                <button id="theme-toggle" class="w-10 h-6 bg-gray-300 dark:bg-brand-500 rounded-full relative transition-colors focus:outline-none" onclick="toggleTheme()">
-                    <div id="theme-toggle-knob" class="w-4 h-4 bg-white rounded-full absolute top-1 left-1 dark:translate-x-4 transition-transform"></div>
-                </button>
-            </div>
+
 <!-- LANGUAGE TOGGLE (NEW) -->
             <div class="mt-3 flex items-center justify-between bg-gray-50 dark:bg-slate-700/50 p-3 rounded-lg border border-gray-100 dark:border-slate-600 transition-colors">
                 <span class="text-xs font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider flex items-center gap-1">
@@ -257,6 +437,65 @@
             </div>
         </div>
         <div class="flex-1 overflow-y-auto py-4 px-3 flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-x-visible">
+<!-- ================= MASTERY PROGRESS BAR ================= -->
+            <div class="px-4 py-4 mb-4 mx-2 bg-gradient-to-br from-emerald-500 to-teal-600 dark:from-emerald-700 dark:to-teal-900 rounded-xl shadow-md text-white transition-all">
+                <div class="flex justify-between items-end mb-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-100">Your Journey</span>
+                    <!-- This ID connects to the new dynamic math script -->
+                    <span id="global-progress-text" class="text-xl font-bold">0%</span>
+                </div>
+                <!-- Progress Bar Background -->
+                <div class="w-full bg-emerald-900/30 rounded-full h-2.5 mb-1 overflow-hidden">
+                    <!-- Progress Bar Fill connected to the new dynamic script -->
+                    <div id="global-progress-bar" class="bg-white h-2.5 rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
+                </div>
+            </div>
+<!-- UI: Dark Mode Toggle -->
+            <div class="px-4 py-3 mb-4 mx-2 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 flex justify-between items-center transition-colors shadow-sm">
+                <span class="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Theme</span>
+                <button id="theme-toggle" onclick="toggleTheme()" class="relative w-14 h-7 flex items-center bg-gray-200 dark:bg-slate-600 rounded-full p-1 transition-colors duration-300 focus:outline-none ring-2 ring-transparent focus:ring-brand-400">
+                    <div id="theme-toggle-thumb" class="w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center">
+                        <!-- Sun Icon (Default/Light) -->
+                        <svg id="icon-sun" class="w-3.5 h-3.5 text-amber-500 transition-opacity duration-200" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
+                        <!-- Moon Icon (Dark) -->
+                        <svg id="icon-moon" class="w-3.5 h-3.5 text-indigo-400 hidden transition-opacity duration-200" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </div>
+                </button>
+            </div>
+<!-- Accessibility: Arabic Font Size Slider -->
+            <div class="px-4 py-4 mb-4 mx-2 bg-brand-50/50 dark:bg-slate-800/50 rounded-xl border border-brand-100/50 dark:border-slate-700/50 transition-colors">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xs font-bold text-brand-800 dark:text-brand-300 uppercase tracking-wider">Arabic Size</span>
+                    <span id="font-size-display" class="text-xs font-bold text-gray-500 dark:text-gray-400 bg-white dark:bg-slate-700 px-2 py-0.5 rounded shadow-sm transition-colors">100%</span>
+                </div>
+                <input type="range" id="arabic-font-slider" min="0.8" max="2" step="0.1" value="1"
+                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-brand-500"
+                    oninput="updateArabicSize(this.value)">
+            </div>
+<!-- Accessibility: Playback Speed Slider -->
+            <div class="px-4 py-4 mb-4 mx-2 bg-brand-50/50 dark:bg-slate-800/50 rounded-xl border border-brand-100/50 dark:border-slate-700/50 transition-colors">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="text-xs font-bold text-brand-800 dark:text-brand-300 uppercase tracking-wider">Audio Speed</span>
+                    <span id="audio-speed-display" class="text-xs font-bold text-gray-500 dark:text-gray-400 bg-white dark:bg-slate-700 px-2 py-0.5 rounded shadow-sm transition-colors">1.0x</span>
+                </div>
+                <input type="range" id="audio-speed-slider" min="0.5" max="1.5" step="0.1" value="1.0"
+                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-slate-700 accent-brand-500"
+                    oninput="updateAudioSpeed(this.value)">
+                <div class="flex justify-between text-[10px] text-gray-400 mt-1 px-1 font-semibold">
+                    <span>0.5x (Slow)</span>
+                    <span>1.5x (Fast)</span>
+                </div>
+            </div>
+<!-- Test Mode: Tajwid Color Toggle -->
+            <div class="px-4 py-3 mb-4 mx-2 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 flex justify-between items-center transition-colors shadow-sm">
+                <div class="flex flex-col">
+                    <span class="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Tajwid Colors</span>
+                    <span class="text-[9px] text-gray-400 mt-0.5">Toggle for test mode</span>
+                </div>
+                <button id="color-toggle" onclick="toggleTajwidColors()" class="relative w-12 h-6 flex items-center bg-emerald-500 rounded-full p-1 transition-colors duration-300 focus:outline-none shrink-0">
+                    <div id="color-toggle-thumb" class="w-4 h-4 bg-white rounded-full shadow-md transform translate-x-6 transition-transform duration-300"></div>
+                </button>
+            </div>
             <button onclick="switchTab('intro')" class="nav-btn active w-full text-left px-4 py-3 rounded-lg text-sm font-medium bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 transition-colors whitespace-nowrap md:whitespace-normal" data-target="intro">Introduction</button>
             <button onclick="switchTab('makharij')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="makharij">Makharij (Articulation)</button>
             <button onclick="switchTab('sifat')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="sifat">Sifat (Attributes)</button>
@@ -554,6 +793,16 @@
                         </div>
                     </div>
                 </div>
+            </div>
+<!-- Mastery Button for Makharij -->
+            <div class="mt-12 pt-6 border-t border-gray-200 dark:border-slate-700 flex justify-center">
+                <button onclick="toggleMastery('makharij', this)" class="mastery-btn group relative px-8 py-3 font-bold text-white rounded-full overflow-hidden bg-gray-400 dark:bg-slate-600 hover:bg-emerald-500 dark:hover:bg-emerald-500 transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+                    <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+                    <span class="relative flex items-center gap-2">
+                        <svg class="w-5 h-5 mastery-icon opacity-50 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="mastery-text">Mark as Mastered</span>
+                    </span>
+                </button>
             </div>
         </section>
  
@@ -1162,6 +1411,51 @@
                         <strong class="block text-brand-700 dark:text-brand-400 mb-1 text-sm">Alif Lam Shamsiyyah</strong>
                         <p class="text-xs text-gray-600 dark:text-gray-300 font-medium italic transition-colors"><span class="text-brand-500 dark:text-brand-400 font-bold">A<span class="line-through opacity-50">l</span>-r</span>ahmaan (55:1)</p>
                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors">The Lam has no Sukoon and is swallowed/merged (Idgham) into the following "Sun Letter" (like Ra), which gets a Shaddah.</p>
+                    </div>
+                </div>
+            </div>
+<!-- ================= LAAM OF VERBS & PARTICLES ================= -->
+            <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-4 border-t border-gray-200 dark:border-slate-700 pt-8 mt-8 transition-colors">The Silent Laam in Verbs & Commands</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-6 transition-colors">Unlike the definite article "Al-", the silent Laam (لْ) found inside verbs (e.g., <em>Ja'alna</em>) and command particles (e.g., <em>Qul, Bal, Hal</em>) has a very strict phonetic rule: It must be pronounced clearly without any echoing (Qalqalah), <strong>unless</strong> it meets another Laam (ل) or a Ra (ر).</p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-4">
+                <!-- Izhar: Clear -->
+                <div class="tri-lingual-card p-5 rounded-xl shadow-sm relative !border-blue-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex flex-col gap-2 mt-2">
+                            <span class="bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 text-xs font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider mb-2 text-center">Izhar (Clear)</span>
+                            <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/078009.mp3')" class="play-btn flex items-center justify-center w-10 h-10 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 focus:outline-none flex-shrink-0" title="Listen to verse">
+                                <svg class="w-5 h-5 ml-1 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                            </button>
+                        </div>
+                        <span class="font-arabic text-2xl md:text-3xl text-right text-gray-800 dark:text-white transition-colors w-full pl-4" dir="rtl">
+                            وَجَعَ<span class="text-blue-600 dark:text-blue-400 font-bold">لْـ</span>نَا نَوْمَكُمْ سُبَاتًۭا
+                        </span>
+                    </div>
+                    <div class="border-t border-gray-100 dark:border-slate-700/50 pt-3 transition-colors">
+                        <strong class="block text-blue-700 dark:text-blue-400 mb-1 text-sm">Default: Clear Pronunciation</strong>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 font-medium italic transition-colors">Wa ja'a<span class="text-blue-600 dark:text-blue-400 font-bold">l</span>naa nawmakum subaataa (78:9)</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors">The Laam has a Sukoon and is followed by Nun (ن). It must be pronounced sharply. <strong class="text-red-500 dark:text-red-400">Common Mistake:</strong> Bouncing the Laam to say "Wa ja'al-a-naa".</p>
+                    </div>
+                </div>
+
+                <!-- Idgham: Merging -->
+                <div class="tri-lingual-card p-5 rounded-xl shadow-sm relative !border-emerald-500 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex flex-col gap-2 mt-2">
+                            <span class="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300 text-xs font-bold px-2 py-1 rounded shadow-sm uppercase tracking-wider mb-2 text-center">Idgham (Merge)</span>
+                            <button onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/017024.mp3')" class="play-btn flex items-center justify-center w-10 h-10 bg-emerald-500 text-white rounded-full shadow-md hover:bg-emerald-600 focus:outline-none flex-shrink-0" title="Listen to verse">
+                                <svg class="w-5 h-5 ml-1 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                            </button>
+                        </div>
+                        <span class="font-arabic text-2xl md:text-3xl text-right text-gray-800 dark:text-white transition-colors w-full pl-4" dir="rtl">
+                            وَقُ<span class="text-emerald-600 dark:text-emerald-400 font-bold">ل رَّ</span>بِّ ٱرْحَمْهُمَا
+                        </span>
+                    </div>
+                    <div class="border-t border-gray-100 dark:border-slate-700/50 pt-3 transition-colors">
+                        <strong class="block text-emerald-700 dark:text-emerald-400 mb-1 text-sm">Exception: Followed by Laam or Ra</strong>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 font-medium italic transition-colors">Wa qu<span class="text-emerald-600 dark:text-emerald-400 font-bold">r-r</span>abbi-rhamhumaa (17:24)</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors">Because the silent Laam in "Qul" is immediately followed by a Ra (ر), it is completely swallowed into the Ra without any nasalization (Idgham Kamil).</p>
                     </div>
                 </div>
             </div>
@@ -2187,6 +2481,23 @@
                     <option value="surah-114">Surah An-Nas (114) - Mankind</option>
                 </select>
             </div>
+<!-- Custom Ayah Auto-Analyzer -->
+            <div class="mb-8 bg-gray-50 dark:bg-slate-700/30 p-5 rounded-xl border border-gray-200 dark:border-slate-600 transition-colors shadow-sm">
+                <h4 class="text-md font-bold text-gray-800 dark:text-white mb-2 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    Auto-Analyze Any Verse
+                </h4>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Paste any voweled Arabic text below. The engine will auto-detect Ghunnah, Qalqalah, and Sakinah rules.</p>
+                
+                <textarea id="custom-ayah-input" rows="2" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white text-2xl font-arabic p-3 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors resize-none shadow-inner text-right" dir="rtl" placeholder="وَقُل رَّبِّ زِدْنِي عِلْمًا..."></textarea>
+                
+                <button onclick="analyzeCustomAyah()" class="mt-3 w-full md:w-auto bg-brand-500 hover:bg-brand-600 text-white text-sm font-bold py-2 px-6 rounded-lg shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 dark:focus:ring-offset-slate-800">Scan Text</button>
+
+                <!-- Output Area -->
+                <div id="custom-ayah-output" class="hidden mt-5 p-6 bg-white dark:bg-slate-800 border border-brand-200 dark:border-slate-600 rounded-xl shadow-sm text-center font-arabic text-3xl md:text-4xl leading-[2.5] text-gray-800 dark:text-white transition-all" dir="rtl">
+                    <!-- Analyzed text appears here -->
+                </div>
+            </div>
 <!-- Filter Toggles -->
             <div class="mb-6 flex flex-wrap gap-2 justify-center border-t border-b border-gray-100 dark:border-slate-700 py-4 transition-colors">
                 <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mr-2 self-center">Highlight:</span>
@@ -2425,11 +2736,268 @@
 
  
 
-        <!-- ================= SECTION: QUIZ ================= -->
-        <section id="quiz" class="tab-content">
+<!-- ================= SECTION: QUIZ ================= -->
+        <section id="quiz" class="tab-content hidden">
             <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2 transition-colors">Knowledge Check</h2>
             <p class="text-gray-600 dark:text-gray-300 mb-8 transition-colors">Test your mastery of the advanced rules of Tajwid.</p>
- 
+
+            <!-- Power Feature: Quick Search & Reset Toolbar -->
+            <div class="w-full flex flex-col md:flex-row gap-4 mb-8 mt-4 justify-between items-center">
+                <!-- Search Bar -->
+                <div class="relative w-full max-w-md flex-grow">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <input type="text" id="flashcard-search" onkeyup="filterFlashcards()" placeholder="Search for rules (e.g., Iqlab, Ghunnah)..." class="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 shadow-sm transition-all">
+                </div>
+                
+                <!-- Reset Button -->
+                <button onclick="resetFlashcards()" class="flex items-center gap-2 px-4 py-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors shadow-sm focus:outline-none font-bold text-sm shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Reset Deck
+                </button>
+            </div>
+
+            <!-- Flashcards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- (Your Card 1, Card 2, etc. will continue right here...) -->
+                    
+                    <div class="flashcard-container h-56 cursor-pointer group" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner w-full h-full relative rounded-2xl shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+                            <div class="flashcard-front bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 flex flex-col items-center justify-center p-6">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-4">Identify the Rule</span>
+                                <div class="font-arabic text-4xl text-gray-800 dark:text-white tracking-widest" dir="rtl">
+                                    مِن <span class="text-emerald-500 font-bold border-b-2 border-emerald-500">شَ</span>رِّ
+                                </div>
+                            </div>
+                            <div class="flashcard-back bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex flex-col items-center justify-center p-6 text-white text-center shadow-inner">
+                                <h4 class="font-bold text-xl mb-1">Ikhfa Haqiqi</h4>
+                                <span class="text-[10px] bg-white/20 px-2 py-1 rounded mb-3 uppercase tracking-wider">Concealment</span>
+                                <p class="text-xs text-emerald-50 mb-4">Nun Sakinah followed by Shin (ش). Hide the Nun and hold a 2-beat nasal Ghunnah.</p>
+                                <button onclick="event.stopPropagation(); playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/113002.mp3')" class="w-10 h-10 bg-white text-emerald-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+
+                                    <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                                </button>
+<!-- Spaced Repetition Buttons -->
+                                <div class="flex gap-2 mt-4 w-full px-4" onclick="event.stopPropagation();">
+                                    <button onclick="reviewCard(this, 'practice')" class="flex-1 bg-white/10 hover:bg-rose-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Need Practice</button>
+                                    <button onclick="reviewCard(this, 'mastered')" class="flex-1 bg-white/10 hover:bg-emerald-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Got it!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flashcard-container h-56 cursor-pointer group" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner w-full h-full relative rounded-2xl shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+                            <div class="flashcard-front bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 flex flex-col items-center justify-center p-6">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-4">Identify the Rule</span>
+                                <div class="font-arabic text-4xl text-gray-800 dark:text-white tracking-widest" dir="rtl">
+                                    ٱلْفَلَـ<span class="text-red-500 font-bold border-b-2 border-red-500">قِ</span>
+                                </div>
+                                <span class="text-xs text-gray-400 mt-4 italic">Stopping at the end of the verse</span>
+                            </div>
+                            <div class="flashcard-back bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl flex flex-col items-center justify-center p-6 text-white text-center shadow-inner">
+                                <h4 class="font-bold text-xl mb-1">Qalqalah Kubra</h4>
+                                <span class="text-[10px] bg-white/20 px-2 py-1 rounded mb-3 uppercase tracking-wider">Major Echo</span>
+                                <p class="text-xs text-red-50 mb-4">Stopping on the letter Qaaf (ق). It creates a heavy, pronounced bouncing sound.</p>
+                                <button onclick="event.stopPropagation(); playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/113001.mp3')" class="w-10 h-10 bg-white text-red-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                                    <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                                </button>
+<!-- Spaced Repetition Buttons -->
+                                <div class="flex gap-2 mt-4 w-full px-4" onclick="event.stopPropagation();">
+                                    <button onclick="reviewCard(this, 'practice')" class="flex-1 bg-white/10 hover:bg-rose-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Need Practice</button>
+                                    <button onclick="reviewCard(this, 'mastered')" class="flex-1 bg-white/10 hover:bg-emerald-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Got it!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flashcard-container h-56 cursor-pointer group" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner w-full h-full relative rounded-2xl shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+                            <div class="flashcard-front bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 flex flex-col items-center justify-center p-6">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-4">Identify the Rule</span>
+                                <div class="font-arabic text-4xl text-gray-800 dark:text-white tracking-widest" dir="rtl">
+                                    مِ<span class="text-brand-500 font-bold border-b-2 border-brand-500">ن رَّ</span>بِّهِمْ
+                                </div>
+                            </div>
+                            <div class="flashcard-back bg-gradient-to-br from-brand-500 to-cyan-600 rounded-2xl flex flex-col items-center justify-center p-6 text-white text-center shadow-inner">
+                                <h4 class="font-bold text-xl mb-1">Idgham Bila Ghunnah</h4>
+                                <span class="text-[10px] bg-white/20 px-2 py-1 rounded mb-3 uppercase tracking-wider">Merge w/o Nasal</span>
+                                <p class="text-xs text-brand-50 mb-4">Nun Sakinah followed by Ra (ر). The Nun is completely swallowed into the Ra with NO nasal sound.</p>
+                                <button onclick="event.stopPropagation(); playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/002005.mp3')" class="w-10 h-10 bg-white text-brand-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                                    <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                                </button>
+<!-- Spaced Repetition Buttons -->
+                                <div class="flex gap-2 mt-4 w-full px-4" onclick="event.stopPropagation();">
+                                    <button onclick="reviewCard(this, 'practice')" class="flex-1 bg-white/10 hover:bg-rose-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Need Practice</button>
+                                    <button onclick="reviewCard(this, 'mastered')" class="flex-1 bg-white/10 hover:bg-emerald-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Got it!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Card 4: Iqlab -->
+                    <div class="flashcard-container h-56 cursor-pointer group" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner w-full h-full relative rounded-2xl shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+                            <!-- Front -->
+                            <div class="flashcard-front bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 flex flex-col items-center justify-center p-6">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-4">Identify the Rule</span>
+                                <div class="font-arabic text-4xl text-gray-800 dark:text-white tracking-widest" dir="rtl">
+                                    مِ<span class="text-amber-500 font-bold border-b-2 border-amber-500">نۢ بَ</span>عْدِ
+                                </div>
+                            </div>
+                            <!-- Back -->
+                            <div class="flashcard-back bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex flex-col items-center justify-center p-6 text-white text-center shadow-inner">
+                                <h4 class="font-bold text-xl mb-1">Iqlab</h4>
+                                <span class="text-[10px] bg-white/20 px-2 py-1 rounded mb-3 uppercase tracking-wider">Conversion</span>
+                                <p class="text-xs text-amber-50 mb-4">Nun Sakinah followed by Ba (ب). Convert the Nun into a hidden Meem (م) and hold a 2-beat nasal Ghunnah.</p>
+                                <button onclick="event.stopPropagation(); playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/098004.mp3')" class="w-10 h-10 bg-white text-amber-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                                    <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                                </button>
+<!-- Spaced Repetition Buttons -->
+                                <div class="flex gap-2 mt-4 w-full px-4" onclick="event.stopPropagation();">
+                                    <button onclick="reviewCard(this, 'practice')" class="flex-1 bg-white/10 hover:bg-rose-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Need Practice</button>
+                                    <button onclick="reviewCard(this, 'mastered')" class="flex-1 bg-white/10 hover:bg-emerald-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Got it!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5: Idgham Ma'al Ghunnah -->
+                    <div class="flashcard-container h-56 cursor-pointer group" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner w-full h-full relative rounded-2xl shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+                            <!-- Front -->
+                            <div class="flashcard-front bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 flex flex-col items-center justify-center p-6">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-4">Identify the Rule</span>
+                                <div class="font-arabic text-4xl text-gray-800 dark:text-white tracking-widest" dir="rtl">
+                                    مَ<span class="text-purple-500 font-bold border-b-2 border-purple-500">ن يَقُ</span>ولُ
+                                </div>
+                            </div>
+                            <!-- Back -->
+                            <div class="flashcard-back bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex flex-col items-center justify-center p-6 text-white text-center shadow-inner">
+                                <h4 class="font-bold text-xl mb-1">Idgham Ma'al Ghunnah</h4>
+                                <span class="text-[10px] bg-white/20 px-2 py-1 rounded mb-3 uppercase tracking-wider">Merge with Nasal</span>
+                                <p class="text-xs text-purple-50 mb-4">Nun Sakinah followed by Ya (ي). Merge the Nun completely into the Ya and hold a 2-beat nasal sound.</p>
+                                <button onclick="event.stopPropagation(); playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/002008.mp3')" class="w-10 h-10 bg-white text-purple-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                                    <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                                </button>
+<!-- Spaced Repetition Buttons -->
+                                <div class="flex gap-2 mt-4 w-full px-4" onclick="event.stopPropagation();">
+                                    <button onclick="reviewCard(this, 'practice')" class="flex-1 bg-white/10 hover:bg-rose-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Need Practice</button>
+                                    <button onclick="reviewCard(this, 'mastered')" class="flex-1 bg-white/10 hover:bg-emerald-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Got it!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6: Izhar Halqi -->
+                    <div class="flashcard-container h-56 cursor-pointer group" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner w-full h-full relative rounded-2xl shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+                            <!-- Front -->
+                            <div class="flashcard-front bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 flex flex-col items-center justify-center p-6">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-4">Identify the Rule</span>
+                                <div class="font-arabic text-4xl text-gray-800 dark:text-white tracking-widest" dir="rtl">
+                                    مِ<span class="text-blue-500 font-bold border-b-2 border-blue-500">نْ خَ</span>وْفٍ
+                                </div>
+                            </div>
+                            <!-- Back -->
+                            <div class="flashcard-back bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex flex-col items-center justify-center p-6 text-white text-center shadow-inner">
+                                <h4 class="font-bold text-xl mb-1">Izhar Halqi</h4>
+                                <span class="text-[10px] bg-white/20 px-2 py-1 rounded mb-3 uppercase tracking-wider">Clear Pronunciation</span>
+                                <p class="text-xs text-blue-50 mb-4">Nun Sakinah followed by Kha (خ), a throat letter. Pronounce the Nun sharply and clearly with no extended nasal sound.</p>
+                                <button onclick="event.stopPropagation(); playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/106004.mp3')" class="w-10 h-10 bg-white text-blue-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                                    <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                                </button>
+<!-- Spaced Repetition Buttons -->
+                                <div class="flex gap-2 mt-4 w-full px-4" onclick="event.stopPropagation();">
+                                    <button onclick="reviewCard(this, 'practice')" class="flex-1 bg-white/10 hover:bg-rose-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Need Practice</button>
+                                    <button onclick="reviewCard(this, 'mastered')" class="flex-1 bg-white/10 hover:bg-emerald-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Got it!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7: Madd Lazim -->
+                    <div class="flashcard-container h-56 cursor-pointer group" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner w-full h-full relative rounded-2xl shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+                            <!-- Front -->
+                            <div class="flashcard-front bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 flex flex-col items-center justify-center p-6">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-4">Identify the Rule</span>
+                                <div class="font-arabic text-4xl text-gray-800 dark:text-white tracking-widest" dir="rtl">
+                                    وَلَا ٱلضَّ<span class="text-pink-500 font-bold border-b-2 border-pink-500">آلِّ</span>ينَ
+                                </div>
+                            </div>
+                            <!-- Back -->
+                            <div class="flashcard-back bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl flex flex-col items-center justify-center p-6 text-white text-center shadow-inner">
+                                <h4 class="font-bold text-xl mb-1">Madd Lazim</h4>
+                                <span class="text-[10px] bg-white/20 px-2 py-1 rounded mb-3 uppercase tracking-wider">Compulsory Prolongation</span>
+                                <p class="text-xs text-pink-50 mb-4">A Madd letter followed immediately by a Shaddah (double letter). The vowel MUST be stretched for exactly 6 beats.</p>
+                                <button onclick="event.stopPropagation(); playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/001007.mp3')" class="w-10 h-10 bg-white text-pink-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                                    <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                                </button>
+<!-- Spaced Repetition Buttons -->
+                                <div class="flex gap-2 mt-4 w-full px-4" onclick="event.stopPropagation();">
+                                    <button onclick="reviewCard(this, 'practice')" class="flex-1 bg-white/10 hover:bg-rose-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Need Practice</button>
+                                    <button onclick="reviewCard(this, 'mastered')" class="flex-1 bg-white/10 hover:bg-emerald-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Got it!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Card 8: Madd Muttasil -->
+                    <div class="flashcard-container h-56 cursor-pointer group" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner w-full h-full relative rounded-2xl shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+                            <!-- Front -->
+                            <div class="flashcard-front bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 flex flex-col items-center justify-center p-6">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-4">Identify the Rule</span>
+                                <div class="font-arabic text-4xl text-gray-800 dark:text-white tracking-widest" dir="rtl">
+                                    إِذَا <span class="text-indigo-500 font-bold border-b-2 border-indigo-500">جَآءَ</span>
+                                </div>
+                            </div>
+                            <!-- Back -->
+                            <div class="flashcard-back bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex flex-col items-center justify-center p-6 text-white text-center shadow-inner">
+                                <h4 class="font-bold text-xl mb-1">Madd Muttasil</h4>
+                                <span class="text-[10px] bg-white/20 px-2 py-1 rounded mb-3 uppercase tracking-wider">Connected Prolongation</span>
+                                <p class="text-xs text-indigo-50 mb-4">A Madd letter followed by a Hamzah (ء) inside the <strong>same</strong> word. The vowel MUST be stretched for 4 to 5 beats.</p>
+                                <button onclick="event.stopPropagation(); playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/110001.mp3')" class="w-10 h-10 bg-white text-indigo-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                                    <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                                </button>
+<!-- Spaced Repetition Buttons -->
+                                <div class="flex gap-2 mt-4 w-full px-4" onclick="event.stopPropagation();">
+                                    <button onclick="reviewCard(this, 'practice')" class="flex-1 bg-white/10 hover:bg-rose-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Need Practice</button>
+                                    <button onclick="reviewCard(this, 'mastered')" class="flex-1 bg-white/10 hover:bg-emerald-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Got it!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 9: Wajib Al-Ghunnah -->
+                    <div class="flashcard-container h-56 cursor-pointer group" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner w-full h-full relative rounded-2xl shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+                            <!-- Front -->
+                            <div class="flashcard-front bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-gray-200 dark:border-slate-700 flex flex-col items-center justify-center p-6">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-4">Identify the Rule</span>
+                                <div class="font-arabic text-4xl text-gray-800 dark:text-white tracking-widest" dir="rtl">
+                                    <span class="text-teal-500 font-bold border-b-2 border-teal-500">إِنَّ</span> ٱلْإِنسَـٰنَ
+                                </div>
+                            </div>
+                            <!-- Back -->
+                            <div class="flashcard-back bg-gradient-to-br from-teal-500 to-emerald-600 rounded-2xl flex flex-col items-center justify-center p-6 text-white text-center shadow-inner">
+                                <h4 class="font-bold text-xl mb-1">Wajib Al-Ghunnah</h4>
+                                <span class="text-[10px] bg-white/20 px-2 py-1 rounded mb-3 uppercase tracking-wider">Mandatory Nasalization</span>
+                                <p class="text-xs text-teal-50 mb-4">A Nun (ن) or Meem (م) that carries a Shaddah (ّ). You MUST hold a strong, 2-beat nasal sound (Level 1 Ghunnah).</p>
+                                <button onclick="event.stopPropagation(); playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/103002.mp3')" class="w-10 h-10 bg-white text-teal-600 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-md">
+                                    <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                                </button>
+<!-- Spaced Repetition Buttons -->
+                                <div class="flex gap-2 mt-4 w-full px-4" onclick="event.stopPropagation();">
+                                    <button onclick="reviewCard(this, 'practice')" class="flex-1 bg-white/10 hover:bg-rose-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Need Practice</button>
+                                    <button onclick="reviewCard(this, 'mastered')" class="flex-1 bg-white/10 hover:bg-emerald-500/80 text-white text-[10px] font-bold py-1.5 rounded transition-colors border border-white/20 hover:border-transparent">Got it!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="quiz-container" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 p-6 md:p-8 transition-colors">
                 <form id="quiz-form" onsubmit="submitQuiz(event)">
                     <!-- Questions injected by JS -->
@@ -2726,7 +3294,59 @@
             const badge = document.getElementById('analyzer-badge');
             badge.className = `text-[10px] font-bold px-2 py-0.5 rounded shadow-sm uppercase tracking-wider text-white inline-block ${colorClass}`;
         }
- 
+/* --- BALANCED AUTO-ANALYZER REGEX ENGINE (WARMER PALETTE) --- */
+        function analyzeCustomAyah() {
+            const input = document.getElementById('custom-ayah-input').value;
+            const outputDiv = document.getElementById('custom-ayah-output');
+            
+            if (!input.trim()) return;
+
+            // Clean previous HTML to prevent double-wrapping
+            let processed = input.replace(/<[^>]*>?/gm, '');
+
+            // HELPER 1: Safe wrapper to prevent HTML breakage
+            const wrap = (text, ruleName, ruleType, desc, color) => {
+                return `<span class="analyzer-word text-${color}-500 dark:text-${color}-400 font-bold border-b-2 border-${color}-500 cursor-pointer px-1 transition-colors" onclick="showRule('${ruleName}', '${ruleType}', '${desc}', 'bg-${color}-500')">${text}</span>`;
+            };
+
+            // HELPER 2: Smart Lookahead skips HTML tags, spaces, and Waqf marks
+            const lookahead = (chars) => `(?=(?:<[^>]+>|\\s|[ۖ-۩])*${chars})`;
+            const noHTML = `(?![^<]*>)`;
+
+            // --- 1. MADD RULES (Violet & Fuchsia) ---
+            processed = processed.replace(/([\u0621-\u064A\u0671][ٓۤ])(?![^<]*>)/g, (match, p1) => wrap(p1, 'Madd', 'Elongation', 'Mandatory stretch of 4, 5, or 6 beats.', 'violet'));
+            processed = processed.replace(/([ه][ُِ]?[ۥۦ]ٓ?)(?![^<]*>)/g, (match, p1) => wrap(p1, 'Madd Silah', 'Pronoun Elongation', 'Elongate the pronoun for 2, 4, or 5 beats.', 'fuchsia'));
+
+            // --- 2. TAFKHEEM (Slate/Heavy Gray) ---
+            processed = processed.replace(/(ٱللَّه[َُِ]?|اللَّه[َُِ]?)(?![^<]*>)/g, (match, p1) => wrap(p1, 'Tafkheem / Tarqeeq', 'The Name of Allah', 'Pronounced heavy if preceded by Fathah/Dammah, or light if preceded by Kasrah.', 'slate'));
+
+            // --- 3. WAJIB AL-GHUNNAH (Amber) ---
+            processed = processed.replace(/([نم][ّ][ًٌٍَُِۭۢ]?)(?![^<]*>)/g, (match, p1) => wrap(p1, 'Wajib Al-Ghunnah', 'Mandatory Nasal', 'Hold a strong 2-beat nasal sound.', 'amber'));
+
+            // --- 4. MEEM SAKINAH RULES ---
+            const meemBase = `(مْ|م(?![َُِّْ]))`;
+            processed = processed.replace(new RegExp(`${meemBase}${lookahead('[ب]')}${noHTML}`, 'g'), (match, p1) => wrap(p1, 'Ikhfa Shafawi', 'Labial Concealment', 'Hide the Meem with the lips and hold a 2-beat Ghunnah.', 'rose'));
+            processed = processed.replace(new RegExp(`${meemBase}${lookahead('[م]')}${noHTML}`, 'g'), (match, p1) => wrap(p1, 'Idgham Shafawi', 'Labial Merging', 'Merge the Meems with a 2-beat Ghunnah.', 'purple'));
+            processed = processed.replace(new RegExp(`${meemBase}${noHTML}`, 'g'), (match, p1) => wrap(p1, 'Izhar Shafawi', 'Labial Clarity', 'Pronounce the Meem clearly with no extra nasalization.', 'cyan'));
+
+            // --- 5. NUN SAKINAH & TANWEEN RULES ---
+            const nunBase = `(نْ|ن(?![َُِّْ])|[\\u0621-\\u064A\\u0671][َُِّْ]*[ًٌٍۭۢ]+)`;
+            processed = processed.replace(new RegExp(`${nunBase}${lookahead('[تثجدذزسشصضطظفقك]')}${noHTML}`, 'g'), (match, p1) => wrap(p1, 'Ikhfa Haqiqi', 'Concealment', 'Hide the Nun/Tanween and hold a 2-beat nasal Ghunnah.', 'emerald'));
+            processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ينمو]')}${noHTML}`, 'g'), (match, p1) => wrap(p1, 'Idgham Ma’al Ghunnah', 'Merging w/ Nasal', 'Merge into the next letter and hold a 2-beat Ghunnah.', 'orange'));
+            processed = processed.replace(new RegExp(`${nunBase}${lookahead('[لر]')}${noHTML}`, 'g'), (match, p1) => wrap(p1, 'Idgham Bila Ghunnah', 'Merging w/o Nasal', 'Merge completely into Lam or Ra without any nasal sound.', 'teal'));
+            processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ب]')}${noHTML}`, 'g'), (match, p1) => wrap(p1, 'Iqlab', 'Conversion', 'Convert to a hidden Meem with a 2-beat Ghunnah.', 'pink'));
+            processed = processed.replace(new RegExp(`${nunBase}${noHTML}`, 'g'), (match, p1) => wrap(p1, 'Izhar Halqi', 'Clear Pronunciation', 'Pronounce clearly without extra nasalization.', 'blue'));
+
+            // --- 6. QALQALAH (Red) ---
+            processed = processed.replace(/([قطبجد]ْ|[قطبجد]ّ?[ًٌٍَُِۭۢ]?(?=\s|$|<|[ۖ-۩]))(?![^<]*>)/g, (match, p1) => wrap(p1, 'Qalqalah', 'Echoing Letter', 'Bouncing sound upon stopping or Sukoon.', 'red'));
+
+            // Display the result
+            outputDiv.innerHTML = processed;
+            outputDiv.classList.remove('hidden');
+            
+            outputDiv.classList.add('notranslate');
+            outputDiv.setAttribute('translate', 'no');
+        }
         /* ================= QUIZ LOGIC ================= */
         const quizData = [
             {
@@ -2848,77 +3468,110 @@ function filterRules(ruleKeyword, btnElement) {
             document.getElementById('analyzer-default').classList.remove('hidden');
             document.getElementById('analyzer-active').classList.add('hidden');
         } 
+/* ================= RANDOMIZED QUIZ ENGINE ================= */
+        let currentQuizSession = []; // Stores the active 5 randomized questions
+
+        // Fisher-Yates Shuffle Algorithm
+        function shuffleArray(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
         function renderQuiz() {
             formEl.innerHTML = '';
-            quizData.forEach((q, qIndex) => {
+            currentQuizSession = [];
+            
+            // 1. Shuffle all questions and pick the first 5
+            let shuffledQuestions = shuffleArray([...quizData]).slice(0, 5);
+
+            shuffledQuestions.forEach((q, qIndex) => {
+                // 2. Map options to remember which one was the correct answer
+                let mappedOptions = q.options.map((opt, index) => ({ text: opt, isCorrect: index === q.answer }));
+                
+                // 3. Shuffle the options
+                shuffleArray(mappedOptions);
+                
+                // 4. Find the new index of the correct answer
+                let newAnswerIndex = mappedOptions.findIndex(o => o.isCorrect);
+                
+                // 5. Save to the active session
+                let sessionQuestion = { ...q, options: mappedOptions.map(o => o.text), answer: newAnswerIndex };
+                currentQuizSession.push(sessionQuestion);
+
+                // --- BUILD UI ---
                 const qBlock = document.createElement('div');
                 qBlock.className = 'mb-8 question-block';
-                qBlock.dataset.id = q.id;
- 
+                qBlock.dataset.id = sessionQuestion.id;
+
                 const qTitle = document.createElement('h3');
                 qTitle.className = 'text-lg font-semibold text-gray-800 dark:text-white mb-4 flex flex-col sm:flex-row sm:items-center gap-3 transition-colors';
                 
-                let titleHtml = `<span><span class="text-brand-500 mr-2">${qIndex + 1}.</span> ${q.question}</span>`;
+                let titleHtml = `<span><span class="text-brand-500 mr-2">${qIndex + 1}.</span> ${sessionQuestion.question}</span>`;
                 
-                if (q.audioVerse) {
-                    titleHtml += `<button type="button" onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/${q.audioVerse}.mp3')" class="play-btn inline-flex items-center justify-center w-10 h-10 bg-brand-500 text-white rounded-full shadow-md hover:bg-brand-600 focus:outline-none flex-shrink-0" title="Listen to audio cue"><svg class="w-5 h-5 ml-1 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>`;
+                if (sessionQuestion.audioVerse) {
+                    titleHtml += `<button type="button" onclick="playAudio(this, 'https://everyayah.com/data/Alafasy_128kbps/${sessionQuestion.audioVerse}.mp3')" class="play-btn inline-flex items-center justify-center w-10 h-10 bg-brand-500 text-white rounded-full shadow-md hover:bg-brand-600 focus:outline-none flex-shrink-0" title="Listen to audio cue"><svg class="w-5 h-5 ml-1 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg></button>`;
                 }
                 
                 qTitle.innerHTML = titleHtml;
                 qBlock.appendChild(qTitle);
- 
+
                 const optionsWrapper = document.createElement('div');
                 optionsWrapper.className = 'space-y-3';
- 
-                q.options.forEach((opt, optIndex) => {
+
+                sessionQuestion.options.forEach((opt, optIndex) => {
                     const label = document.createElement('label');
                     label.className = 'flex items-center p-3 rounded border border-gray-200 dark:border-slate-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors duration-200 option-label';
                     
                     const input = document.createElement('input');
                     input.type = 'radio';
-                    input.name = `q${q.id}`;
+                    input.name = `q${sessionQuestion.id}`;
                     input.value = optIndex;
                     input.className = 'mr-3';
                     input.required = true;
- 
+
                     const span = document.createElement('span');
                     span.className = 'text-gray-700 dark:text-gray-300 font-medium transition-colors';
                     span.innerText = opt;
- 
+
                     label.appendChild(input);
                     label.appendChild(span);
                     optionsWrapper.appendChild(label);
                 });
- 
+
                 qBlock.appendChild(optionsWrapper);
                 
                 const feedback = document.createElement('p');
                 feedback.className = 'mt-3 text-sm hidden font-semibold feedback-text';
                 qBlock.appendChild(feedback);
- 
+
                 formEl.appendChild(qBlock);
             });
- 
+
             const submitBtn = document.createElement('button');
             submitBtn.type = 'submit';
             submitBtn.className = 'w-full md:w-auto bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-8 rounded-lg shadow-md transition-colors';
             submitBtn.innerText = 'Submit Answers';
             formEl.appendChild(submitBtn);
         }
- 
+
         function submitQuiz(e) {
             e.preventDefault();
             const formData = new FormData(formEl);
             let score = 0;
- 
-            quizData.forEach((q) => {
+
+            currentQuizSession.forEach((q) => {
                 const selectedVal = parseInt(formData.get(`q${q.id}`));
                 const qBlock = document.querySelector(`.question-block[data-id="${q.id}"]`);
                 const labels = qBlock.querySelectorAll('.option-label');
                 const feedback = qBlock.querySelector('.feedback-text');
                 
                 qBlock.querySelectorAll('input').forEach(i => i.disabled = true);
- 
+
                 labels.forEach((lbl, idx) => {
                     lbl.classList.remove('hover:bg-gray-50', 'dark:hover:bg-slate-700/50');
                     if(idx === q.answer) {
@@ -2929,7 +3582,7 @@ function filterRules(ruleKeyword, btnElement) {
                         lbl.querySelector('span').classList.add('text-red-800', 'dark:text-red-400', 'line-through');
                     }
                 });
- 
+
                 feedback.classList.remove('hidden');
                 if(selectedVal === q.answer) {
                     score++;
@@ -2940,12 +3593,12 @@ function filterRules(ruleKeyword, btnElement) {
                     feedback.classList.add('text-red-600', 'dark:text-red-400');
                 }
             });
- 
+
             formEl.querySelector('button[type="submit"]').style.display = 'none';
             const resultsDiv = document.getElementById('quiz-results');
             resultsDiv.classList.remove('hidden');
             
-            const percentage = (score / quizData.length) * 100;
+            const percentage = (score / currentQuizSession.length) * 100;
             const titleEl = document.getElementById('score-title');
             
             if(percentage === 100) {
@@ -2959,11 +3612,12 @@ function filterRules(ruleKeyword, btnElement) {
                 resultsDiv.className = "mt-8 p-6 rounded-xl text-center bg-gray-100 dark:bg-slate-700/50 border border-gray-200 dark:border-slate-600 transition-colors";
             }
             
-            document.getElementById('score-text').innerText = `You scored ${score} out of ${quizData.length} (${percentage.toFixed(0)}%).`;
+            document.getElementById('score-text').innerText = `You scored ${score} out of ${currentQuizSession.length} (${percentage.toFixed(0)}%).`;
         }
- 
+
         function resetQuiz() {
             document.getElementById('quiz-results').classList.add('hidden');
+            // Re-rendering automatically pulls 5 new random questions!
             renderQuiz();
         }
  
@@ -2985,49 +3639,74 @@ function filterRules(ruleKeyword, btnElement) {
         /* ================= AUDIO LOGIC ================= */
         let currentAudio = null;
         let currentBtn = null;
- 
-        function playAudio(btn, audioUrl) {
-            const verseMatch = audioUrl.match(/\d{6}/);
-            const verseId = verseMatch ? verseMatch[0] : null;
+/* ================= ARABIC FONT SCALING LOGIC ================= */
+        function updateArabicSize(scale) {
+            // Update the CSS variable globally across the entire app
+            document.documentElement.style.setProperty('--arabic-scale', scale);
+            // Update the display percentage badge (e.g., "120%")
+            document.getElementById('font-size-display').innerText = Math.round(scale * 100) + '%';
+        }
+/* ================= AUDIO SPEED CONTROLLER ================= */
+        let currentPlaybackRate = 1.0;
+
+        function updateAudioSpeed(speed) {
+            currentPlaybackRate = parseFloat(speed);
+            // Update the UI text to show 1.0x, 0.8x, etc.
+            document.getElementById('audio-speed-display').innerText = currentPlaybackRate.toFixed(1) + 'x';
             
-            let finalAudioUrl = audioUrl;
-            if (verseId) {
-                const reciterSelect = document.getElementById('reciter-select');
-                const reciter = reciterSelect ? reciterSelect.value : 'Alafasy_128kbps';
-                finalAudioUrl = `https://everyayah.com/data/${reciter}/${verseId}.mp3`;
+            // If an audio track is ALREADY playing, change its speed immediately!
+            if (activeTajwidAudio) {
+                activeTajwidAudio.playbackRate = currentPlaybackRate;
             }
- 
-            if (currentAudio) {
-                currentAudio.pause();
-                if (currentBtn) {
-                    currentBtn.classList.remove('playing');
-                    currentBtn.innerHTML = getPlayIcon();
-                }
-            }
- 
-            if (currentAudio && currentAudio.src === finalAudioUrl && !currentAudio.paused) {
-                currentAudio = null;
+        }
+/* ================= UPGRADED SMART AUDIO MANAGER (WITH RIPPLES) ================= */
+        let activeTajwidAudio = null;
+        let activeAudioBtn = null;
+
+        window.playAudio = function(btn, url) {
+            // 1. If the user clicks the button that is ALREADY playing, pause it.
+            if (activeTajwidAudio && !activeTajwidAudio.paused && activeAudioBtn === btn) {
+                activeTajwidAudio.pause();
+                btn.classList.remove('audio-playing-ripple', 'is-playing');
                 return;
             }
- 
-            currentAudio = new Audio(finalAudioUrl);
-            currentBtn = btn;
+
+            // 2. If a DIFFERENT audio is playing, stop it and reset its button.
+            if (activeTajwidAudio) {
+                activeTajwidAudio.pause();
+                activeTajwidAudio.currentTime = 0; // Reset track to beginning
+            }
+            if (activeAudioBtn) {
+                activeAudioBtn.classList.remove('audio-playing-ripple', 'is-playing');
+            }
+
+            // --- NEW: DYNAMIC RECITER INJECTION ---
+            // Grab the selected reciter from the dropdown
+            const selectedReciter = document.getElementById('reciter-select').value;
+            // Intercept the URL and replace the hardcoded reciter with the selected one
+            const dynamicUrl = url.replace(/\/data\/([^\/]+)\//, `/data/${selectedReciter}/`);
+            // --------------------------------------
+
+            // 3. Setup the new audio using the dynamicUrl
+            activeTajwidAudio = new Audio(dynamicUrl);
+            activeAudioBtn = btn;
+activeTajwidAudio.playbackRate = currentPlaybackRate; // Apply the selected speed
             
-            btn.innerHTML = getPauseIcon();
-            btn.classList.add('playing');
- 
-            currentAudio.play().catch(e => {
-                alert("Could not play audio. Please check your internet connection.");
-                btn.innerHTML = getPlayIcon();
-                btn.classList.remove('playing');
-            });
- 
-            currentAudio.onended = () => {
-                btn.innerHTML = getPlayIcon();
-                btn.classList.remove('playing');
-                currentAudio = null;
+            // 4. Add the beautiful green ripple animation to the button
+            btn.classList.add('audio-playing-ripple');
+            
+            // 5. Automatically remove the animation when the audio finishes
+            activeTajwidAudio.onended = () => {
+                btn.classList.remove('audio-playing-ripple');
+                activeAudioBtn = null;
             };
-        }
+
+            // 6. Play the audio
+            activeTajwidAudio.play().catch(err => {
+                console.error("Audio playback failed:", err);
+                btn.classList.remove('audio-playing-ripple');
+            });
+        };
  
         function getPlayIcon() {
             return `<svg class="w-5 h-5 ml-1 play-icon" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>`;
@@ -3113,6 +3792,417 @@ function filterRules(ruleKeyword, btnElement) {
                 select.value = lang;
                 select.dispatchEvent(new Event('change'));
             }
+        }
+
+/* ================= DARK MODE TOGGLE LOGIC ================= */
+        // 1. Check local storage or system preference on page load
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            updateThemeUI(true);
+        } else {
+            document.documentElement.classList.remove('dark');
+            updateThemeUI(false);
+        }
+
+        // 2. The function triggered by the button
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeUI(isDark);
+        }
+
+        // 3. Update the button's visual state (move the circle, swap the icon)
+        function updateThemeUI(isDark) {
+            const thumb = document.getElementById('theme-toggle-thumb');
+            const sun = document.getElementById('icon-sun');
+            const moon = document.getElementById('icon-moon');
+            
+            if (thumb && sun && moon) {
+                if (isDark) {
+                    thumb.classList.add('translate-x-7', 'bg-slate-800');
+                    thumb.classList.remove('bg-white');
+                    sun.classList.add('hidden');
+                    moon.classList.remove('hidden');
+                } else {
+                    thumb.classList.remove('translate-x-7', 'bg-slate-800');
+                    thumb.classList.add('bg-white');
+                    sun.classList.remove('hidden');
+                    moon.classList.add('hidden');
+                }
+            }
+        }
+/* ================= TAJWID COLORS TOGGLE LOGIC ================= */
+        function toggleTajwidColors() {
+            const body = document.body;
+            // Toggle the CSS class that strips the colors
+            const isHidden = body.classList.toggle('hide-tajwid-colors');
+            
+            const track = document.getElementById('color-toggle');
+            const thumb = document.getElementById('color-toggle-thumb');
+            
+            // Animate the switch
+            if (isHidden) {
+                thumb.classList.remove('translate-x-6');
+                track.classList.remove('bg-emerald-500');
+                track.classList.add('bg-gray-300', 'dark:bg-slate-600');
+            } else {
+                thumb.classList.add('translate-x-6');
+                track.classList.remove('bg-gray-300', 'dark:bg-slate-600');
+                track.classList.add('bg-emerald-500');
+            }
+        }
+/* ================= SPACED REPETITION LOGIC ================= */
+        function reviewCard(btnElement, status) {
+            // Find the main container of the flashcard that was clicked
+            const cardContainer = btnElement.closest('.flashcard-container');
+            
+            if (status === 'mastered') {
+                // 1. Flip it back to the front
+                cardContainer.classList.remove('flipped');
+                
+                // 2. Wait for flip to finish, then fade it out and send to bottom
+                setTimeout(() => {
+                    cardContainer.classList.add('card-mastered');
+                    // In CSS Grid, changing 'order' to 99 moves it to the end!
+                }, 400); 
+                
+            } else if (status === 'practice') {
+                // 1. Flip it back so they can try again
+                cardContainer.classList.remove('flipped');
+                
+                // 2. Wait for flip to finish, give it a "shake" and a red border
+                setTimeout(() => {
+                    cardContainer.classList.add('card-practice');
+                    
+                    // 3. Remove the red styling after 1.5s so they can try again fresh
+                    setTimeout(() => cardContainer.classList.remove('card-practice'), 1500);
+                }, 400);
+            }
+        }
+/* ================= QUICK SEARCH LOGIC ================= */
+        function filterFlashcards() {
+            const query = document.getElementById('flashcard-search').value.toLowerCase();
+            const cards = document.querySelectorAll('.flashcard-container');
+            
+            cards.forEach(card => {
+                // Get all text inside the card (title, description, rule)
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Reset keyboard focus if the layout changes
+            currentFocusIndex = -1;
+            updateFocusUI();
+        }
+
+        /* ================= KEYBOARD NAVIGATION ================= */
+        let currentFocusIndex = -1;
+
+        document.addEventListener('keydown', (e) => {
+            // Check if we are currently looking at the quiz tab
+            const quizSection = document.getElementById('quiz');
+            if (!quizSection || quizSection.classList.contains('hidden')) return;
+
+            // Get only cards that are visible AND haven't been marked as 'Got it!' yet
+            const visibleCards = Array.from(document.querySelectorAll('.flashcard-container')).filter(card => card.style.display !== 'none' && !card.classList.contains('card-mastered'));
+
+            if (visibleCards.length === 0) return;
+
+            if (e.key === 'ArrowRight') {
+                e.preventDefault(); // Stop page from scrolling
+                currentFocusIndex = (currentFocusIndex + 1) % visibleCards.length;
+                updateFocusUI(visibleCards);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault(); // Stop page from scrolling
+                currentFocusIndex = (currentFocusIndex - 1 + visibleCards.length) % visibleCards.length;
+                updateFocusUI(visibleCards);
+            } else if (e.key === ' ' || e.key === 'Enter') {
+                // Press Spacebar or Enter to flip the focused card!
+                if (currentFocusIndex >= 0 && currentFocusIndex < visibleCards.length) {
+                    e.preventDefault(); 
+                    visibleCards[currentFocusIndex].click();
+                }
+            }
+        });
+
+        function updateFocusUI(visibleCards) {
+            // Remove the glowing ring from all cards
+            document.querySelectorAll('.flashcard-container').forEach(card => {
+                card.classList.remove('card-keyboard-focus');
+            });
+            
+            // Add the glowing ring to the currently selected card
+            if (currentFocusIndex >= 0 && visibleCards[currentFocusIndex]) {
+                const targetCard = visibleCards[currentFocusIndex];
+                targetCard.classList.add('card-keyboard-focus');
+                
+                // Automatically scroll down so the card is always in view!
+                targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+/* ================= SELF-CHECK VOICE RECORDER (UPGRADED) ================= */
+        let mediaRecorder;
+        let audioChunks = [];
+        let userAudioPlayer = new Audio();
+
+        // This automatically injects Mic buttons AND the Arabic text prompt!
+        function setupVoiceRecorders() {
+            document.querySelectorAll('.flashcard-container').forEach(card => {
+                const back = card.querySelector('.flashcard-back');
+                const frontArabic = card.querySelector('.font-arabic');
+                const playBtn = back.querySelector('button[onclick*="playAudio"]');
+                
+                if (playBtn && !playBtn.classList.contains('has-mic')) {
+                    playBtn.classList.add('has-mic');
+                    
+                    // Inject the Arabic phrase onto the back so they can read it
+                    if (frontArabic) {
+                        const arabicPrompt = document.createElement('div');
+                        arabicPrompt.className = 'font-arabic text-2xl mb-3 text-white drop-shadow-md bg-black/20 px-4 py-2 rounded-xl border border-white/20 w-full text-center';
+                        arabicPrompt.dir = 'rtl';
+                        arabicPrompt.innerHTML = frontArabic.innerHTML; 
+                        playBtn.parentNode.insertBefore(arabicPrompt, playBtn);
+                    }
+
+                    // Create a flex container for our buttons
+                    const container = document.createElement('div');
+                    container.className = 'flex gap-3 justify-center items-center mt-2 mb-2 w-full';
+                    container.onclick = (e) => e.stopPropagation();
+                    
+                    playBtn.parentNode.insertBefore(container, playBtn);
+                    
+                    // 1. Original Shaykh Play Button
+                    container.appendChild(playBtn);
+
+                    // 2. NEW: User Play Button (Hidden until they record something)
+                    const userPlayBtn = document.createElement('button');
+                    userPlayBtn.className = 'hidden w-10 h-10 bg-amber-500 hover:bg-amber-600 text-white rounded-full items-center justify-center transition-all shadow-md focus:outline-none';
+                    userPlayBtn.title = "Play your recording";
+                    userPlayBtn.innerHTML = '<svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>';
+                    
+                    userPlayBtn.onclick = function(e) {
+                        e.stopPropagation();
+                        if (this.userAudioURL) {
+                            userAudioPlayer.src = this.userAudioURL;
+                            userAudioPlayer.play();
+                            this.classList.add('audio-playing-ripple');
+                            userAudioPlayer.onended = () => this.classList.remove('audio-playing-ripple');
+                        }
+                    };
+                    container.appendChild(userPlayBtn);
+                    
+                    // 3. The Microphone Button (Always visible)
+                    const micBtn = document.createElement('button');
+                    micBtn.className = 'w-10 h-10 bg-slate-700/30 hover:bg-red-500 text-white rounded-full flex items-center justify-center transition-all shadow-md focus:outline-none';
+                    micBtn.title = "Record Self-Check";
+                    micBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>';
+                    
+                    micBtn.onclick = function(e) {
+                        e.stopPropagation();
+                        // Pass both buttons into the logic
+                        toggleRecording(this, userPlayBtn);
+                    };
+                    container.appendChild(micBtn);
+                }
+            });
+        }
+
+        // KEEP THIS! It triggers the function half a second after page loads
+        setTimeout(setupVoiceRecorders, 500);
+
+        async function toggleRecording(micBtn, userPlayBtn) {
+            // STATE 1: Stop Recording & Save
+            if (mediaRecorder && mediaRecorder.state === "recording") {
+                mediaRecorder.stop();
+                micBtn.classList.remove('recording-pulse');
+                // Revert mic icon back to normal mic so they can click to re-record
+                micBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>'; 
+                micBtn.title = "Re-record";
+                return; // The actual saving happens in the onstop callback below
+            }
+
+            // STATE 2: Start Recording (Overwrites old recording automatically!)
+            try {
+                // Hide the gold play button while they are recording a new track
+                userPlayBtn.classList.replace('flex', 'hidden');
+
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+
+                mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    // Set the audio file to the gold Play Button
+                    userPlayBtn.userAudioURL = URL.createObjectURL(audioBlob); 
+                    // Make the gold Play Button visible!
+                    userPlayBtn.classList.replace('hidden', 'flex');
+                    
+                    stream.getTracks().forEach(track => track.stop());
+                };
+
+                mediaRecorder.start();
+                micBtn.classList.add('recording-pulse');
+                // Change icon to a Stop square
+                micBtn.innerHTML = '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><rect x="6" y="6" width="8" height="8" rx="1"></rect></svg>'; 
+                micBtn.title = "Stop Recording";
+
+            } catch (err) {
+                alert("Please allow microphone access in your browser to use the self-check feature!");
+                console.error(err);
+            }
+        }
+/* ================= RESET FLASHCARDS LOGIC ================= */
+        function resetFlashcards() {
+            // Get all flashcards and remove the "Got it!" and "Practice" styles
+            document.querySelectorAll('.flashcard-container').forEach(card => {
+                card.classList.remove('card-mastered', 'card-practice', 'flipped');
+                card.style.display = 'block'; // Make sure they aren't hidden by search
+            });
+            
+            // Clear the search bar
+            const searchInput = document.getElementById('flashcard-search');
+            if (searchInput) searchInput.value = '';
+            
+            // Re-run search logic to make sure everything is visible
+            filterFlashcards();
+        }
+/* ================= DYNAMIC MASTERY & PROGRESS SYSTEM ================= */
+        function initGlobalMastery() {
+            // 1. Find all tabs dynamically (fixes the 80% math bug!)
+            const allTabs = document.querySelectorAll('section.tab-content');
+            
+            allTabs.forEach(tab => {
+                const tabId = tab.id;
+                
+                // Clean up any old, hardcoded mastery buttons to prevent duplicates
+                const oldButtons = tab.querySelectorAll('button[onclick*="toggleMastery"]');
+                oldButtons.forEach(btn => btn.closest('div').remove());
+
+                // Check browser storage to see if this specific tab is already mastered
+                const isMastered = localStorage.getItem('tajwid_mastered_' + tabId) === 'true';
+
+                // Create the universal button automatically
+                const btnContainer = document.createElement('div');
+                btnContainer.className = 'mt-12 pt-6 border-t border-gray-200 dark:border-slate-700 flex justify-center pb-8';
+                
+                btnContainer.innerHTML = `
+                    <button onclick="toggleGlobalMastery('${tabId}', this)" class="mastery-btn group relative px-8 py-3 font-bold text-white rounded-full overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 ${isMastered ? 'bg-emerald-500 focus:ring-emerald-400' : 'bg-gray-400 dark:bg-slate-600 hover:bg-emerald-500 focus:ring-gray-400'}">
+                        <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+                        <span class="relative flex items-center gap-2">
+                            <svg class="w-5 h-5 mastery-icon transition-opacity ${isMastered ? 'opacity-100' : 'opacity-50 group-hover:opacity-100'}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span class="mastery-text">${isMastered ? 'Mastered!' : 'Mark as Mastered'}</span>
+                        </span>
+                    </button>
+                `;
+                
+                // Inject it at the very bottom of the tab content!
+                tab.appendChild(btnContainer);
+            });
+
+            // Run the math fix immediately
+            recalculateProgress();
+        }
+
+        window.toggleGlobalMastery = function(tabId, btn) {
+            // Toggle the state in storage
+            const currentState = localStorage.getItem('tajwid_mastered_' + tabId) === 'true';
+            const newState = !currentState;
+            localStorage.setItem('tajwid_mastered_' + tabId, newState);
+            
+            // Update the button visually
+            const textSpan = btn.querySelector('.mastery-text');
+            const icon = btn.querySelector('.mastery-icon');
+            
+            if (newState) {
+                // Clicked -> Mastered
+                btn.classList.remove('bg-gray-400', 'dark:bg-slate-600');
+                btn.classList.add('bg-emerald-500'); 
+                textSpan.innerText = 'Mastered!';
+                icon.classList.replace('opacity-50', 'opacity-100');
+            } else {
+                // Unclicked -> Not Mastered
+                btn.classList.remove('bg-emerald-500');
+                btn.classList.add('bg-gray-400', 'dark:bg-slate-600');
+                textSpan.innerText = 'Mark as Mastered';
+                icon.classList.replace('opacity-100', 'opacity-50');
+            }
+            
+            // Update the master progress bar
+            recalculateProgress();
+        }
+
+        function recalculateProgress() {
+            const allTabs = document.querySelectorAll('section.tab-content');
+            let masteredCount = 0;
+            
+            allTabs.forEach(tab => {
+                if (localStorage.getItem('tajwid_mastered_' + tab.id) === 'true') {
+                    masteredCount++;
+                }
+                
+                // Add/Remove green checkmark to the sidebar menu links!
+                const navLink = document.querySelector(`a[onclick*="switchTab('${tab.id}')"]`);
+                if (navLink) {
+                    let check = navLink.querySelector('.nav-check');
+                    if (localStorage.getItem('tajwid_mastered_' + tab.id) === 'true') {
+                        if (!check) navLink.innerHTML += `<svg class="nav-check w-4 h-4 text-emerald-500 ml-auto inline-block float-right mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+                    } else if (check) {
+                        check.remove();
+                    }
+                }
+            });
+            
+            // The Core Math Fix: Dynamically calculates exact percentage
+            const exactPercentage = allTabs.length > 0 ? Math.round((masteredCount / allTabs.length) * 100) : 0;
+            
+            // Update UI Progress text (targets any element with ID like 'progress-text')
+            const progressTexts = document.querySelectorAll('#progress-text, .progress-text, [id*="progressText"]');
+            progressTexts.forEach(txt => txt.innerText = exactPercentage + '%');
+            
+            // Update UI Progress Bar width (targets any element with ID like 'progress-bar')
+            const progressBars = document.querySelectorAll('#progress-bar, .progress-bar, [id*="progressBar"]');
+            progressBars.forEach(bar => bar.style.width = exactPercentage + '%');
+        }
+
+        // Trigger the builder 0.3 seconds after the page loads
+        setTimeout(initGlobalMastery, 300);
+/* ================= MASTERY PROGRESS BAR LOGIC ================= */
+        function recalculateProgress() {
+            const allTabs = document.querySelectorAll('section.tab-content');
+            let masteredCount = 0;
+            
+            allTabs.forEach(tab => {
+                if (localStorage.getItem('tajwid_mastered_' + tab.id) === 'true') {
+                    masteredCount++;
+                }
+                
+                // Add/Remove green checkmark to the sidebar menu links
+                const navLink = document.querySelector(`a[onclick*="switchTab('${tab.id}')"]`);
+                if (navLink) {
+                    let check = navLink.querySelector('.nav-check');
+                    if (localStorage.getItem('tajwid_mastered_' + tab.id) === 'true') {
+                        if (!check) navLink.innerHTML += `<svg class="nav-check w-4 h-4 text-emerald-500 ml-auto inline-block float-right mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+                    } else if (check) {
+                        check.remove();
+                    }
+                }
+            });
+            
+            // The Math
+            const exactPercentage = allTabs.length > 0 ? Math.round((masteredCount / allTabs.length) * 100) : 0;
+            
+            // Update the UI
+            const progressText = document.getElementById('global-progress-text');
+            const progressBar = document.getElementById('global-progress-bar');
+            
+            if (progressText) progressText.innerText = exactPercentage + '%';
+            if (progressBar) progressBar.style.width = exactPercentage + '%';
         }
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
