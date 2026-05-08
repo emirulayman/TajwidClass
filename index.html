@@ -2577,7 +2577,22 @@
         <button id="rumi-toggle-btn" onclick="toggleRumi()" class="text-xs font-bold px-4 py-2 rounded-full bg-slate-800 text-white dark:bg-gray-200 dark:text-slate-800 shadow hover:scale-105 transition-all focus:outline-none">Show Rumi Transliteration</button>
         <button id="trans-toggle-btn" onclick="toggleTranslationLang()" class="text-xs font-bold px-4 py-2 rounded-full bg-brand-500 text-white shadow hover:bg-brand-600 hover:scale-105 transition-all focus:outline-none">Switch to Bahasa Melayu</button>
     </div>
-
+<!-- NEW: Interactive Tajwid Legend -->
+    <div id="tajwid-legend" class="hidden flex-col items-center mb-6 px-4 py-4 bg-slate-100 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Filter by Tajwid Rule</span>
+        <div class="flex flex-wrap justify-center gap-2">
+            <button onclick="filterTajwid('Madd')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-violet-500 text-violet-600 dark:text-violet-400 hover:bg-violet-500 hover:text-white transition-all focus:outline-none">Madd (Stretch)</button>
+            <button onclick="filterTajwid('Ghunnah')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-amber-500 text-amber-600 dark:text-amber-400 hover:bg-amber-500 hover:text-white transition-all focus:outline-none">Ghunnah (Nasal)</button>
+            <button onclick="filterTajwid('Ikhfa')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-500 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white transition-all focus:outline-none">Ikhfa (Hide)</button>
+            <button onclick="filterTajwid('Idgham')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-500 hover:text-white transition-all focus:outline-none">Idgham (Merge)</button>
+            <button onclick="filterTajwid('Qalqalah')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-red-500 text-red-600 dark:text-red-400 hover:bg-red-500 hover:text-white transition-all focus:outline-none">Qalqalah (Echo)</button>
+            <button onclick="filterTajwid('Waqf')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-sky-500 text-sky-600 dark:text-sky-400 hover:bg-sky-500 hover:text-white transition-all focus:outline-none">Waqf (Stops)</button>
+            
+            <div class="w-px h-6 bg-slate-300 dark:bg-slate-600 mx-1"></div> <!-- Divider -->
+            
+            <button onclick="clearTajwidFilter()" class="text-xs font-bold px-3 py-1.5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:opacity-80 transition-all focus:outline-none">Clear Filter</button>
+        </div>
+    </div>
     <div id="custom-ayah-output" class="hidden mt-2 p-6 bg-white dark:bg-slate-800 border border-brand-200 dark:border-slate-600 rounded-xl shadow-sm text-center font-arabic text-3xl md:text-4xl leading-[2.5] text-gray-800 dark:text-white transition-all" dir="rtl"></div>
     
     <!-- Inherits exact same CSS classes from Arabic but applies them to Latin font -->
@@ -3459,25 +3474,63 @@
             const badge = document.getElementById('analyzer-badge');
             badge.className = `text-[10px] font-bold px-2 py-0.5 rounded shadow-sm uppercase tracking-wider text-white inline-block ${colorClass}`;
         }
-/* --- RUMI TRANSLITERATOR ENGINE --- */
-        function basicTransliterate(arText) {
+/* --- ADVANCED PHONETIC RUMI TRANSLITERATOR --- */
+        function basicTransliterate(text) {
+            if (!text) return '';
+            
+            let s = text;
+            
+            // 1. PRE-PROCESS TAJWID SOUNDS (Ikhfa, Idgham, Iqlab)
+            // Iqlab: Nun/Tanween followed by Ba -> m
+            s = s.replace(/([نًٌٍ])([ۖ-۩]*)([ب])/g, 'm$2$3');
+            
+            // Idgham Bighunnah: Nun/Tanween followed by Ya, Nun, Meem, Waw
+            s = s.replace(/([نًٌٍ])([ۖ-۩]*)([ينمو])/g, '$3$2$3'); 
+            
+            // Idgham Bilaghunnah: Nun/Tanween followed by Lam, Ra
+            s = s.replace(/([نًٌٍ])([ۖ-۩]*)([لر])/g, '$3$2$3');
+            
+            // Ikhfa: Nun/Tanween followed by 15 letters -> ng
+            s = s.replace(/([نًٌٍ])([ۖ-۩]*)([تثجدذزسشصضطظفقك])/g, 'ng-$2$3');
+
+            // 2. ARABIC TO RUMI MAPPING (Nusantara / Malay Standard)
             const map = {
-                'ا':'a','ب':'b','ت':'t','ث':'th','ج':'j','ح':'h','خ':'kh',
-                'د':'d','ذ':'dh','ر':'r','ز':'z','س':'s','ش':'sh','ص':'s',
-                'ض':'d','ط':'t','ظ':'z','ع':'`a','غ':'gh','ف':'f','ق':'q',
-                'ك':'k','ل':'l','م':'m','ن':'n','ه':'h','و':'w','ي':'y','ى':'a',
-                'ء':'\'','أ':'a','إ':'i','ؤ':'u','ئ':'\'','آ':'aa',
-                'َ':'a','ِ':'i','ُ':'u','ً':'an','ٍ':'in','ٌ':'un',
-                'ّ':'+', 'ْ':'' // '+' marks a shaddah to double the previous consonant
+                'ا': 'a', 'أ': 'a', 'إ': 'i', 'آ': 'aa', 'ء': "'", 'ئ': "'", 'ؤ': "'",
+                'ب': 'b', 'ت': 't', 'ث': 'th', 'ج': 'j', 'ح': 'h', 'خ': 'kh',
+                'د': 'd', 'ذ': 'dh', 'ر': 'r', 'ز': 'z', 'س': 's', 'ش': 'sy',
+                'ص': 's', 'ض': 'd', 'ط': 't', 'ظ': 'z', 'ع': "'", 'غ': 'gh',
+                'ف': 'f', 'ق': 'q', 'ك': 'k', 'ل': 'l', 'م': 'm', 'ن': 'n',
+                'ه': 'h', 'ة': 't', 'و': 'w', 'ي': 'y', 'ى': 'a',
+                'َ': 'a', 'ِ': 'i', 'ُ': 'u', // Harakat (Short Vowels)
+                'ً': 'an', 'ٍ': 'in', 'ٌ': 'un', // Tanween
+                'ْ': '', // Sukoon (Silent)
+                'ّ': '~' // Temporary Shaddah marker
             };
-            let res = '';
-            for(let i=0; i<arText.length; i++) {
-                let char = arText[i];
-                res += map[char] !== undefined ? map[char] : char;
+
+            let rumi = '';
+            for (let i = 0; i < s.length; i++) {
+                let char = s[i];
+                if (char === 'ّ' && rumi.length > 0) {
+                    // Handle Shaddah: Double the last consonant automatically
+                    let lastChar = rumi.charAt(rumi.length - 1);
+                    if (/[b-df-hj-np-tv-z]/.test(lastChar)) {
+                        rumi += lastChar;
+                    }
+                } else {
+                    rumi += map[char] !== undefined ? map[char] : char;
+                }
             }
-            // Process Shaddah (double the letter before the '+')
-            res = res.replace(/([a-zA-Z])\+/g, '$1$1');
-            return res;
+
+            // 3. POLISH VOWELS & CLEANUP
+            // Format long vowels elegantly (a + Alif, i + Ya, u + Waw)
+            rumi = rumi.replace(/aا/g, 'ā').replace(/iي/g, 'ī').replace(/uو/g, 'ū');
+            rumi = rumi.replace(/aى/g, 'ā'); // Alif Maqsurah
+            rumi = rumi.replace(/aa/g, 'ā').replace(/ii/g, 'ī').replace(/uu/g, 'ū'); 
+            
+            // Strip away any leftover Arabic formatting symbols that didn't translate
+            rumi = rumi.replace(/[\u0600-\u06FF]/g, ''); 
+            
+            return rumi.trim();
         }
 
         function toggleRumi() {
@@ -3617,16 +3670,32 @@
 
                 let processed = wordHTMLs.join(' ');
 
-                // --- RUN THE TAJWID COLORIZER REGEX ---
+// --- 3. RUN THE TAJWID COLORIZER REGEX (ENGINE 2.0) ---
                 const wrap = (text, ruleName, ruleType, desc, color) => {
-                    return `<span class="analyzer-word text-${color}-500 dark:text-${color}-400 font-bold border-b-2 border-${color}-500 px-0.5 transition-colors" onclick="showRule('${ruleName}', '${ruleType}', '${desc}', 'bg-${color}-500')">${text}</span>`;
+                    // NEW: Added data-rule attribute and transition-all so it dims smoothly!
+                    return `<span class="analyzer-word text-${color}-500 dark:text-${color}-400 font-bold border-b-2 border-${color}-500 px-0.5 transition-all duration-300" data-rule="${ruleName}" onclick="showRule('${ruleName}', '${ruleType}', '${desc}', 'bg-${color}-500')">${text}</span>`;
                 };
                 
                 const lookahead = (chars) => `(?=(?:<[^>]+>|\\s|[ۖ-۩])*${chars})`;
                 const noHTML = `(?![^<]*>)`;
 
-                processed = processed.replace(/([\u0621-\u064A\u0671][ٓۤ])(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd', 'Elongation', 'Mandatory stretch.', 'violet'));
+                // 1. Advanced Madd (Elongations)
+                // 4-5 Beat Stretch (Squiggly Tilde)
+                processed = processed.replace(/([\u0621-\u064A\u0671][ٓۤ])(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Far’i', 'Long Elongation', 'Stretch for 4 to 5 beats.', 'violet'));
+                // 2 Beat Stretch (Tiny floating Alif, Waw, Yaa)
+                processed = processed.replace(/([\u0621-\u064A\u0671][ٰۥۦ])(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Asli', 'Natural Elongation', 'Stretch for exactly 2 beats.', 'indigo'));
+                // Pronoun Elongation
                 processed = processed.replace(/([ه][ُِ]?[ۥۦ]ٓ?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Silah', 'Pronoun Elongation', 'Elongate the pronoun.', 'fuchsia'));
+
+                // 2. Waqf (Stopping Signs)
+                processed = processed.replace(/(ۘ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Lazim', 'Mandatory Stop', 'You MUST stop here.', 'red'));
+                processed = processed.replace(/(ۙ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Mamnu’', 'Forbidden Stop', 'Do NOT stop here.', 'red'));
+                processed = processed.replace(/(ۚ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Jaiz', 'Permissible Stop', 'You may stop or continue.', 'emerald'));
+                processed = processed.replace(/(ۖ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Hasan', 'Preferred Continue', 'Permissible stop, but continuing is better.', 'sky'));
+                processed = processed.replace(/(ۗ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Kafi', 'Preferred Stop', 'Permissible continue, but stopping is better.', 'amber'));
+                processed = processed.replace(/(ۛ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Mu’anaqah', 'Embracing Stop', 'Stop at ONE of the two 3-dot markers. Do not stop at both.', 'fuchsia'));
+
+                // 3. Core Tajwid Rules
                 processed = processed.replace(/(ٱللَّه[َُِ]?|اللَّه[َُِ]?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Tafkheem / Tarqeeq', 'The Name of Allah', 'Heavy if preceded by Fathah/Dammah, light if Kasrah.', 'slate'));
                 processed = processed.replace(/([نم][ّ][ًٌٍَُِۭۢ]?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Wajib Al-Ghunnah', 'Mandatory Nasal', 'Strong 2-beat nasal sound.', 'amber'));
                 
@@ -3688,6 +3757,7 @@
                 rumiOutputDiv.innerHTML = tempDiv.innerHTML;
                 rumiOutputDiv.classList.add('flex', 'flex-wrap', 'justify-center', 'items-center');
                 document.getElementById('output-controls').classList.remove('hidden');
+                document.getElementById('tajwid-legend').classList.remove('hidden');
 
                 window.currentAyahTranslations = {
                     en: combinedEnTrans.trim(),
@@ -3729,6 +3799,8 @@
             document.getElementById('custom-translation-output').classList.add('hidden');
             
             document.getElementById('output-controls').classList.add('hidden');
+            document.getElementById('tajwid-legend').classList.add('hidden');
+            clearTajwidFilter();
             
             const transBtn = document.getElementById('trans-toggle-btn');
             if (transBtn) {
@@ -5272,6 +5344,47 @@ let tooltipTimer;
             base = base.replace(/[\u064B-\u065F\u0670\u06E5-\u06ED\u06DF\u06E0\u06D6-\u06E4]/g, '');
             base = base.replace(/[أإآٱ]/g, 'ا');
             return base.trim();
+        }
+/* --- INTERACTIVE TAJWID LEGEND LOGIC --- */
+        let currentTajwidFilter = null;
+
+        function filterTajwid(keyword) {
+            const allWords = document.querySelectorAll('.analyzer-word');
+            
+            // If they click the same button again, turn the filter off
+            if (currentTajwidFilter === keyword) {
+                clearTajwidFilter();
+                return;
+            }
+            
+            currentTajwidFilter = keyword;
+
+            allWords.forEach(word => {
+                const rule = word.getAttribute('data-rule');
+                
+                // If the word has a rule and it contains our keyword (e.g. "Ikhfa" matches "Ikhfa Shafawi")
+                if (rule && rule.includes(keyword)) {
+                    word.style.opacity = '1';
+                    word.style.filter = 'drop-shadow(0px 0px 8px currentColor)'; // Makes the color glow!
+                    word.style.transform = 'scale(1.05)'; // Bumps the text size up slightly
+                } else {
+                    // Dim everything else out
+                    word.style.opacity = '0.2';
+                    word.style.filter = 'grayscale(100%)';
+                    word.style.transform = 'scale(1)';
+                }
+            });
+        }
+
+        function clearTajwidFilter() {
+            currentTajwidFilter = null;
+            const allWords = document.querySelectorAll('.analyzer-word');
+            allWords.forEach(word => {
+                // Reset all styling back to normal
+                word.style.opacity = '1';
+                word.style.filter = 'none';
+                word.style.transform = 'scale(1)';
+            });
         }
     </script>
 <!-- Floating Word-by-Word Tooltip -->
