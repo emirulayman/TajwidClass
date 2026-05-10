@@ -673,6 +673,19 @@
                 </button>
             </div>
 <!-- Navigation Buttons -->
+
+           <button onclick="switchTab('analyzer')" class="nav-btn group relative w-full shrink-0 text-left p-4 rounded-xl font-bold text-white overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:focus:ring-offset-slate-800 flex justify-between items-center" data-target="analyzer">
+                <div class="absolute inset-0 bg-gradient-to-br from-brand-500 to-sky-600 dark:from-brand-600 dark:to-sky-800 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+                
+                <span class="relative z-10 flex items-center gap-3 flex-1 pr-2">
+                    <div class="bg-white/20 p-1.5 rounded-lg shrink-0">
+                        <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <span class="leading-tight text-sm">Tajwid Quran Reader</span>
+                </span>
+                
+                <span class="relative z-10 shrink-0 text-[9px] bg-white/20 px-2.5 py-1 rounded-full uppercase tracking-wider font-extrabold shadow-sm">Try It</span>
+            </button>
             <button onclick="switchTab('intro')" class="nav-btn active w-full text-left px-4 py-3 rounded-lg text-sm font-medium bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 transition-colors whitespace-nowrap md:whitespace-normal" data-target="intro">🕌 Introduction</button>
             
             <button onclick="switchTab('makharij')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="makharij">🗣️ Makharij (Articulation)</button>
@@ -687,9 +700,7 @@
             
             <button onclick="switchTab('advanced')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="advanced">🎓 Advanced (Gharib)</button>
             
-            <button onclick="switchTab('analyzer')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal flex justify-between items-center" data-target="analyzer">
-                <span>🔎 Tajwid Quran Reader</span>
-            </button>
+            
             
             <div class="h-px bg-gray-200 dark:bg-slate-700 my-2 hidden md:block"></div>
             
@@ -2589,34 +2600,32 @@
     <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Paste Arabic text and its translation. The engine will auto-detect Tajwid rules and generate color-coded Rumi.</p>
     
     <!-- Inputs -->
-           <div class="flex flex-col md:flex-row items-center gap-4 mb-4">
+          <div class="flex flex-col gap-4 mb-6">
                 
-                <div class="w-full md:w-2/5 relative">
+                <div class="w-full relative">
                     <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Search Surah</label>
-                    
                     <input type="hidden" id="api-surah" value="">
-                    
                     <div class="relative">
-                        <input type="text" id="surah-search-input" oninput="handleSurahSearch()" onfocus="handleSurahSearch()" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold placeholder-gray-400 transition-colors" placeholder="Type name or number (e.g., 2 or baq)" autocomplete="off">
+                        <input type="text" id="surah-search-input" oninput="handleSurahSearch()" onfocus="handleSurahSearch()" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white py-3 pl-3 pr-10 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold placeholder-gray-400 transition-colors shadow-sm" placeholder="Type name or number (e.g., 2 or Al-Baqarah)" autocomplete="off">
                         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
                     </div>
-
-                    <ul id="surah-autocomplete-list" class="absolute z-50 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-lg shadow-xl max-h-60 overflow-y-auto hidden transition-colors">
-                    </ul>
+                    <ul id="surah-autocomplete-list" class="absolute z-50 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-lg shadow-xl max-h-60 overflow-y-auto hidden transition-colors"></ul>
                 </div>
 
-                <div class="w-full md:w-2/5">
-                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Ayah No.</label>
-                    <input type="text" id="api-ayah" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold" placeholder="e.g., 255 or 2-5">
-                </div>
-                
-                <div class="font-bold text-slate-300 dark:text-slate-600 text-xs hidden md:block mt-4">OR</div>
-                
-                <div class="w-full md:w-1/5 relative">
-                    <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-wider mb-1">Page No.</label>
-                    <input type="number" id="api-page" class="w-full bg-brand-50 dark:bg-brand-900/20 border border-brand-300 dark:border-brand-700 text-brand-800 dark:text-brand-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold" placeholder="(1-604)">
+                <div class="flex flex-col md:flex-row items-center gap-4">
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Ayah No. (Optional)</label>
+                        <input type="text" id="api-ayah" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold shadow-sm" placeholder="e.g., 2-5 (Leave blank for full Surah)">
+                    </div>
+                    
+                    <div class="font-bold text-slate-300 dark:text-slate-600 text-xs hidden md:block mt-4">OR</div>
+                    
+                    <div class="w-full md:w-1/2 relative">
+                        <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-wider mb-1">Page No.</label>
+                        <input type="number" id="api-page" class="w-full bg-brand-50 dark:bg-brand-900/20 border border-brand-300 dark:border-brand-700 text-brand-800 dark:text-brand-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold shadow-sm" placeholder="Quran Page (1-604)">
+                    </div>
                 </div>
 
             </div>
