@@ -496,11 +496,83 @@
             50% { stroke-width: 10; stroke: rgba(255, 255, 255, 0.3); }
             100% { stroke-width: 2; stroke: rgba(255, 255, 255, 0.9); }
         }
-        
+       
+       /* ================= LANDING PAGE ANIMATIONS ================= */
+        .landing-float-1 { animation: float-up-down 6s ease-in-out infinite; }
+        .landing-float-2 { animation: float-up-down 8s ease-in-out infinite reverse; }
+        .landing-float-3 { animation: float-up-down 7s ease-in-out infinite 1s; }
+        @keyframes float-up-down {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        .fade-out-up {
+            animation: fadeOutUp 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            pointer-events: none;
+        }
+        @keyframes fadeOutUp {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-50px); visibility: hidden; }
+        } 
     </style>
 
 </head>
+
+
 <body class="flex flex-col md:flex-row min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300">
+  
+  <div id="landing-page" class="fixed inset-0 z-[100] bg-slate-50 dark:bg-slate-950 flex items-center justify-center overflow-hidden transition-colors duration-500">
+        <div class="absolute top-10 left-10 text-brand-500/10 dark:text-brand-500/5 font-arabic text-9xl landing-float-1 pointer-events-none select-none">ض</div>
+        <div class="absolute bottom-20 right-10 text-sky-500/10 dark:text-sky-500/5 font-arabic text-[12rem] landing-float-2 pointer-events-none select-none">ق</div>
+        <div class="absolute top-1/3 right-1/4 text-rose-500/10 dark:text-rose-500/5 font-arabic text-8xl landing-float-3 pointer-events-none select-none">م</div>
+
+        <div class="max-w-5xl w-full px-6 relative z-10 flex flex-col items-center text-center">
+            <div class="w-24 h-24 bg-gradient-to-br from-brand-400 to-teal-600 rounded-2xl shadow-2xl flex items-center justify-center mb-8 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+                <span class="font-arabic text-5xl text-white font-bold" dir="rtl">تجويد</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-800 dark:text-white mb-6 tracking-tight">
+                Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-teal-600">TajwidMaster</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mb-12 leading-relaxed">
+                A comprehensive, interactive platform designed to perfect your Quranic recitation. Experience the ancient science of Tajwid transformed through a modern, digital lens.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-12 text-left">
+                <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700 p-6 rounded-2xl shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center rounded-xl mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800 dark:text-white mb-2">Digital Mushaf Reader</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">An auto-analyzing Quran reader with intelligent color-coding that detects and explains Tajwid rules instantly.</p>
+                </div>
+                
+                <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700 p-6 rounded-2xl shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 flex items-center justify-center rounded-xl mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800 dark:text-white mb-2">Immersive Audio</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Listen to world-class recitations with a dynamic karaoke-style visualizer, adjustable speeds, and a self-check mic.</p>
+                </div>
+                
+                <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700 p-6 rounded-2xl shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400 flex items-center justify-center rounded-xl mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800 dark:text-white mb-2">Interactive Visualizers</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Explore phonetic anatomy maps, spaced-repetition flashcards, and live phonetic equation builders.</p>
+                </div>
+            </div>
+
+            <button onclick="enterApp()" class="group relative px-10 py-4 bg-slate-900 dark:bg-brand-500 text-white font-bold text-lg rounded-full overflow-hidden shadow-xl hover:shadow-2xl transition-all hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-500/50">
+                <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+                <span class="relative flex items-center gap-3">
+                    Start Learning
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </span>
+            </button>
+        </div>
+    </div>
  
 <!-- Navigation Sidebar -->
     <nav class="w-full md:w-64 bg-white dark:bg-slate-800 shadow-lg md:h-screen md:sticky md:top-0 z-20 flex-shrink-0 flex flex-col border-r border-transparent dark:border-slate-700 transition-colors">
@@ -2518,10 +2590,23 @@
     
     <!-- Inputs -->
            <div class="flex flex-col md:flex-row items-center gap-4 mb-4">
-                <div class="w-full md:w-2/5">
-                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Surah No. (1-114)</label>
-                    <input type="number" id="api-surah" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold" placeholder="e.g., 2">
+                
+                <div class="w-full md:w-2/5 relative">
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Search Surah</label>
+                    
+                    <input type="hidden" id="api-surah" value="">
+                    
+                    <div class="relative">
+                        <input type="text" id="surah-search-input" oninput="handleSurahSearch()" onfocus="handleSurahSearch()" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold placeholder-gray-400 transition-colors" placeholder="Type name or number (e.g., 2 or baq)" autocomplete="off">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                    </div>
+
+                    <ul id="surah-autocomplete-list" class="absolute z-50 w-full mt-1 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 rounded-lg shadow-xl max-h-60 overflow-y-auto hidden transition-colors">
+                    </ul>
                 </div>
+
                 <div class="w-full md:w-2/5">
                     <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Ayah No.</label>
                     <input type="text" id="api-ayah" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold" placeholder="e.g., 255 or 2-5">
@@ -2533,8 +2618,8 @@
                     <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-wider mb-1">Page No.</label>
                     <input type="number" id="api-page" class="w-full bg-brand-50 dark:bg-brand-900/20 border border-brand-300 dark:border-brand-700 text-brand-800 dark:text-brand-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold" placeholder="(1-604)">
                 </div>
-            </div>
 
+            </div>
     <!-- Action Buttons & Recorder -->
     <div class="mt-3 flex flex-col md:flex-row items-center gap-3 w-full">
         <div class="flex w-full md:w-auto gap-2 shrink-0">
@@ -3219,6 +3304,29 @@
     </main>
  
     <script>
+    
+    /* ================= LANDING PAGE LOGIC ================= */
+        function enterApp() {
+            const landingPage = document.getElementById('landing-page');
+            
+            // Trigger the CSS slide-up and fade-out animation
+            landingPage.classList.add('fade-out-up');
+            
+            // Wait for animation to finish, then completely remove it from view
+            setTimeout(() => {
+                landingPage.style.display = 'none';
+            }, 800);
+            
+            // Trigger a quick burst of confetti to celebrate!
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.8 },
+                    colors: ['#14b8a6', '#0ea5e9', '#f43f5e', '#f59e0b']
+                });
+            }
+        }
         /* ================= DARK MODE LOGIC ================= */
         function toggleTheme() {
             const htmlClasses = document.documentElement.classList;
@@ -3480,6 +3588,90 @@
 
             descDiv.innerHTML = desc;
         }
+/* ================= SURAH AUTOCOMPLETE LOGIC ================= */
+        let quranChapters = [];
+
+        // Fetch all 114 chapters silently in the background when the app loads
+        async function fetchChaptersForSearch() {
+            try {
+                const res = await fetch('https://api.quran.com/api/v4/chapters');
+                const data = await res.json();
+                quranChapters = data.chapters;
+            } catch (e) {
+                console.error("Failed to load chapters for autocomplete", e);
+            }
+        }
+        
+        // Execute immediately
+        fetchChaptersForSearch();
+
+        function handleSurahSearch() {
+            const input = document.getElementById('surah-search-input');
+            const list = document.getElementById('surah-autocomplete-list');
+            const query = input.value.toLowerCase().trim();
+            
+            list.innerHTML = ''; // Clear old results
+
+            // Filter logic: matches ID (number), English name, translated name, or Arabic name
+            let filtered = quranChapters;
+            if (query) {
+                filtered = quranChapters.filter(s => 
+                    s.name_simple.toLowerCase().includes(query) || 
+                    s.translated_name.name.toLowerCase().includes(query) ||
+                    s.name_arabic.includes(query) ||
+                    s.id.toString() === query
+                );
+            }
+
+            if (filtered.length === 0) {
+                list.innerHTML = '<li class="p-3 text-sm text-gray-500 dark:text-gray-400">No Surah found matching your search.</li>';
+                list.classList.remove('hidden');
+                return;
+            }
+
+            // Populate the dropdown list
+            filtered.forEach(surah => {
+                const li = document.createElement('li');
+                li.className = "p-3 border-b border-gray-50 dark:border-slate-700/50 hover:bg-brand-50 dark:hover:bg-slate-700 cursor-pointer flex justify-between items-center transition-colors";
+                li.onclick = () => selectSurah(surah.id, surah.name_simple);
+                
+                li.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-8 rounded bg-gray-100 dark:bg-slate-900 flex items-center justify-center text-xs font-bold text-brand-600 dark:text-brand-400 shrink-0">${surah.id}</span>
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-gray-800 dark:text-white">${surah.name_simple}</span>
+                            <span class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wider">${surah.translated_name.name}</span>
+                        </div>
+                    </div>
+                    <span class="font-arabic text-lg text-gray-600 dark:text-gray-300 shrink-0" dir="rtl">${surah.name_arabic}</span>
+                `;
+                list.appendChild(li);
+            });
+            
+            list.classList.remove('hidden');
+        }
+
+        function selectSurah(id, name) {
+            // Set the hidden input for the API fetcher
+            document.getElementById('api-surah').value = id;
+            // Display the beautiful name to the user
+            document.getElementById('surah-search-input').value = `${id}. Surah ${name}`;
+            // Hide the list
+            document.getElementById('surah-autocomplete-list').classList.add('hidden');
+            
+            // Clear the Page input so the API doesn't get confused
+            const pageInput = document.getElementById('api-page');
+            if (pageInput) pageInput.value = '';
+        }
+
+        // Close dropdown when the user clicks anywhere else on the screen
+        document.addEventListener('click', function(e) {
+            const list = document.getElementById('surah-autocomplete-list');
+            const input = document.getElementById('surah-search-input');
+            if (list && !input.contains(e.target) && !list.contains(e.target)) {
+                list.classList.add('hidden');
+            }
+        });
  
         /* ================= SURAH ANALYZER LOGIC ================= */
         function showRule(ruleName, ruleType, description, colorClass) {
@@ -3950,6 +4142,7 @@
 /* --- TOTAL RESET BUTTON FUNCTION --- */
         function clearCustomAyah() {
             document.getElementById('api-surah').value = '';
+            document.getElementById('surah-search-input').value = '';
             document.getElementById('api-ayah').value = '';
             document.getElementById('api-page').value = '';
             
