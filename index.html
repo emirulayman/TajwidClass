@@ -615,7 +615,9 @@
             
             <button onclick="switchTab('advanced')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="advanced">🎓 Advanced (Gharib)</button>
             
-            <button onclick="switchTab('analyzer')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal flex justify-between items-center" data-target="analyzer"><span>🔎 Surah Analyzer</span> <span class="bg-brand-100 dark:bg-brand-900 text-brand-600 dark:text-brand-300 text-[10px] px-1.5 py-0.5 rounded ml-1">NEW</span></button>
+            <button onclick="switchTab('analyzer')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal flex justify-between items-center" data-target="analyzer">
+                <span>🔎 Tajwid Quran Reader</span>
+            </button>
             
             <div class="h-px bg-gray-200 dark:bg-slate-700 my-2 hidden md:block"></div>
             
@@ -2500,21 +2502,12 @@
         <!-- ================= SECTION: SURAH ANALYZER (NEW) ================= -->
         <section id="analyzer" class="tab-content">
             <div class="flex justify-between items-center mb-2">
-                <h2 class="text-3xl font-bold text-gray-800 dark:text-white transition-colors">Surah Analyzer</h2>
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-white transition-colors">Tajwid Quran Reader</h2>
                 <span class="bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm uppercase tracking-wider">Mini-Mushaf</span>
             </div>
             <p class="text-gray-600 dark:text-gray-300 mb-6 transition-colors">Interactive mapping of rules in continuous recitation. Select a Surah and click any highlighted word to reveal the applied Tajwid rule.</p>
 
-            <!-- Surah Selection Dropdown -->
-            <div class="mb-6">
-                <label for="surah-dropdown" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Select Surah to Analyze:</label>
-                <select id="surah-dropdown" onchange="changeSurah(this.value)" class="w-full md:w-1/2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 text-base rounded-lg focus:ring-brand-500 focus:border-brand-500 block p-3 transition-colors cursor-pointer outline-none shadow-sm font-semibold">
-                    <option value="surah-1">Surah Al-Fatihah (1) - The Opener</option>
-                    <option value="surah-112">Surah Al-Ikhlas (112) - The Sincerity</option>
-                    <option value="surah-113">Surah Al-Falaq (113) - The Daybreak</option>
-                    <option value="surah-114">Surah An-Nas (114) - Mankind</option>
-                </select>
-            </div>
+
 <!-- Custom Ayah Auto-Analyzer -->
 <div class="mb-8 bg-gray-50 dark:bg-slate-700/30 p-5 rounded-xl border border-gray-200 dark:border-slate-600 transition-colors shadow-sm">
     <h4 class="text-md font-bold text-gray-800 dark:text-white mb-2 flex items-center gap-2">
@@ -2524,18 +2517,23 @@
     <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">Paste Arabic text and its translation. The engine will auto-detect Tajwid rules and generate color-coded Rumi.</p>
     
     <!-- Inputs -->
-    <div class="flex flex-col md:flex-row gap-3 mb-4">
-        <div class="flex-1 flex gap-3">
-            <div class="w-1/2">
-                <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Surah No. (1-114)</label>
-                <input type="number" id="api-surah" min="1" max="114" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold" placeholder="e.g., 2">
+           <div class="flex flex-col md:flex-row items-center gap-4 mb-4">
+                <div class="w-full md:w-2/5">
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Surah No. (1-114)</label>
+                    <input type="number" id="api-surah" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold" placeholder="e.g., 2">
+                </div>
+                <div class="w-full md:w-2/5">
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Ayah No.</label>
+                    <input type="text" id="api-ayah" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold" placeholder="e.g., 255 or 2-5">
+                </div>
+                
+                <div class="font-bold text-slate-300 dark:text-slate-600 text-xs hidden md:block mt-4">OR</div>
+                
+                <div class="w-full md:w-1/5 relative">
+                    <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-wider mb-1">Page No.</label>
+                    <input type="number" id="api-page" class="w-full bg-brand-50 dark:bg-brand-900/20 border border-brand-300 dark:border-brand-700 text-brand-800 dark:text-brand-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold" placeholder="(1-604)">
+                </div>
             </div>
-            <div class="w-1/2">
-                <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Ayah No.</label>
-                <input type="text" id="api-ayah" min="1" class="w-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold" placeholder="e.g., 255 or 2-5">
-            </div>
-        </div>
-    </div>
 
     <!-- Action Buttons & Recorder -->
     <div class="mt-3 flex flex-col md:flex-row items-center gap-3 w-full">
@@ -2577,6 +2575,19 @@
         <button id="rumi-toggle-btn" onclick="toggleRumi()" class="text-xs font-bold px-4 py-2 rounded-full bg-slate-800 text-white dark:bg-gray-200 dark:text-slate-800 shadow hover:scale-105 transition-all focus:outline-none">Show Rumi Transliteration</button>
         <button id="trans-toggle-btn" onclick="toggleTranslationLang()" class="text-xs font-bold px-4 py-2 rounded-full bg-brand-500 text-white shadow hover:bg-brand-600 hover:scale-105 transition-all focus:outline-none">Switch to Bahasa Melayu</button>
     </div>
+    <div id="pagination-controls" class="hidden flex items-center justify-center gap-6 mt-4 mb-8">
+        <button id="prev-page-btn" onclick="changePage(-1)" class="px-5 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-white rounded-full text-sm font-bold transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2">
+            <span>←</span> Previous Page
+        </button>
+        <div class="flex items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400 tracking-wider">
+            <span>Page</span>
+            <input type="number" id="page-jump-input" onchange="jumpToPage()" class="w-16 text-center bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md py-1 px-1 focus:ring-2 focus:ring-brand-500 outline-none" min="1">
+            <span id="total-pages-indicator">of ?</span>
+        </div>
+        <button id="next-page-btn" onclick="changePage(1)" class="px-5 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-full text-sm font-bold shadow-md hover:scale-105 transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2">
+            Next Page <span>→</span>
+        </button>
+    </div>
 <!-- NEW: Interactive Tajwid Legend -->
     <div id="tajwid-legend" class="hidden flex-col items-center mb-6 px-4 py-4 bg-slate-100 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Filter by Tajwid Rule</span>
@@ -2600,6 +2611,17 @@
 
     <div id="custom-translation-output" class="hidden mt-4 p-4 bg-brand-50 dark:bg-brand-900/20 border-l-4 border-brand-500 rounded-r-lg text-left text-gray-700 dark:text-gray-300 text-sm italic shadow-sm leading-relaxed"></div>
 </div>
+
+            <!-- Surah Selection Dropdown -->
+            <div class="mb-6">
+                <label for="surah-dropdown" class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Select Surah to Analyze:</label>
+                <select id="surah-dropdown" onchange="changeSurah(this.value)" class="w-full md:w-1/2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 text-gray-700 dark:text-gray-200 text-base rounded-lg focus:ring-brand-500 focus:border-brand-500 block p-3 transition-colors cursor-pointer outline-none shadow-sm font-semibold">
+                    <option value="surah-1">Surah Al-Fatihah (1) - The Opener</option>
+                    <option value="surah-112">Surah Al-Ikhlas (112) - The Sincerity</option>
+                    <option value="surah-113">Surah Al-Falaq (113) - The Daybreak</option>
+                    <option value="surah-114">Surah An-Nas (114) - Mankind</option>
+                </select>
+            </div>
 <!-- Filter Toggles -->
             <div class="mb-6 flex flex-wrap gap-2 justify-center border-t border-b border-gray-100 dark:border-slate-700 py-4 transition-colors">
                 <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mr-2 self-center">Highlight:</span>
@@ -3571,71 +3593,211 @@
                 btn.classList.replace('hover:bg-emerald-600', 'hover:bg-brand-600');
             }
         }
-/* --- QURAN.COM API FETCHER (MULTI-AYAH & AUDIO SUPPORT) --- */
-        async function fetchQuranAPI() {
-            const surah = document.getElementById('api-surah').value;
-            const ayahInput = document.getElementById('api-ayah').value.trim();
+/* --- GLOBAL PAGINATION STATE --- */
+        window.quranPagination = {
+            surah: 1,
+            startAyah: 1,
+            endAyah: 1,
+            currentPage: 1,
+            totalPages: 1,
+            perPage: 10 // Loads 10 Ayahs per page to keep the app lightning fast
+        };
+
+        function changePage(direction) {
+            const p = window.quranPagination;
+            const newPage = p.currentPage + direction;
+            if (newPage >= 1 && newPage <= p.totalPages) {
+                p.currentPage = newPage;
+                
+                // Stop any audio from the previous page before flipping
+                if (typeof wordAudioPlayer !== 'undefined') wordAudioPlayer.pause();
+                if (typeof fullAyahPlayer !== 'undefined') fullAyahPlayer.pause();
+                isSequencePlaying = false;
+                isFullPlaying = false;
+                
+                fetchQuranAPI(true); // Fetch the new page!
+            }
+        }
+/* --- JUMP DIRECTLY TO A PAGE --- */
+        function jumpToPage() {
+            const input = document.getElementById('page-jump-input');
+            const p = window.quranPagination;
+            let targetPage = parseInt(input.value);
+
+            // Safety Check: If they type letters, negative numbers, or numbers too high
+            if (isNaN(targetPage) || targetPage < 1) {
+                targetPage = 1;
+            } else if (targetPage > p.totalPages) {
+                targetPage = p.totalPages;
+            }
+
+            // If it's a new page, stop audio and fetch it!
+            if (targetPage !== p.currentPage) {
+                p.currentPage = targetPage;
+                
+                if (typeof wordAudioPlayer !== 'undefined') wordAudioPlayer.pause();
+                if (typeof fullAyahPlayer !== 'undefined') fullAyahPlayer.pause();
+                isSequencePlaying = false;
+                isFullPlaying = false;
+                
+                fetchQuranAPI(true);
+            } else {
+                // If they typed the page they are already on, just reset the box
+                input.value = p.currentPage;
+            }
+        }
+/* --- QURAN.COM API FETCHER (SMART SEARCH ENGINE) --- */
+        async function fetchQuranAPI(isPageChange = false) {
             const btn = document.getElementById('fetch-api-btn');
             
-            if (!surah || !ayahInput) {
-                alert("Please enter both a Surah and Ayah number.");
-                return;
+            // 1. INITIAL SETUP
+            if (!isPageChange) {
+                const surah = document.getElementById('api-surah').value.trim();
+                const ayahInput = document.getElementById('api-ayah').value.trim();
+                const pageInput = document.getElementById('api-page') ? document.getElementById('api-page').value.trim() : "";
+                const pageNum = parseInt(pageInput);
+
+                // MODE A: SURAH / AYAH MODE (Prioritized if Surah is filled)
+                if (surah) {
+                    // Auto-clear the page box so it doesn't confuse the app or the user
+                    if (document.getElementById('api-page')) document.getElementById('api-page').value = '';
+
+                    let startAyah = 1;
+                    let endAyah = 1;
+
+                    if (!ayahInput) {
+                        btn.innerText = "Checking Surah length...";
+                        try {
+                            const infoRes = await fetch(`https://api.quran.com/api/v4/chapters/${surah}`);
+                            const infoData = await infoRes.json();
+                            startAyah = 1;
+                            endAyah = infoData.chapter.verses_count;
+                        } catch (e) {
+                            alert("Error connecting to Quran.com.");
+                            btn.innerText = "Fetch via API";
+                            return;
+                        }
+                    } else if (ayahInput.includes('-')) {
+                        const parts = ayahInput.split('-');
+                        startAyah = parseInt(parts[0]);
+                        endAyah = parseInt(parts[1]);
+                    } else {
+                        startAyah = parseInt(ayahInput);
+                        endAyah = parseInt(ayahInput);
+                    }
+
+                    if (isNaN(startAyah) || isNaN(endAyah) || startAyah > endAyah) {
+                        alert("Invalid format. Use a single number (e.g., 255) or a range (e.g., 2-5).");
+                        btn.innerText = "Fetch via API";
+                        return;
+                    }
+
+                    window.quranPagination = {
+                        isPageMode: false,
+                        surah: surah,
+                        startAyah: startAyah,
+                        endAyah: endAyah,
+                        currentPage: 1,
+                        perPage: 10, // 10 Ayahs per page limit
+                        totalPages: Math.ceil((endAyah - startAyah + 1) / 10)
+                    };
+                } 
+                // MODE B: QURAN PAGE MODE (Triggered if Surah is empty, but Page is valid)
+                else if (pageInput && pageNum > 0) {
+                    if (pageNum > 604) {
+                        alert("Please enter a valid Quran page number between 1 and 604.");
+                        return;
+                    }
+                    
+                    // Clear Surah/Ayah so user isn't confused
+                    document.getElementById('api-surah').value = '';
+                    document.getElementById('api-ayah').value = '';
+                    
+                    window.quranPagination = {
+                        isPageMode: true,
+                        quranPageNum: pageNum,
+                        currentPage: 1,
+                        totalPages: 1 // A physical page acts as a single chunk
+                    };
+                } 
+                // ERROR: Everything is empty or invalid
+                else {
+                    alert("Please enter EITHER a Surah number OR a Page number.");
+                    return;
+                }
             }
 
-            let startAyah, endAyah;
-            if (ayahInput.includes('-')) {
-                const parts = ayahInput.split('-');
-                startAyah = parseInt(parts[0]);
-                endAyah = parseInt(parts[1]);
-            } else {
-                startAyah = parseInt(ayahInput);
-                endAyah = parseInt(ayahInput);
-            }
-
-            if (isNaN(startAyah) || isNaN(endAyah) || startAyah > endAyah) {
-                alert("Invalid format. Use a single number (e.g., 255) or a range (e.g., 2-5).");
-                return;
-            }
-
-            if (endAyah - startAyah > 10) {
-                alert("To keep the app running smoothly, please request a maximum of 10 Ayahs at a time.");
-                return;
-            }
-
-            btn.innerText = "Loading...";
+            // 2. CALCULATE CHUNK FOR THIS SPECIFIC PAGE
+            const p = window.quranPagination;
+            btn.innerText = p.isPageMode ? `Loading Page ${p.quranPageNum}...` : `Loading Page ${p.currentPage}...`;
             btn.disabled = true;
             btn.classList.add('opacity-75');
 
+            // Update Pagination UI
+            const pagControls = document.getElementById('pagination-controls');
+            if (p.totalPages > 1 && !p.isPageMode) {
+                pagControls.classList.remove('hidden');
+                
+                // NEW: Update the interactive input and total text
+                document.getElementById('page-jump-input').value = p.currentPage;
+                document.getElementById('page-jump-input').max = p.totalPages;
+                document.getElementById('total-pages-indicator').innerText = `of ${p.totalPages}`;
+                
+                document.getElementById('prev-page-btn').disabled = (p.currentPage === 1);
+                document.getElementById('next-page-btn').disabled = (p.currentPage === p.totalPages);
+            } else {
+                pagControls.classList.add('hidden');
+            }
+
+            // 3. FETCH THE DATA
             try {
+                let fetchPromises = [];
+                
+                if (p.isPageMode) {
+                    fetchPromises.push(
+                        fetch(`https://api.quran.com/api/v4/verses/by_page/${p.quranPageNum}?words=true&word_fields=text_uthmani,translation,audio_url&translations=20,39&language=en&audio=7`).then(r => r.json())
+                    );
+                } else {
+                    const currentChunkStart = p.startAyah + (p.currentPage - 1) * p.perPage;
+                    const currentChunkEnd = Math.min(currentChunkStart + p.perPage - 1, p.endAyah);
+                    for (let i = currentChunkStart; i <= currentChunkEnd; i++) {
+                        fetchPromises.push(
+                            fetch(`https://api.quran.com/api/v4/verses/by_key/${p.surah}:${i}?words=true&word_fields=text_uthmani,translation,audio_url&translations=20,39&language=en&audio=7`).then(r => r.json())
+                        );
+                    }
+                }
+
+                const results = await Promise.all(fetchPromises);
+                
+                // Normalize data structure: by_key returns {verse}, by_page returns {verses: []}
+                let allVerses = [];
+                results.forEach(data => {
+                    if (data.verse) allVerses.push(data.verse);
+                    if (data.verses) allVerses.push(...data.verses);
+                });
+
+                if (allVerses.length === 0) {
+                    alert("No verses found.");
+                    return;
+                }
+
                 let wordHTMLs = [];
                 let translations = [];
                 let audioUrls = [];
-                let fullAyahAudioUrls = []; // Array to store Mishary's full audio
+                let fullAyahAudioUrls = []; 
                 let rawWords = [];
                 let combinedEnTrans = "";
                 let combinedMsTrans = "";
 
-                let fetchPromises = [];
-                for (let i = startAyah; i <= endAyah; i++) {
-                    // NEW: Added &audio=7 to get Mishary Alafasy's recitation
-                    fetchPromises.push(
-                        fetch(`https://api.quran.com/api/v4/verses/by_key/${surah}:${i}?words=true&word_fields=text_uthmani,translation,audio_url&translations=20,39&language=en&audio=7`).then(r => r.json())
-                    );
-                }
-
-                const results = await Promise.all(fetchPromises);
-
-                results.forEach(data => {
-                    if (!data.verse) return;
+                allVerses.forEach(verse => {
+                    const currentAyahNum = verse.verse_key.split(':')[1];
+                    const currentSurahNum = verse.verse_key.split(':')[0]; // Needed for page display context
                     
-                    const currentAyahNum = data.verse.verse_key.split(':')[1];
-
-                    // Grab full audio URL
-                    if (data.verse.audio && data.verse.audio.url) {
-                        fullAyahAudioUrls.push(data.verse.audio.url);
+                    if (verse.audio && verse.audio.url) {
+                        fullAyahAudioUrls.push(verse.audio.url);
                     }
-
-                    data.verse.words.forEach(wordObj => {
+                    
+                    verse.words.forEach(wordObj => {
                         if (wordObj.char_type_name === "word") {
                             const arabicText = wordObj.text_uthmani;
                             wordHTMLs.push(`<w>${arabicText}</w>`);
@@ -3650,77 +3812,79 @@
                     let singleEn = "Translation unavailable.";
                     let singleMs = "Terjemahan tidak tersedia.";
                     
-                    if (data.verse.translations) {
-                        const msObj = data.verse.translations.find(t => t.resource_id == 39);
+                    if (verse.translations) {
+                        const msObj = verse.translations.find(t => t.resource_id == 39);
                         if (msObj) singleMs = msObj.text.replace(/<[^>]*>?/gm, '');
 
-                        const enObj = data.verse.translations.find(t => t.resource_id == 20);
+                        const enObj = verse.translations.find(t => t.resource_id == 20);
                         if (enObj) {
                             singleEn = enObj.text.replace(/<[^>]*>?/gm, '');
                         } else {
-                            const backupEn = data.verse.translations.find(t => t.resource_id != 39);
+                            const backupEn = verse.translations.find(t => t.resource_id != 39);
                             if (backupEn) singleEn = backupEn.text.replace(/<[^>]*>?/gm, '');
                         }
                     }
 
-                    const prefix = startAyah === endAyah ? "" : `<b class="text-brand-500 mr-1">[${currentAyahNum}]</b>`;
+                    // For Page Mode, prefixing Surah:Ayah is super helpful since a page often bridges two Surahs
+                    const prefix = p.isPageMode ? `<b class="text-brand-500 mr-1">[${currentSurahNum}:${currentAyahNum}]</b>` : 
+                                   (p.startAyah === p.endAyah ? "" : `<b class="text-brand-500 mr-1">[${currentAyahNum}]</b>`);
+                    
                     combinedEnTrans += `${prefix} ${singleEn} <br><br>`;
                     combinedMsTrans += `${prefix} ${singleMs} <br><br>`;
                 });
 
                 let processed = wordHTMLs.join(' ');
 
-// --- 3. RUN THE TAJWID COLORIZER REGEX (ENGINE 2.0) ---
+                // FIX 1: Destroy rogue Uthmani Iqlab meems that the API accidentally injects
+                processed = processed.replace(/ۭ|ۢ/g, '');
+
+                // --- 4. TAJWID ENGINE (v3 - Ultimate Precision) ---
                 const wrap = (text, ruleName, ruleType, desc, color) => {
-                    // NEW: Added data-rule attribute and transition-all so it dims smoothly!
                     return `<span class="analyzer-word text-${color}-500 dark:text-${color}-400 font-bold border-b-2 border-${color}-500 px-0.5 transition-all duration-300" data-rule="${ruleName}" onclick="showRule('${ruleName}', '${ruleType}', '${desc}', 'bg-${color}-500')">${text}</span>`;
                 };
                 
-                const lookahead = (chars) => `(?=(?:<[^>]+>|\\s|[ۖ-۩])*${chars})`;
+                // UPGRADE: Bulletproof lookahead that skips HTML, spaces, Waqf marks, silent Alifs, and invisible API formatting characters
+                const lookahead = (chars) => `(?=(?:<[^>]+>|\\s|[ۖ-۩]|[اىٱأإآ]|\\u200B-\\u200F|\\u202A-\\u202E|\\u2060-\\u2069|\\uFEFF)*${chars})`;
                 const noHTML = `(?![^<]*>)`;
 
-                // 1. Advanced Madd (Elongations)
-                // 4-5 Beat Stretch (Squiggly Tilde)
                 processed = processed.replace(/([\u0621-\u064A\u0671][ٓۤ])(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Far’i', 'Long Elongation', 'Stretch for 4 to 5 beats.', 'violet'));
-                // 2 Beat Stretch (Tiny floating Alif, Waw, Yaa)
                 processed = processed.replace(/([\u0621-\u064A\u0671][ٰۥۦ])(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Asli', 'Natural Elongation', 'Stretch for exactly 2 beats.', 'indigo'));
-                // Pronoun Elongation
                 processed = processed.replace(/([ه][ُِ]?[ۥۦ]ٓ?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Silah', 'Pronoun Elongation', 'Elongate the pronoun.', 'fuchsia'));
-
-                // 2. Waqf (Stopping Signs)
+                
                 processed = processed.replace(/(ۘ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Lazim', 'Mandatory Stop', 'You MUST stop here.', 'red'));
                 processed = processed.replace(/(ۙ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Mamnu’', 'Forbidden Stop', 'Do NOT stop here.', 'red'));
                 processed = processed.replace(/(ۚ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Jaiz', 'Permissible Stop', 'You may stop or continue.', 'emerald'));
                 processed = processed.replace(/(ۖ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Hasan', 'Preferred Continue', 'Permissible stop, but continuing is better.', 'sky'));
                 processed = processed.replace(/(ۗ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Kafi', 'Preferred Stop', 'Permissible continue, but stopping is better.', 'amber'));
                 processed = processed.replace(/(ۛ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Mu’anaqah', 'Embracing Stop', 'Stop at ONE of the two 3-dot markers. Do not stop at both.', 'fuchsia'));
-
-                // 3. Core Tajwid Rules
+                
                 processed = processed.replace(/(ٱللَّه[َُِ]?|اللَّه[َُِ]?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Tafkheem / Tarqeeq', 'The Name of Allah', 'Heavy if preceded by Fathah/Dammah, light if Kasrah.', 'slate'));
                 processed = processed.replace(/([نم][ّ][ًٌٍَُِۭۢ]?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Wajib Al-Ghunnah', 'Mandatory Nasal', 'Strong 2-beat nasal sound.', 'amber'));
                 
+                // MEEM RULES (Made 100% Mutually Exclusive)
                 const meemBase = `(مْ|م(?![َُِّْ]))`;
                 processed = processed.replace(new RegExp(`${meemBase}${lookahead('[ب]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Ikhfa Shafawi', 'Labial Concealment', 'Hide Meem with 2-beat Ghunnah.', 'rose'));
                 processed = processed.replace(new RegExp(`${meemBase}${lookahead('[م]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Idgham Shafawi', 'Labial Merging', 'Merge Meems with 2-beat Ghunnah.', 'purple'));
-                processed = processed.replace(new RegExp(`${meemBase}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Izhar Shafawi', 'Labial Clarity', 'Pronounce Meem clearly.', 'cyan'));
+                processed = processed.replace(new RegExp(`${meemBase}${lookahead('(?![بم])[\\u0621-\\u064A]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Izhar Shafawi', 'Labial Clarity', 'Pronounce Meem clearly.', 'cyan'));
 
+                // NUN & TANWEEN RULES (Made 100% Mutually Exclusive)
                 const nunBase = `(نْ|ن(?![َُِّْ])|[\\u0621-\\u064A\\u0671][َُِّْ]*[ًٌٍۭۢ]+)`;
                 processed = processed.replace(new RegExp(`${nunBase}${lookahead('[تثجدذزسشصضطظفقك]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Ikhfa Haqiqi', 'Concealment', 'Hide Nun with 2-beat Ghunnah.', 'emerald'));
                 processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ينمو]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Idgham Ma’al Ghunnah', 'Merging w/ Nasal', 'Merge and hold 2-beat Ghunnah.', 'orange'));
-                processed = processed.replace(new RegExp(`${nunBase}${lookahead('[لر]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Idgham Bila Ghunnah', 'Merging w/o Nasal', 'Merge completely, NO nasal sound.', 'teal'));
+                processed = processed.replace(new RegExp(`${nunBase}${lookahead('(?:[لر]|لا|لَّا)')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Idgham Bila Ghunnah', 'Merging w/o Nasal', 'Merge completely, NO nasal sound.', 'teal'));
                 processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ب]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Iqlab', 'Conversion', 'Convert to hidden Meem.', 'pink'));
-                processed = processed.replace(new RegExp(`${nunBase}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Izhar Halqi', 'Clear Pronunciation', 'Pronounce clearly.', 'blue'));
+                processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ءأإآهعحغخ]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Izhar Halqi', 'Clear Pronunciation', 'Pronounce clearly.', 'blue'));
+                
+                // FIX: Restrict Qalqalah strictly to explicit Sukoons OR when physically stopping at a Waqf/End of Verse mark
+                processed = processed.replace(/([قطبجد]ْ(?![^<]*>)|[قطبجد]ّ?[ًٌٍَُِۭۢ]?(?=(?:<[^>]+>|\s)*[ۖ-۩﴿]))/g, (m, p1) => wrap(p1, 'Qalqalah', 'Echoing Letter', 'Bouncing sound upon stopping or Sukoon.', 'red'));
 
-                processed = processed.replace(/([قطبجد]ْ|[قطبجد]ّ?[ًٌٍَُِۭۢ]?(?=\s|$|<|[ۖ-۩]))(?![^<]*>)/g, (m, p1) => wrap(p1, 'Qalqalah', 'Echoing Letter', 'Bouncing sound upon stopping or Sukoon.', 'red'));
-
-                // --- INJECT WORD-BY-WORD LAYOUT ---
+                // --- 5. RENDER OUTPUT ---
                 let wordIndex = 0;
                 processed = processed.replace(/<w>(.*?)<\/w>/g, (match, innerColoredText) => {
                     let t = translations[wordIndex];
                     let a = audioUrls[wordIndex];
                     let raw = rawWords[wordIndex];
                     wordIndex++;
-                    
                     return `<div class="inline-flex flex-col items-center justify-end align-top mx-1.5 my-3 group">
                                 <span class="cursor-pointer transition-colors duration-200 rounded px-1 group-hover:bg-slate-200 dark:group-hover:bg-slate-700/60" onmouseenter="showWordTranslation(this)" onmouseleave="hideWordTranslation(this)" onclick="playSingleWord('${a}')" data-word="${raw}" data-en="${t}" data-audio="${a}">
                                     ${innerColoredText}
@@ -3729,9 +3893,8 @@
                             </div>`;
                 });
 
-                // --- OUTPUT DATA ---
                 window.currentAyahAudioSequence = audioUrls;
-                window.currentFullAyahAudioSequence = fullAyahAudioUrls; // Store full audio
+                window.currentFullAyahAudioSequence = fullAyahAudioUrls; 
 
                 const outputDiv = document.getElementById('custom-ayah-output');
                 outputDiv.innerHTML = processed;
@@ -3747,7 +3910,6 @@
                 let node;
                 let textNodes = [];
                 while(node = walker.nextNode()) textNodes.push(node);
-                
                 textNodes.forEach(n => {
                     if(n.nodeValue.trim() !== '' && /[\u0600-\u06FF]/.test(n.nodeValue)) {
                         n.nodeValue = basicTransliterate(n.nodeValue);
@@ -3756,15 +3918,12 @@
                 
                 rumiOutputDiv.innerHTML = tempDiv.innerHTML;
                 rumiOutputDiv.classList.add('flex', 'flex-wrap', 'justify-center', 'items-center');
+                
                 document.getElementById('output-controls').classList.remove('hidden');
-                document.getElementById('tajwid-legend').classList.remove('hidden');
+                const legend = document.getElementById('tajwid-legend');
+                if(legend) legend.classList.remove('hidden');
 
-                window.currentAyahTranslations = {
-                    en: combinedEnTrans.trim(),
-                    ms: combinedMsTrans.trim(),
-                    currentLang: 'en'
-                };
-
+                window.currentAyahTranslations = { en: combinedEnTrans.trim(), ms: combinedMsTrans.trim(), currentLang: 'en' };
                 const transOutput = document.getElementById('custom-translation-output');
                 transOutput.innerHTML = `<strong id="trans-label" class="text-brand-600 dark:text-brand-400 block mb-2">Full Meaning:</strong> <span id="trans-text" class="block space-y-2">${combinedEnTrans.trim()}</span>`;
                 transOutput.classList.remove('hidden');
@@ -3775,8 +3934,12 @@
                     transBtn.className = "text-xs font-bold px-4 py-2 rounded-full bg-brand-500 text-white shadow hover:bg-brand-600 hover:scale-105 transition-all focus:outline-none";
                 }
 
+                if (isPageChange) {
+                    document.getElementById('tajwid-legend').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
             } catch (error) {
-                alert("Error fetching Ayahs. Please check your numbers and internet connection.");
+                alert("Error fetching data. Please check your internet connection.");
                 console.error(error);
             } finally {
                 btn.innerText = "Fetch via API";
@@ -3788,6 +3951,7 @@
         function clearCustomAyah() {
             document.getElementById('api-surah').value = '';
             document.getElementById('api-ayah').value = '';
+            document.getElementById('api-page').value = '';
             
             document.getElementById('custom-ayah-output').innerHTML = '';
             document.getElementById('custom-ayah-output').classList.add('hidden');
