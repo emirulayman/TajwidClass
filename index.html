@@ -513,6 +513,26 @@
             from { opacity: 1; transform: translateY(0); }
             to { opacity: 0; transform: translateY(-50px); visibility: hidden; }
         } 
+        /* ================= QURAN READING MODE ================= */
+        /* When translations are off, hide meanings and tightly pack the Arabic text */
+        .quran-reading-mode .word-translation,
+        .quran-reading-mode .verse-translation {
+            display: none !important;
+        }
+        
+        .quran-reading-mode .word-container {
+            margin-left: 0.15rem !important;
+            margin-right: 0.15rem !important;
+            padding: 0 !important;
+            border: none !important;
+            background: transparent !important;
+        }
+
+        /* Reduces the large gaps between words */
+        .quran-reading-mode .flex-wrap {
+            gap: 0.25rem !important; 
+            row-gap: 1rem !important;
+        }
     </style>
 
 </head>
@@ -2623,33 +2643,47 @@
                     <div class="font-bold text-slate-300 dark:text-slate-600 text-xs hidden md:block mt-4">OR</div>
                     
                     <div class="w-full md:w-1/2 relative">
-                        <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-wider mb-1">Page No.</label>
-                        <input type="number" id="api-page" class="w-full bg-brand-50 dark:bg-brand-900/20 border border-brand-300 dark:border-brand-700 text-brand-800 dark:text-brand-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold shadow-sm" placeholder="Quran Page (1-604)">
+                        <label class="block text-[10px] font-bold text-brand-500 uppercase tracking-wider mb-1">
+                        Page No. <span class="text-gray-400 normal-case tracking-normal ml-1 font-semibold">(Max 10 pages)</span>
+                    </label>
+                    <input type="text" id="api-page" class="w-full bg-brand-50 dark:bg-brand-900/20 border border-brand-300 dark:border-brand-700 text-brand-800 dark:text-brand-300 p-3 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none font-bold shadow-sm" placeholder="e.g., 5 or 5-10" autocomplete="off">
                     </div>
                 </div>
 
             </div>
-    <!-- Action Buttons & Recorder -->
-    <div class="mt-3 flex flex-col md:flex-row items-center gap-3 w-full">
-        <div class="flex w-full md:w-auto gap-2 shrink-0">
-            <button id="fetch-api-btn" onclick="fetchQuranAPI()" class="flex-1 md:flex-none bg-brand-500 hover:bg-brand-600 text-white text-sm font-bold py-2 px-6 rounded-lg shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 dark:focus:ring-offset-slate-800">Fetch via API</button>
-            <button onclick="clearCustomAyah()" class="flex-1 md:flex-none bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 text-gray-700 dark:text-gray-300 text-sm font-bold py-2 px-4 rounded-lg shadow-sm transition-colors focus:outline-none" title="Clear text and recording">
-                <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-            </button>
-        </div>
+<div class="mt-5 flex flex-col md:flex-row items-center justify-between gap-4 w-full bg-white dark:bg-slate-800 p-3 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm transition-colors">
         
-        <div class="hidden md:block w-px h-8 bg-gray-300 dark:bg-slate-600"></div>
+        <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+            
+            <button id="fetch-api-btn" onclick="fetchQuranAPI()" class="w-full md:w-auto bg-brand-500 hover:bg-brand-600 text-white text-base font-bold py-3 px-8 rounded-lg shadow-md transition-all hover:scale-105 focus:outline-none focus:ring-4 focus:ring-brand-400/50 flex items-center justify-center gap-2 shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                Load Verses
+            </button>
+            
+            <div class="hidden md:block w-px h-10 bg-gray-200 dark:bg-slate-700"></div>
 
-        <!-- Self-Check Recorder -->
-        <div class="flex items-center justify-center md:justify-start gap-3 w-full md:w-auto">
-            <span class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Self-Check:</span>
-            <button id="custom-mic-btn" type="button" class="w-10 h-10 bg-slate-700/30 hover:bg-red-500 text-white rounded-full flex items-center justify-center transition-all shadow-md focus:outline-none shrink-0" title="Record your recitation">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
-            </button>
-            <button id="custom-play-btn" type="button" class="hidden w-10 h-10 bg-amber-500 hover:bg-amber-600 text-white rounded-full items-center justify-center transition-all shadow-md focus:outline-none shrink-0" title="Play your recording">
-                <svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
-            </button>
+            <div class="flex items-center gap-3 w-full md:w-auto bg-gray-50 dark:bg-slate-700/40 py-2 px-4 rounded-lg border border-gray-100 dark:border-slate-600 transition-colors">
+                
+                <div class="relative flex shrink-0">
+                    <button id="custom-mic-btn" type="button" class="w-10 h-10 bg-slate-200 dark:bg-slate-600 hover:bg-red-500 hover:text-white text-slate-600 dark:text-slate-300 rounded-full flex items-center justify-center transition-all shadow-sm focus:outline-none z-10" title="Record your recitation">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                    </button>
+                    <button id="custom-play-btn" type="button" class="hidden absolute inset-0 w-10 h-10 bg-amber-500 hover:bg-amber-600 text-white rounded-full items-center justify-center transition-all shadow-sm focus:outline-none z-20" title="Play your recording">
+                        <svg class="w-5 h-5 ml-0.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                    </button>
+                </div>
+                
+                <div class="flex flex-col">
+                    <span class="text-[13px] font-extrabold text-gray-800 dark:text-white leading-tight">Self-Check Tool</span>
+                    <span class="text-[10px] font-medium text-gray-500 dark:text-gray-400">Record your own recitation</span>
+                </div>
+            </div>
         </div>
+
+        <button onclick="clearCustomAyah()" class="w-full md:w-auto bg-rose-50 dark:bg-rose-900/20 border border-rose-200 dark:border-rose-800/60 hover:bg-rose-100 dark:hover:bg-rose-900/40 text-rose-600 dark:text-rose-400 text-sm font-bold py-2.5 px-4 rounded-lg shadow-sm transition-colors focus:outline-none flex items-center justify-center gap-2 shrink-0" title="Clear verses and reset">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            <span class="md:hidden">Clear Everything</span>
+        </button>
     </div>
 
     <canvas id="custom-waveform-canvas" class="waveform-canvas w-full mt-4" width="300" height="40" style="display: none;"></canvas>
@@ -2666,8 +2700,11 @@
             <span id="play-seq-text">Play Word-by-Word</span>
         </button>
         
-        <button id="rumi-toggle-btn" onclick="toggleRumi()" class="text-xs font-bold px-4 py-2 rounded-full bg-slate-800 text-white dark:bg-gray-200 dark:text-slate-800 shadow hover:scale-105 transition-all focus:outline-none">Show Rumi Transliteration</button>
         <button id="trans-toggle-btn" onclick="toggleTranslationLang()" class="text-xs font-bold px-4 py-2 rounded-full bg-brand-500 text-white shadow hover:bg-brand-600 hover:scale-105 transition-all focus:outline-none">Switch to Bahasa Melayu</button>
+        <button id="reading-mode-btn" onclick="toggleExplicitReadingMode()" class="bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 rounded-full transition-colors text-sm shadow-sm flex items-center gap-2 border border-slate-600">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+    <span id="reading-mode-text">Enter Reading Mode</span>
+         </button>
     </div>
     <div id="pagination-controls" class="hidden flex items-center justify-center gap-6 mt-4 mb-8">
         <button id="prev-page-btn" onclick="changePage(-1)" class="px-5 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-white rounded-full text-sm font-bold transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2">
@@ -2686,11 +2723,11 @@
     <div id="tajwid-legend" class="hidden flex-col items-center mb-6 px-4 py-4 bg-slate-100 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Filter by Tajwid Rule</span>
         <div class="flex flex-wrap justify-center gap-2">
-            <button onclick="filterTajwid('Madd')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-violet-500 text-violet-600 dark:text-violet-400 hover:bg-violet-500 hover:text-white transition-all focus:outline-none">Madd (Stretch)</button>
-            <button onclick="filterTajwid('Ghunnah')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-amber-500 text-amber-600 dark:text-amber-400 hover:bg-amber-500 hover:text-white transition-all focus:outline-none">Ghunnah (Nasal)</button>
+            <button onclick="filterTajwid('Madd')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-red-500 text-red-600 dark:text-red-400 hover:bg-red-500 hover:text-white transition-all focus:outline-none">Madd (Stretch)</button>
+            <button onclick="filterTajwid('Ghunnah')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-500 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white transition-all focus:outline-none">Ghunnah (Nasal)</button>
             <button onclick="filterTajwid('Ikhfa')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-500 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white transition-all focus:outline-none">Ikhfa (Hide)</button>
-            <button onclick="filterTajwid('Idgham')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-orange-500 text-orange-600 dark:text-orange-400 hover:bg-orange-500 hover:text-white transition-all focus:outline-none">Idgham (Merge)</button>
-            <button onclick="filterTajwid('Qalqalah')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-red-500 text-red-600 dark:text-red-400 hover:bg-red-500 hover:text-white transition-all focus:outline-none">Qalqalah (Echo)</button>
+            <button onclick="filterTajwid('Idgham')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-emerald-500 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500 hover:text-white transition-all focus:outline-none">Idgham (Merge)</button>
+            <button onclick="filterTajwid('Qalqalah')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-sky-500 text-sky-600 dark:text-sky-400 hover:bg-sky-500 hover:text-white transition-all focus:outline-none">Qalqalah (Echo)</button>
             <button onclick="filterTajwid('Waqf')" class="text-xs font-bold px-3 py-1.5 rounded-full border border-sky-500 text-sky-600 dark:text-sky-400 hover:bg-sky-500 hover:text-white transition-all focus:outline-none">Waqf (Stops)</button>
             
             <div class="w-px h-6 bg-slate-300 dark:bg-slate-600 mx-1"></div> <!-- Divider -->
@@ -2700,15 +2737,13 @@
     </div>
     <div id="custom-ayah-output" class="hidden mt-2 p-6 bg-white dark:bg-slate-800 border border-brand-200 dark:border-slate-600 rounded-xl shadow-sm text-center font-arabic text-3xl md:text-4xl leading-[2.5] text-gray-800 dark:text-white transition-all" dir="rtl"></div>
     
-    <!-- Inherits exact same CSS classes from Arabic but applies them to Latin font -->
-    <div id="custom-rumi-output" class="hidden mt-2 p-6 bg-gray-50 dark:bg-slate-800/80 border border-brand-200 dark:border-slate-600 rounded-xl shadow-inner text-center font-sans text-xl md:text-2xl leading-relaxed text-gray-800 dark:text-white transition-all font-semibold tracking-wide"></div>
 
     <div id="custom-translation-output" class="hidden mt-4 p-4 bg-brand-50 dark:bg-brand-900/20 border-l-4 border-brand-500 rounded-r-lg text-left text-gray-700 dark:text-gray-300 text-sm italic shadow-sm leading-relaxed"></div>
 </div>
 
 
                 <!-- Info Panel (Bottom) -->
-                <div class="bg-gray-50 dark:bg-slate-700/80 border-t border-gray-200 dark:border-slate-600 p-6 min-h-[140px] flex items-center transition-colors">
+                <div class="w-full p-6 min-h-[120px] flex items-center transition-colors bg-transparent">
                     
                     <!-- Default State -->
                     <div id="analyzer-default" class="w-full text-center text-gray-500 dark:text-gray-400 transition-colors">
@@ -3112,7 +3147,7 @@
             </div>
         </section>
          <!-- ================= FOOTER ================= -->
-        <footer class="mt-16 pt-8 pb-4 border-t border-gray-200 dark:border-slate-700 text-center transition-colors w-full">
+        <footer class="mt-8 pt-6 pb-4 border-t border-gray-200 dark:border-slate-700 text-center transition-colors w-full">
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Tajwid Masterclass is based on the transmission of <span class="font-semibold text-brand-600 dark:text-brand-400">Imam Hafs 'an 'Asim</span>.</p>
             <p class="text-xs text-gray-400 dark:text-gray-500">Interactive audio recitations graciously provided by <a href="[https://everyayah.com](https://everyayah.com)" target="_blank" class="hover:text-brand-500 dark:hover:text-brand-400 underline transition-colors">EveryAyah.com</a>.</p>
         </footer>
@@ -3157,24 +3192,38 @@
             }
         }
  
-        /* ================= NAVIGATION LOGIC ================= */
+/* ================= NAVIGATION LOGIC ================= */
+        const scrollMemory = {};
+
         function switchTab(tabId) {
+            // Save current scroll position before hiding
+            const currentActive = document.querySelector('.tab-content.active');
+            if (currentActive) {
+                scrollMemory[currentActive.id] = window.scrollY;
+                currentActive.classList.remove('active');
+            }
+
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(el => {
                 el.classList.remove('active', 'bg-brand-50', 'text-brand-600', 'dark:bg-brand-900/30', 'dark:text-brand-400');
                 el.classList.add('text-gray-600', 'hover:bg-gray-50', 'dark:text-gray-300', 'dark:hover:bg-slate-700/50');
             });
- 
+
             const selectedTab = document.getElementById(tabId);
-            if (selectedTab) selectedTab.classList.add('active');
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+                // Restore position if it exists, otherwise go to top
+                const savedPos = scrollMemory[tabId] || 0;
+                setTimeout(() => {
+                    window.scrollTo({ top: savedPos, behavior: 'instant' });
+                }, 10);
+            }
             
             const activeBtn = document.querySelector(`.nav-btn[data-target="${tabId}"]`);
             if(activeBtn) {
                 activeBtn.classList.add('active', 'bg-brand-50', 'text-brand-600', 'dark:bg-brand-900/30', 'dark:text-brand-400');
                 activeBtn.classList.remove('text-gray-600', 'hover:bg-gray-50', 'dark:text-gray-300', 'dark:hover:bg-slate-700/50');
             }
-// Auto-scroll to top smoothly when switching tabs
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
  
         /* ================= ACCORDION & DIAGRAM LOGIC ================= */
@@ -3278,15 +3327,15 @@
             btnElement.classList.add('selected', 'dark:bg-brand-500');
  
             const rules = {
-                izhar: { letters: ['ء','ه','ع','ح','غ','خ'], name: 'Izhar (Clear)', color: 'blue', desc: 'The Nun is pronounced crisply and clearly with no extended nasalization.' },
-                idghamGhunnah: { letters: ['ي','ن','م','و'], name: 'Idgham w/ Ghunnah', color: 'amber', desc: 'The Nun merges into the next letter with a sustained 2-beat nasal resonance.' },
-                idghamNoGhunnah: { letters: ['ل','ر'], name: 'Idgham w/o Ghunnah', color: 'amber', desc: 'The Nun completely disappears, merging fully into the next letter with NO nasalization.' },
-                iqlab: { letters: ['ب'], name: 'Iqlab (Conversion)', color: 'purple', desc: 'The Nun converts into a hidden Meem (م) with a 2-beat Ghunnah.' }
+                izhar: { letters: ['ء','ه','ع','ح','غ','خ'], name: 'Izhar (Clear)', color: 'slate', desc: 'The Nun is pronounced crisply and clearly with no extended nasalization.' },
+                idghamGhunnah: { letters: ['ي','ن','م','و'], name: 'Idgham w/ Ghunnah', color: 'emerald', desc: 'The Nun merges into the next letter with a sustained 2-beat nasal resonance.' },
+                idghamNoGhunnah: { letters: ['ل','ر'], name: 'Idgham w/o Ghunnah', color: 'gray', desc: 'The Nun completely disappears, merging fully into the next letter with NO nasalization.' },
+                iqlab: { letters: ['ب'], name: 'Iqlab (Conversion)', color: 'emerald', desc: 'The Nun converts into a hidden Meem (م) with a 2-beat Ghunnah.' }
             };
- 
+
             let foundRule = null;
             let ruleKey = 'ikhfa'; 
- 
+
             for (const [key, rule] of Object.entries(rules)) {
                 if (rule.letters.includes(letter)) {
                     foundRule = rule;
@@ -3294,23 +3343,22 @@
                     break;
                 }
             }
- 
+
             if (!foundRule) {
                 foundRule = { name: 'Ikhfa (Concealment)', color: 'emerald', desc: 'The Nun is hidden; the tongue hovers near the next letter sustaining a 2-beat Ghunnah.' };
             }
- 
+
             const eqDiv = document.getElementById('rule-equation');
             const badge = document.getElementById('rule-badge');
             const desc = document.getElementById('rule-description');
- 
+
             eqDiv.classList.remove('rule-pop');
             void eqDiv.offsetWidth; 
             eqDiv.classList.add('rule-pop');
- 
+
             const colorMap = {
-                'blue': { text: 'text-blue-800 dark:text-blue-200', bg: 'bg-blue-100 dark:bg-blue-900/50' },
-                'amber': { text: 'text-amber-800 dark:text-amber-200', bg: 'bg-amber-100 dark:bg-amber-900/50' },
-                'purple': { text: 'text-purple-800 dark:text-purple-200', bg: 'bg-purple-100 dark:bg-purple-900/50' },
+                'slate': { text: 'text-slate-800 dark:text-slate-200', bg: 'bg-slate-200 dark:bg-slate-700/50' },
+                'gray': { text: 'text-gray-500 dark:text-gray-400', bg: 'bg-gray-100 dark:bg-gray-800' },
                 'emerald': { text: 'text-emerald-800 dark:text-emerald-200', bg: 'bg-emerald-100 dark:bg-emerald-900/50' }
             };
  
@@ -3359,23 +3407,22 @@
 
             if (letter === 'ب') {
                 ruleName = 'Ikhfa Shafawi (Concealment)';
-                color = 'purple';
+                color = 'emerald';
                 desc = 'The lips close gently to conceal the Meem, accompanied by a 2-beat nasal Ghunnah.';
-                equationText += `<span class="text-purple-600 dark:text-purple-400">مـ ${letter}</span>`;
+                equationText += `<span class="text-emerald-600 dark:text-emerald-400">مـ ${letter}</span>`;
             } else if (letter === 'م') {
                 ruleName = 'Idgham Shafawi (Merging)';
-                color = 'amber';
+                color = 'emerald';
                 desc = 'The two Meems merge completely into a single Meem with a Shaddah, accompanied by a 2-beat Ghunnah.';
-                equationText += `<span class="text-amber-600 dark:text-amber-400">مّ</span>`;
+                equationText += `<span class="text-emerald-600 dark:text-emerald-400">مّ</span>`;
             } else {
                 ruleName = 'Izhar Shafawi (Clarity)';
-                color = 'blue';
+                color = 'slate';
                 desc = 'The Meem is pronounced crisply and clearly with no extra nasalization.';
-                equationText += `<span class="text-blue-600 dark:text-blue-400">مْ ${letter}</span>`;
+                equationText += `<span class="text-slate-600 dark:text-slate-400">مْ ${letter}</span>`;
                 
                 if (letter === 'و' || letter === 'ف') {
                     desc += '<br><span class="text-red-500 dark:text-red-400 font-bold mt-2 block">⚠️ Extreme care must be taken not to hide the Meem here!</span>';
-                    color = 'emerald';
                 }
             }
 
@@ -3388,9 +3435,7 @@
             eqDiv.classList.add('rule-pop');
 
             const colorMap = {
-                'blue': { text: 'text-blue-800 dark:text-blue-200', bg: 'bg-blue-100 dark:bg-blue-900/50' },
-                'amber': { text: 'text-amber-800 dark:text-amber-200', bg: 'bg-amber-100 dark:bg-amber-900/50' },
-                'purple': { text: 'text-purple-800 dark:text-purple-200', bg: 'bg-purple-100 dark:bg-purple-900/50' },
+                'slate': { text: 'text-slate-800 dark:text-slate-200', bg: 'bg-slate-200 dark:bg-slate-700/50' },
                 'emerald': { text: 'text-emerald-800 dark:text-emerald-200', bg: 'bg-emerald-100 dark:bg-emerald-900/50' }
             };
 
@@ -3504,76 +3549,7 @@
             const badge = document.getElementById('analyzer-badge');
             badge.className = `text-[10px] font-bold px-2 py-0.5 rounded shadow-sm uppercase tracking-wider text-white inline-block ${colorClass}`;
         }
-/* --- ADVANCED PHONETIC RUMI TRANSLITERATOR --- */
-        function basicTransliterate(text) {
-            if (!text) return '';
-            
-            let s = text;
-            
-            // 1. PRE-PROCESS TAJWID SOUNDS (Ikhfa, Idgham, Iqlab)
-            // Iqlab: Nun/Tanween followed by Ba -> m
-            s = s.replace(/([نًٌٍ])([ۖ-۩]*)([ب])/g, 'm$2$3');
-            
-            // Idgham Bighunnah: Nun/Tanween followed by Ya, Nun, Meem, Waw
-            s = s.replace(/([نًٌٍ])([ۖ-۩]*)([ينمو])/g, '$3$2$3'); 
-            
-            // Idgham Bilaghunnah: Nun/Tanween followed by Lam, Ra
-            s = s.replace(/([نًٌٍ])([ۖ-۩]*)([لر])/g, '$3$2$3');
-            
-            // Ikhfa: Nun/Tanween followed by 15 letters -> ng
-            s = s.replace(/([نًٌٍ])([ۖ-۩]*)([تثجدذزسشصضطظفقك])/g, 'ng-$2$3');
 
-            // 2. ARABIC TO RUMI MAPPING (Nusantara / Malay Standard)
-            const map = {
-                'ا': 'a', 'أ': 'a', 'إ': 'i', 'آ': 'aa', 'ء': "'", 'ئ': "'", 'ؤ': "'",
-                'ب': 'b', 'ت': 't', 'ث': 'th', 'ج': 'j', 'ح': 'h', 'خ': 'kh',
-                'د': 'd', 'ذ': 'dh', 'ر': 'r', 'ز': 'z', 'س': 's', 'ش': 'sy',
-                'ص': 's', 'ض': 'd', 'ط': 't', 'ظ': 'z', 'ع': "'", 'غ': 'gh',
-                'ف': 'f', 'ق': 'q', 'ك': 'k', 'ل': 'l', 'م': 'm', 'ن': 'n',
-                'ه': 'h', 'ة': 't', 'و': 'w', 'ي': 'y', 'ى': 'a',
-                'َ': 'a', 'ِ': 'i', 'ُ': 'u', // Harakat (Short Vowels)
-                'ً': 'an', 'ٍ': 'in', 'ٌ': 'un', // Tanween
-                'ْ': '', // Sukoon (Silent)
-                'ّ': '~' // Temporary Shaddah marker
-            };
-
-            let rumi = '';
-            for (let i = 0; i < s.length; i++) {
-                let char = s[i];
-                if (char === 'ّ' && rumi.length > 0) {
-                    // Handle Shaddah: Double the last consonant automatically
-                    let lastChar = rumi.charAt(rumi.length - 1);
-                    if (/[b-df-hj-np-tv-z]/.test(lastChar)) {
-                        rumi += lastChar;
-                    }
-                } else {
-                    rumi += map[char] !== undefined ? map[char] : char;
-                }
-            }
-
-            // 3. POLISH VOWELS & CLEANUP
-            // Format long vowels elegantly (a + Alif, i + Ya, u + Waw)
-            rumi = rumi.replace(/aا/g, 'ā').replace(/iي/g, 'ī').replace(/uو/g, 'ū');
-            rumi = rumi.replace(/aى/g, 'ā'); // Alif Maqsurah
-            rumi = rumi.replace(/aa/g, 'ā').replace(/ii/g, 'ī').replace(/uu/g, 'ū'); 
-            
-            // Strip away any leftover Arabic formatting symbols that didn't translate
-            rumi = rumi.replace(/[\u0600-\u06FF]/g, ''); 
-            
-            return rumi.trim();
-        }
-
-        function toggleRumi() {
-            const rumiDiv = document.getElementById('custom-rumi-output');
-            const btn = document.getElementById('rumi-toggle-btn');
-            if (rumiDiv.classList.contains('hidden')) {
-                rumiDiv.classList.remove('hidden');
-                btn.innerText = "Hide Rumi Transliteration";
-            } else {
-                rumiDiv.classList.add('hidden');
-                btn.innerText = "Show Rumi Transliteration";
-            }
-        }
 /* --- FULL TRANSLATION TOGGLE LOGIC --- */
         function toggleTranslationLang() {
             // Make sure we have fetched translations saved in memory
@@ -3599,6 +3575,51 @@
                 btn.innerText = "Switch to Bahasa Melayu";
                 btn.classList.replace('bg-emerald-500', 'bg-brand-500');
                 btn.classList.replace('hover:bg-emerald-600', 'hover:bg-brand-600');
+            }
+        }
+        
+/* ================= TOGGLE TRANSLATIONS & READING MODE ================= */
+        function toggleTranslations() {
+            const toggleBtn = document.getElementById('toggle-translation');
+            const contentBox = document.getElementById('custom-ayah-output'); // FIXED ID
+            
+            if (!toggleBtn || !contentBox) return;
+
+            if (toggleBtn.checked) {
+                contentBox.classList.remove('quran-reading-mode');
+                document.querySelectorAll('.word-translation, .verse-translation').forEach(el => { el.style.display = 'block'; });
+            } else {
+                contentBox.classList.add('quran-reading-mode');
+                document.querySelectorAll('.word-translation, .verse-translation').forEach(el => { el.style.display = 'none'; });
+            }
+        }
+        
+        /* ================= EXPLICIT READING MODE BUTTON ================= */
+        function toggleExplicitReadingMode() {
+            const contentBox = document.getElementById('custom-ayah-output'); // FIXED ID
+            const btn = document.getElementById('reading-mode-btn');
+            const btnText = document.getElementById('reading-mode-text');
+            
+            if (!contentBox || !btn) return;
+
+            const isReadingMode = contentBox.classList.contains('quran-reading-mode');
+
+            if (isReadingMode) {
+                // TURN OFF: Back to Learning Mode
+                contentBox.classList.remove('quran-reading-mode');
+                btnText.innerText = "Enter Reading Mode";
+                btn.classList.replace('bg-brand-600', 'bg-slate-700');
+                btn.classList.replace('hover:bg-brand-700', 'hover:bg-slate-800');
+                btn.classList.replace('border-brand-500', 'border-slate-600');
+                document.querySelectorAll('.word-translation, .verse-translation').forEach(el => { el.style.display = 'block'; });
+            } else {
+                // TURN ON: Pure Reading Mode
+                contentBox.classList.add('quran-reading-mode');
+                btnText.innerText = "Exit Reading Mode";
+                btn.classList.replace('bg-slate-700', 'bg-brand-600');
+                btn.classList.replace('hover:bg-slate-800', 'hover:bg-brand-700');
+                btn.classList.replace('border-slate-600', 'border-brand-500');
+                document.querySelectorAll('.word-translation, .verse-translation').forEach(el => { el.style.display = 'none'; });
             }
         }
 /* --- GLOBAL PAGINATION STATE --- */
@@ -3682,7 +3703,7 @@
                             endAyah = infoData.chapter.verses_count;
                         } catch (e) {
                             alert("Error connecting to Quran.com.");
-                            btn.innerText = "Fetch via API";
+                            btn.innerText = "Load Verses";
                             return;
                         }
                     } else if (ayahInput.includes('-')) {
@@ -3696,7 +3717,7 @@
 
                     if (isNaN(startAyah) || isNaN(endAyah) || startAyah > endAyah) {
                         alert("Invalid format. Use a single number (e.g., 255) or a range (e.g., 2-5).");
-                        btn.innerText = "Fetch via API";
+                        btn.innerText = "Load Verses";
                         return;
                     }
 
@@ -3710,22 +3731,46 @@
                         totalPages: Math.ceil((endAyah - startAyah + 1) / 10)
                     };
                 } 
-                // MODE B: QURAN PAGE MODE (Triggered if Surah is empty, but Page is valid)
-                else if (pageInput && pageNum > 0) {
-                    if (pageNum > 604) {
-                        alert("Please enter a valid Quran page number between 1 and 604.");
+               // MODE B: QURAN PAGE MODE (Triggered if Surah is empty, but Page is valid)
+                else if (pageInput) {
+                    let startPage = 1;
+                    let endPage = 1;
+
+                    // Detect if the user typed a range or a single page
+                    if (pageInput.includes('-')) {
+                        const parts = pageInput.split('-');
+                        startPage = parseInt(parts[0]);
+                        endPage = parseInt(parts[1]);
+                    } else {
+                        startPage = parseInt(pageInput);
+                        endPage = parseInt(pageInput);
+                    }
+
+                    // Validation 1: Check for gibberish or out-of-bounds numbers
+                    if (isNaN(startPage) || isNaN(endPage) || startPage < 1 || endPage > 604 || startPage > endPage) {
+                        alert("Please enter a valid Quran page number (1-604) or a range (e.g., 5-10).");
+                        btn.innerText = "Load Verses";
+                        return;
+                    }
+
+                    // Validation 2: The 10-Page Limit Check
+                    if (endPage - startPage + 1 > 10) {
+                        alert("Maximum limit is 10 pages at a time to keep the app running smoothly.");
+                        btn.innerText = "Load Verses";
                         return;
                     }
                     
                     // Clear Surah/Ayah so user isn't confused
                     document.getElementById('api-surah').value = '';
+                    document.getElementById('surah-search-input').value = '';
                     document.getElementById('api-ayah').value = '';
                     
                     window.quranPagination = {
                         isPageMode: true,
-                        quranPageNum: pageNum,
+                        startPage: startPage,
+                        endPage: endPage,
                         currentPage: 1,
-                        totalPages: 1 // A physical page acts as a single chunk
+                        totalPages: 1 // We fetch all requested pages at once in this mode
                     };
                 } 
                 // ERROR: Everything is empty or invalid
@@ -3737,7 +3782,8 @@
 
             // 2. CALCULATE CHUNK FOR THIS SPECIFIC PAGE
             const p = window.quranPagination;
-            btn.innerText = p.isPageMode ? `Loading Page ${p.quranPageNum}...` : `Loading Page ${p.currentPage}...`;
+            const pageLoadText = p.startPage === p.endPage ? `Loading Page ${p.startPage}...` : `Loading Pages ${p.startPage}-${p.endPage}...`;
+            btn.innerText = p.isPageMode ? pageLoadText : `Loading Page ${p.currentPage}...`;
             btn.disabled = true;
             btn.classList.add('opacity-75');
 
@@ -3762,9 +3808,11 @@
                 let fetchPromises = [];
                 
                 if (p.isPageMode) {
-                    fetchPromises.push(
-                        fetch(`https://api.quran.com/api/v4/verses/by_page/${p.quranPageNum}?words=true&word_fields=text_uthmani,translation,audio_url&translations=20,39&language=en&audio=7`).then(r => r.json())
-                    );
+                    for (let i = p.startPage; i <= p.endPage; i++) {
+                        fetchPromises.push(
+                            fetch(`https://api.quran.com/api/v4/verses/by_page/${i}?words=true&word_fields=text_uthmani,translation,audio_url&translations=20,39&language=en&audio=7`).then(r => r.json())
+                        );
+                    }
                 } else {
                     const currentChunkStart = p.startAyah + (p.currentPage - 1) * p.perPage;
                     const currentChunkEnd = Math.min(currentChunkStart + p.perPage - 1, p.endAyah);
@@ -3846,86 +3894,90 @@
                 // FIX 1: Destroy rogue Uthmani Iqlab meems that the API accidentally injects
                 processed = processed.replace(/ۭ|ۢ/g, '');
 
-                // --- 4. TAJWID ENGINE (v3 - Ultimate Precision) ---
+               // --- 4. TAJWID ENGINE (v3 - Malaysian Standard Colors) ---
                 const wrap = (text, ruleName, ruleType, desc, color) => {
                     return `<span class="analyzer-word text-${color}-500 dark:text-${color}-400 font-bold border-b-2 border-${color}-500 px-0.5 transition-all duration-300" data-rule="${ruleName}" onclick="showRule('${ruleName}', '${ruleType}', '${desc}', 'bg-${color}-500')">${text}</span>`;
                 };
                 
-                // UPGRADE: Bulletproof lookahead that skips HTML, spaces, Waqf marks, silent Alifs, and invisible API formatting characters
                 const lookahead = (chars) => `(?=(?:<[^>]+>|\\s|[ۖ-۩]|[اىٱأإآ]|\\u200B-\\u200F|\\u202A-\\u202E|\\u2060-\\u2069|\\uFEFF)*${chars})`;
                 const noHTML = `(?![^<]*>)`;
 
-                processed = processed.replace(/([\u0621-\u064A\u0671][ٓۤ])(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Far’i', 'Long Elongation', 'Stretch for 4 to 5 beats.', 'violet'));
-                processed = processed.replace(/([\u0621-\u064A\u0671][ٰۥۦ])(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Asli', 'Natural Elongation', 'Stretch for exactly 2 beats.', 'indigo'));
-                processed = processed.replace(/([ه][ُِ]?[ۥۦ]ٓ?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Silah', 'Pronoun Elongation', 'Elongate the pronoun.', 'fuchsia'));
+                // 🔴 RED (Merah) -> Long Madds
+                processed = processed.replace(/([\u0621-\u064A\u0671][ٓۤ])(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Far’i', 'Long Elongation', 'Stretch for 4 to 5 beats.', 'red'));
+                processed = processed.replace(/([ه][ُِ]?[ۥۦ]ٓ?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Silah', 'Pronoun Elongation', 'Elongate the pronoun.', 'red'));
                 
-                processed = processed.replace(/(ۘ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Lazim', 'Mandatory Stop', 'You MUST stop here.', 'red'));
-                processed = processed.replace(/(ۙ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Mamnu’', 'Forbidden Stop', 'Do NOT stop here.', 'red'));
-                processed = processed.replace(/(ۚ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Jaiz', 'Permissible Stop', 'You may stop or continue.', 'emerald'));
-                processed = processed.replace(/(ۖ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Hasan', 'Preferred Continue', 'Permissible stop, but continuing is better.', 'sky'));
-                processed = processed.replace(/(ۗ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Kafi', 'Preferred Stop', 'Permissible continue, but stopping is better.', 'amber'));
-                processed = processed.replace(/(ۛ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Mu’anaqah', 'Embracing Stop', 'Stop at ONE of the two 3-dot markers. Do not stop at both.', 'fuchsia'));
+                // ⚫ SLATE/BLACK -> Standard Lengths & Clear Sounds (Madd Asli, Izhar)
+                processed = processed.replace(/([\u0621-\u064A\u0671][ٰۥۦ])(?![^<]*>)/g, (m, p1) => wrap(p1, 'Madd Asli', 'Natural Elongation', 'Stretch for exactly 2 beats.', 'slate'));
+                
+                // Waqf Signs
+                processed = processed.replace(/(ۘ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Lazim', 'Mandatory Stop', 'You MUST stop here.', 'rose'));
+                processed = processed.replace(/(ۙ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Mamnu’', 'Forbidden Stop', 'Do NOT stop here.', 'rose'));
+                processed = processed.replace(/(ۚ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Jaiz', 'Permissible Stop', 'You may stop or continue.', 'slate'));
+                processed = processed.replace(/(ۖ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Hasan', 'Preferred Continue', 'Permissible stop, but continuing is better.', 'slate'));
+                processed = processed.replace(/(ۗ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Waqf Kafi', 'Preferred Stop', 'Permissible continue, but stopping is better.', 'slate'));
+                processed = processed.replace(/(ۛ)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Mu’anaqah', 'Embracing Stop', 'Stop at ONE of the two 3-dot markers. Do not stop at both.', 'rose'));
                 
                 processed = processed.replace(/(ٱللَّه[َُِ]?|اللَّه[َُِ]?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Tafkheem / Tarqeeq', 'The Name of Allah', 'Heavy if preceded by Fathah/Dammah, light if Kasrah.', 'slate'));
-                processed = processed.replace(/([نم][ّ][ًٌٍَُِۭۢ]?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Wajib Al-Ghunnah', 'Mandatory Nasal', 'Strong 2-beat nasal sound.', 'amber'));
                 
-                // MEEM RULES (Made 100% Mutually Exclusive)
+                // 🟢 GREEN (Hijau) -> All Ghunnah / Nasal sounds
+                processed = processed.replace(/([نم][ّ][ًٌٍَُِۭۢ]?)(?![^<]*>)/g, (m, p1) => wrap(p1, 'Wajib Al-Ghunnah', 'Mandatory Nasal', 'Strong 2-beat nasal sound.', 'emerald'));
+                
+                // MEEM RULES
                 const meemBase = `(مْ|م(?![َُِّْ]))`;
-                processed = processed.replace(new RegExp(`${meemBase}${lookahead('[ب]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Ikhfa Shafawi', 'Labial Concealment', 'Hide Meem with 2-beat Ghunnah.', 'rose'));
-                processed = processed.replace(new RegExp(`${meemBase}${lookahead('[م]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Idgham Shafawi', 'Labial Merging', 'Merge Meems with 2-beat Ghunnah.', 'purple'));
-                processed = processed.replace(new RegExp(`${meemBase}${lookahead('(?![بم])[\\u0621-\\u064A]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Izhar Shafawi', 'Labial Clarity', 'Pronounce Meem clearly.', 'cyan'));
+                processed = processed.replace(new RegExp(`${meemBase}${lookahead('[ب]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Ikhfa Shafawi', 'Labial Concealment', 'Hide Meem with 2-beat Ghunnah.', 'emerald'));
+                processed = processed.replace(new RegExp(`${meemBase}${lookahead('[م]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Idgham Shafawi', 'Labial Merging', 'Merge Meems with 2-beat Ghunnah.', 'emerald'));
+                processed = processed.replace(new RegExp(`${meemBase}${lookahead('(?![بم])[\\u0621-\\u064A]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Izhar Shafawi', 'Labial Clarity', 'Pronounce Meem clearly.', 'slate'));
 
-                // NUN & TANWEEN RULES (Made 100% Mutually Exclusive)
+                // NUN & TANWEEN RULES
                 const nunBase = `(نْ|ن(?![َُِّْ])|[\\u0621-\\u064A\\u0671][َُِّْ]*[ًٌٍۭۢ]+)`;
                 processed = processed.replace(new RegExp(`${nunBase}${lookahead('[تثجدذزسشصضطظفقك]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Ikhfa Haqiqi', 'Concealment', 'Hide Nun with 2-beat Ghunnah.', 'emerald'));
-                processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ينمو]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Idgham Ma’al Ghunnah', 'Merging w/ Nasal', 'Merge and hold 2-beat Ghunnah.', 'orange'));
-                processed = processed.replace(new RegExp(`${nunBase}${lookahead('(?:[لر]|لا|لَّا)')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Idgham Bila Ghunnah', 'Merging w/o Nasal', 'Merge completely, NO nasal sound.', 'teal'));
-                processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ب]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Iqlab', 'Conversion', 'Convert to hidden Meem.', 'pink'));
-                processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ءأإآهعحغخ]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Izhar Halqi', 'Clear Pronunciation', 'Pronounce clearly.', 'blue'));
+                processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ينمو]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Idgham Ma’al Ghunnah', 'Merging w/ Nasal', 'Merge and hold 2-beat Ghunnah.', 'emerald'));
+                processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ب]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Iqlab', 'Conversion', 'Convert to hidden Meem.', 'emerald'));
                 
-                // FIX: Restrict Qalqalah strictly to explicit Sukoons OR when physically stopping at a Waqf/End of Verse mark
-                processed = processed.replace(/([قطبجد]ْ(?![^<]*>)|[قطبجد]ّ?[ًٌٍَُِۭۢ]?(?=(?:<[^>]+>|\s)*[ۖ-۩﴿]))/g, (m, p1) => wrap(p1, 'Qalqalah', 'Echoing Letter', 'Bouncing sound upon stopping or Sukoon.', 'red'));
-
-                // --- 5. RENDER OUTPUT ---
+                // ⚪ GRAY/SLATE (Kelabu) -> Silent/Swallowed Letters
+                processed = processed.replace(new RegExp(`${nunBase}${lookahead('(?:[لر]|لا|لَّا)')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Idgham Bila Ghunnah', 'Merging w/o Nasal', 'Merge completely, NO nasal sound.', 'gray'));
+                processed = processed.replace(new RegExp(`${nunBase}${lookahead('[ءأإآهعحغخ]')}${noHTML}`, 'g'), (m, p1) => wrap(p1, 'Izhar Halqi', 'Clear Pronunciation', 'Pronounce clearly.', 'slate'));
+                
+                // 🔵 CYAN (Biru) -> Qalqalah
+                processed = processed.replace(/([قطبجد]ْ(?![^<]*>)|[قطبجد]ّ?[ًٌٍَُِۭۢ]?(?=(?:<[^>]+>|\s)*[ۖ-۩﴿]))/g, (m, p1) => wrap(p1, 'Qalqalah', 'Echoing Letter', 'Bouncing sound upon stopping or Sukoon.', 'sky'));
+// --- 5. RENDER OUTPUT ---
                 let wordIndex = 0;
                 processed = processed.replace(/<w>(.*?)<\/w>/g, (match, innerColoredText) => {
                     let t = translations[wordIndex];
                     let a = audioUrls[wordIndex];
                     let raw = rawWords[wordIndex];
                     wordIndex++;
-                    return `<div class="inline-flex flex-col items-center justify-end align-top mx-1.5 my-3 group">
+                    // ADDED 'word-container' AND 'word-translation' CLASSES HERE
+                    return `<div class="word-container inline-flex flex-col items-center justify-end align-top mx-1.5 my-3 group">
                                 <span class="cursor-pointer transition-colors duration-200 rounded px-1 group-hover:bg-slate-200 dark:group-hover:bg-slate-700/60" onmouseenter="showWordTranslation(this)" onmouseleave="hideWordTranslation(this)" onclick="playSingleWord('${a}')" data-word="${raw}" data-en="${t}" data-audio="${a}">
                                     ${innerColoredText}
                                 </span>
-                                <span class="text-[11px] md:text-xs text-gray-500 dark:text-gray-400 font-sans mt-2 text-center font-semibold leading-tight tracking-normal select-none pointer-events-none w-max max-w-[80px] whitespace-normal break-words">${t}</span>
+                                <span class="word-translation text-[11px] md:text-xs text-gray-500 dark:text-gray-400 font-sans mt-2 text-center font-semibold leading-tight tracking-normal select-none pointer-events-none w-max max-w-[80px] whitespace-normal break-words">${t}</span>
                             </div>`;
                 });
 
                 window.currentAyahAudioSequence = audioUrls;
                 window.currentFullAyahAudioSequence = fullAyahAudioUrls; 
 
+                // --- SMART BISMILLAH INJECTION ---
+                const targetSurah = document.getElementById('api-surah').value;
+                const targetAyah = document.getElementById('api-ayah') ? document.getElementById('api-ayah').value.trim() : '';
+                
+                let bismillahHTML = '';
+                if (targetSurah && targetSurah !== '9') {
+                    // Only add if fetching full surah or starting from ayah 1
+                    const isStartOfSurah = !targetAyah || targetAyah === '1' || targetAyah.startsWith('1-');
+                    if (isStartOfSurah && !p.isPageMode) {
+                        bismillahHTML = `<div class="text-center w-full mb-10 mt-4 border-b border-gray-100 dark:border-slate-700 pb-6"><span class="font-arabic text-4xl md:text-5xl text-gray-800 dark:text-white leading-relaxed" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span></div>`;
+                    }
+                }
+
                 const outputDiv = document.getElementById('custom-ayah-output');
-                outputDiv.innerHTML = processed;
+                // INJECT BISMILLAH BEFORE PROCESSED VERSES
+                outputDiv.innerHTML = bismillahHTML + processed;
                 outputDiv.classList.remove('hidden');
                 outputDiv.classList.add('notranslate', 'flex', 'flex-wrap', 'justify-center', 'items-center', 'leading-loose');
                 outputDiv.setAttribute('translate', 'no');
-
-                const rumiOutputDiv = document.getElementById('custom-rumi-output');
-                let tempDiv = document.createElement('div');
-                tempDiv.innerHTML = processed;
-                
-                let walker = document.createTreeWalker(tempDiv, NodeFilter.SHOW_TEXT, null, false);
-                let node;
-                let textNodes = [];
-                while(node = walker.nextNode()) textNodes.push(node);
-                textNodes.forEach(n => {
-                    if(n.nodeValue.trim() !== '' && /[\u0600-\u06FF]/.test(n.nodeValue)) {
-                        n.nodeValue = basicTransliterate(n.nodeValue);
-                    }
-                });
-                
-                rumiOutputDiv.innerHTML = tempDiv.innerHTML;
-                rumiOutputDiv.classList.add('flex', 'flex-wrap', 'justify-center', 'items-center');
                 
                 document.getElementById('output-controls').classList.remove('hidden');
                 const legend = document.getElementById('tajwid-legend');
@@ -3950,7 +4002,7 @@
                 alert("Error fetching data. Please check your internet connection.");
                 console.error(error);
             } finally {
-                btn.innerText = "Fetch via API";
+                btn.innerText = "Load Verses";
                 btn.disabled = false;
                 btn.classList.remove('opacity-75');
             }
@@ -3964,9 +4016,7 @@
             
             document.getElementById('custom-ayah-output').innerHTML = '';
             document.getElementById('custom-ayah-output').classList.add('hidden');
-            
-            document.getElementById('custom-rumi-output').innerHTML = '';
-            document.getElementById('custom-rumi-output').classList.add('hidden');
+           
             
             document.getElementById('custom-translation-output').innerHTML = '';
             document.getElementById('custom-translation-output').classList.add('hidden');
@@ -5099,7 +5149,7 @@ try {
 
                 // Create the universal button automatically
                 const btnContainer = document.createElement('div');
-                btnContainer.className = 'mt-12 pt-6 border-t border-gray-200 dark:border-slate-700 flex justify-center pb-8';
+                btnContainer.className = 'mt-8 flex justify-center pb-2';
                 
                 btnContainer.innerHTML = `
                     <button onclick="toggleGlobalMastery('${tabId}', this)" class="mastery-btn group relative px-8 py-3 font-bold text-white rounded-full overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 ${isMastered ? 'bg-emerald-500 focus:ring-emerald-400' : 'bg-gray-400 dark:bg-slate-600 hover:bg-emerald-500 focus:ring-gray-400'}">
