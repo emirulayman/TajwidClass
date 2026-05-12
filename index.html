@@ -563,12 +563,14 @@
 
 <body class="flex flex-col md:flex-row min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300">
   
-  <div id="landing-page" class="fixed inset-0 z-[100] bg-slate-50 dark:bg-slate-950 flex items-start md:items-center justify-center overflow-y-auto overflow-x-hidden py-12 md:py-0 transition-colors duration-500">
-        <div class="absolute top-10 left-10 text-brand-500/10 dark:text-brand-500/5 font-arabic text-9xl landing-float-1 pointer-events-none select-none">ض</div>
-        <div class="absolute bottom-20 right-10 text-sky-500/10 dark:text-sky-500/5 font-arabic text-[12rem] landing-float-2 pointer-events-none select-none">ق</div>
-        <div class="absolute top-1/3 right-1/4 text-rose-500/10 dark:text-rose-500/5 font-arabic text-8xl landing-float-3 pointer-events-none select-none">م</div>
+  <div id="landing-page" class="fixed inset-0 z-[100] bg-slate-50 dark:bg-slate-950 overflow-y-auto overflow-x-hidden transition-colors duration-500">
+        
+        <div class="fixed top-10 left-10 text-brand-500/10 dark:text-brand-500/5 font-arabic text-9xl landing-float-1 pointer-events-none select-none">ض</div>
+        <div class="fixed bottom-20 right-10 text-sky-500/10 dark:text-sky-500/5 font-arabic text-[12rem] landing-float-2 pointer-events-none select-none">ق</div>
+        <div class="fixed top-1/3 right-1/4 text-rose-500/10 dark:text-rose-500/5 font-arabic text-8xl landing-float-3 pointer-events-none select-none">م</div>
 
-        <div class="max-w-5xl w-full px-6 relative z-10 flex flex-col items-center text-center">
+        <div class="min-h-full w-full flex items-center justify-center py-16">
+            <div class="max-w-5xl w-full px-6 relative z-10 flex flex-col items-center text-center">
             <div class="w-24 h-24 bg-gradient-to-br from-brand-400 to-teal-600 rounded-2xl shadow-2xl flex items-center justify-center mb-8 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
                 <span class="font-arabic text-5xl text-white font-bold" dir="rtl">تجويد</span>
             </div>
@@ -2647,7 +2649,6 @@
             </div>
             <p class="text-gray-600 dark:text-gray-300 mb-6 transition-colors">Interactive mapping of rules in continuous recitation. Select a Surah and click any highlighted word to reveal the applied Tajwid rule.</p>
 
-
 <!-- Custom Ayah Auto-Analyzer -->
 <div class="mb-8 bg-gray-50 dark:bg-slate-700/30 p-5 rounded-xl border border-gray-200 dark:border-slate-600 transition-colors shadow-sm">
     <h4 class="text-lg font-bold text-gray-800 dark:text-white mb-2 flex items-center gap-2">
@@ -2777,7 +2778,6 @@
 
     <div id="custom-translation-output" class="hidden mt-4 p-4 bg-brand-50 dark:bg-brand-900/20 border-l-4 border-brand-500 rounded-r-lg text-left text-gray-700 dark:text-gray-300 text-sm italic shadow-sm leading-relaxed"></div>
 </div>
-
 
                 <!-- Info Panel (Bottom) -->
                 <div class="w-full p-6 min-h-[120px] flex items-center transition-colors bg-transparent">
