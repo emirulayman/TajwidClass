@@ -558,7 +558,7 @@
                 A comprehensive, interactive platform designed to perfect your Quranic recitation. Experience the ancient science of Tajwid transformed through a modern, digital lens.
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-12 text-left">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full mb-12 text-left">
                 <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700 p-6 rounded-2xl shadow-sm hover:-translate-y-1 transition-transform duration-300">
                     <div class="w-12 h-12 bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center rounded-xl mb-4">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
@@ -581,6 +581,13 @@
                     </div>
                     <h3 class="font-bold text-slate-800 dark:text-white mb-2">Interactive Visualizers</h3>
                     <p class="text-sm text-slate-600 dark:text-slate-400">Explore phonetic anatomy maps, spaced-repetition flashcards, and live phonetic equation builders.</p>
+                </div>
+                <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700 p-6 rounded-2xl shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 flex items-center justify-center rounded-xl mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800 dark:text-white mb-2">Hadith Explorer</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">Instantly search authentic narrations from the Prophet (pbuh) with Arabic text and translated context.</p>
                 </div>
             </div>
 
@@ -719,9 +726,7 @@
             <button onclick="switchTab('waqf')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="waqf">⏸️ Waqf (Pausing)</button>
             
             <button onclick="switchTab('advanced')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="advanced">🎓 Advanced (Gharib)</button>
-            
-            
-            
+            <button onclick="switchTab('hadith')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors whitespace-nowrap md:whitespace-normal" data-target="hadith">📜 Hadith Explorer</button>
             <div class="h-px bg-gray-200 dark:bg-slate-700 my-2 hidden md:block"></div>
             
             <button onclick="switchTab('quiz')" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors mt-auto md:mt-4 border border-gray-200 dark:border-slate-700 whitespace-nowrap md:whitespace-normal" data-target="quiz">✨ Knowledge Check</button>
@@ -2703,8 +2708,13 @@
         <button id="trans-toggle-btn" onclick="toggleTranslationLang()" class="text-xs font-bold px-4 py-2 rounded-full bg-brand-500 text-white shadow hover:bg-brand-600 hover:scale-105 transition-all focus:outline-none">Switch to Bahasa Melayu</button>
         <button id="reading-mode-btn" onclick="toggleExplicitReadingMode()" class="bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 rounded-full transition-colors text-sm shadow-sm flex items-center gap-2 border border-slate-600">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-    <span id="reading-mode-text">Enter Reading Mode</span>
-         </button>
+          <span id="reading-mode-text">Enter Reading Mode</span>
+        </button>
+
+        <button onclick="triggerTafsirBridge()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-full transition-all text-sm shadow-md flex items-center gap-2 border border-amber-400 hover:scale-105">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+            <span>Tafsir Context (Hadith)</span>
+        </button>
     </div>
     <div id="pagination-controls" class="hidden flex items-center justify-center gap-6 mt-4 mb-8">
         <button id="prev-page-btn" onclick="changePage(-1)" class="px-5 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-white rounded-full text-sm font-bold transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center gap-2">
@@ -2768,8 +2778,6 @@
                         </div>
                     </div>
                 </div>
-
-            </div>
         </section>
         
         <!-- JavaScript for Dropdown Functionality -->
@@ -2793,7 +2801,366 @@
                 document.getElementById('analyzer-active').classList.add('hidden');
             }
         </script>
+        <section id="hadith" class="tab-content hidden">
+            
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-white transition-colors">Prophetic Traditions</h2>
+                <span class="bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm uppercase tracking-wider">Hadith Hub</span>
+            </div>
 
+            <div class="flex justify-center mb-8 border-b border-gray-200 dark:border-slate-700 pb-1">
+                <div class="flex gap-2 md:gap-4 overflow-x-auto pb-2 w-full justify-center">
+                    <button onclick="switchHadithSubTab('hadith-search', this)" class="hadith-sub-btn active border-b-2 border-purple-500 text-purple-600 dark:text-purple-400 px-4 py-2 text-sm font-bold transition-all focus:outline-none whitespace-nowrap">🔍 Search Engine</button>
+                    <button onclick="switchHadithSubTab('hadith-sunnah', this)" class="hadith-sub-btn border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 px-4 py-2 text-sm font-bold transition-all focus:outline-none whitespace-nowrap">🌞 Daily Sunnahs</button>
+                    <button onclick="switchHadithSubTab('hadith-nawawi', this)" class="hadith-sub-btn border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 px-4 py-2 text-sm font-bold transition-all focus:outline-none whitespace-nowrap">📖 Nawawi's 40</button>
+                </div>
+            </div>
+
+            <div id="hadith-search" class="hadith-sub-content block animate-[fadeIn_0.3s_ease-out]">
+                <p class="text-gray-600 dark:text-gray-300 mb-6 transition-colors">Search authentic narrations to understand the context and application of the Quran.</p>
+
+                <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 mb-8 transition-colors">
+                    <div class="relative mb-6">
+                        <input type="text" id="hadith-search-input" onkeyup="if(event.key === 'Enter') searchHadith()" class="w-full bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-600 text-gray-800 dark:text-white py-4 pl-4 pr-12 rounded-xl focus:ring-2 focus:ring-purple-500 outline-none font-medium shadow-inner transition-colors" placeholder="Search for 'patience', 'prayer', or 'charity'..." autocomplete="off">
+                        <button onclick="searchHadith()" class="absolute inset-y-2 right-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg px-4 font-bold shadow-md transition-all focus:outline-none flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </button>
+                    </div>
+                    
+                    <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 mt-2">
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mr-2">Collections:</span>
+                            <button onclick="setHadithFilter('sahih-bukhari', this)" class="hadith-filter-btn active bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300 border border-purple-200 dark:border-purple-800 px-4 py-1.5 rounded-full text-xs font-bold transition-all focus:outline-none">Sahih Bukhari</button>
+                            <button onclick="setHadithFilter('sahih-muslim', this)" class="hadith-filter-btn bg-gray-50 text-gray-600 dark:bg-slate-700/80 dark:text-gray-300 border border-gray-300 dark:border-slate-500 px-4 py-1.5 rounded-full text-xs font-bold transition-all focus:outline-none">Sahih Muslim</button>
+                            <button onclick="setHadithFilter('al-tirmidhi', this)" class="hadith-filter-btn bg-gray-50 text-gray-600 dark:bg-slate-700/80 dark:text-gray-300 border border-gray-300 dark:border-slate-500 px-4 py-1.5 rounded-full text-xs font-bold transition-all focus:outline-none">Tirmidhi</button>
+                            <button onclick="setHadithFilter('abu-dawood', this)" class="hadith-filter-btn bg-gray-50 text-gray-600 dark:bg-slate-700/80 dark:text-gray-300 border border-gray-300 dark:border-slate-500 px-4 py-1.5 rounded-full text-xs font-bold transition-all focus:outline-none">Abu Dawud</button>
+                            <button onclick="setHadithFilter('sunan-nasai', this)" class="hadith-filter-btn bg-gray-50 text-gray-600 dark:bg-slate-700/80 dark:text-gray-300 border border-gray-300 dark:border-slate-500 px-4 py-1.5 rounded-full text-xs font-bold transition-all focus:outline-none">An-Nasa'i</button>
+                            <button onclick="setHadithFilter('ibn-e-majah', this)" class="hadith-filter-btn bg-gray-50 text-gray-600 dark:bg-slate-700/80 dark:text-gray-300 border border-gray-300 dark:border-slate-500 px-4 py-1.5 rounded-full text-xs font-bold transition-all focus:outline-none">Ibn Majah</button>
+                        </div>
+                        <button onclick="clearHadithSearch()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 px-4 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 focus:outline-none dark:bg-rose-900/20 dark:border-rose-800 dark:text-rose-400 shrink-0">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            Clear Search
+                        </button>
+                    </div>
+                </div>
+
+                <div id="hadith-dashboard" class="mb-8 transition-all">
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">Explore by Topic</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <button onclick="searchTheme('character')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 dark:hover:border-purple-600 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-rose-50 dark:bg-rose-900/30 text-rose-500 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Akhlaq</p>
+                                <p class="text-[10px] text-gray-500">Good Character</p>
+                            </div>
+                        </button>
+                        
+                        <button onclick="searchTheme('fasting')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-500 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Puasa</p>
+                                <p class="text-[10px] text-gray-500">Fasting</p>
+                            </div>
+                        </button>
+
+                        <button onclick="searchTheme('patience')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-500 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Sabar</p>
+                                <p class="text-[10px] text-gray-500">Patience</p>
+                            </div>
+                        </button>
+
+                        <button onclick="searchTheme('charity')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Sedekah</p>
+                                <p class="text-[10px] text-gray-500">Charity</p>
+                            </div>
+                        </button>
+
+                        <button onclick="searchTheme('hereafter')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-500 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Akhirat</p>
+                                <p class="text-[10px] text-gray-500">The Hereafter</p>
+                            </div>
+                        </button>
+
+                        <button onclick="searchTheme('grave')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Barzakh</p>
+                                <p class="text-[10px] text-gray-500">The Grave</p>
+                            </div>
+                        </button>
+
+                        <button onclick="searchTheme('repentance')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-500 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Taubat</p>
+                                <p class="text-[10px] text-gray-500">Repentance</p>
+                            </div>
+                        </button>
+                        
+                        <button onclick="searchTheme('provision')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Rezeki</p>
+                                <p class="text-[10px] text-gray-500">Sustenance</p>
+                            </div>
+                        </button>
+
+                        <button onclick="searchTheme('parents')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-fuchsia-50 dark:bg-fuchsia-900/30 text-fuchsia-500 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Ibu Bapa</p>
+                                <p class="text-[10px] text-gray-500">Parents</p>
+                            </div>
+                        </button>
+                        
+                        <button onclick="searchTheme('prayer')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-500 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Solat</p>
+                                <p class="text-[10px] text-gray-500">Prayer</p>
+                            </div>
+                        </button>
+
+                        <button onclick="searchTheme('knowledge')" class="flex items-center gap-3 bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-purple-300 transition-all hover:-translate-y-1 text-left group focus:outline-none">
+                            <div class="w-10 h-10 rounded-full bg-cyan-50 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Ilmu</p>
+                                <p class="text-[10px] text-gray-500">Knowledge</p>
+                            </div>
+                        </button>
+                        
+                        <button onclick="searchTheme('quran')" class="flex items-center justify-center gap-3 bg-gradient-to-r from-brand-50 to-white dark:from-slate-800 dark:to-slate-800 p-4 rounded-xl border border-brand-200 dark:border-brand-700 shadow-sm hover:shadow-md hover:border-brand-400 dark:hover:border-brand-500 transition-all hover:-translate-y-1 text-left group focus:outline-none col-span-2 md:col-span-1 lg:col-span-1">
+                            <div class="w-10 h-10 rounded-full bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-gray-800 dark:text-white text-sm">Al-Quran</p>
+                                <p class="text-[10px] text-gray-500 dark:text-gray-400">Virtues of Recitation</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="hadith-loader" class="hidden flex flex-col items-center justify-center py-12">
+                    <div class="w-10 h-10 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin mb-4"></div>
+                    <p class="text-purple-600 dark:text-purple-400 font-bold animate-pulse">Searching archives...</p>
+                </div>
+                <div id="hadith-results" class="grid grid-cols-1 gap-6"></div>
+            </div>
+
+            <div id="hadith-sunnah" class="hadith-sub-content hidden animate-[fadeIn_0.3s_ease-out]">
+                <p class="text-gray-600 dark:text-gray-300 mb-8 transition-colors">Revive the beautiful, everyday habits of the Prophet (ﷺ) to transform mundane routines into acts of worship.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:-translate-y-1 transition-transform group">
+                        <div class="w-12 h-12 bg-sky-100 dark:bg-sky-900/40 text-sky-600 dark:text-sky-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">Drinking Water</h3>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Sit down while drinking.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Hold the cup with the right hand.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Say <em>Bismillah</em> before starting.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Drink in 3 separate breaths (pausing to pull the cup away).</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Say <em>Alhamdulillah</em> when finished.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:-translate-y-1 transition-transform group">
+                        <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">Going to Sleep</h3>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Perform Wudu (ablution) before bed.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Dust off the bed three times.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Sleep on your right side.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Place your right hand under your right cheek.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Recite the 3 Quls (Ikhlas, Falaq, Nas) and cup your hands, blow into them, and wipe your body.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:-translate-y-1 transition-transform group">
+                        <div class="w-12 h-12 bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">Eating Food</h3>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Always eat with your right hand.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Eat with three fingers when eating by hand.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Eat from what is directly in front of you.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> If food drops, pick it up, clean it, and eat it so Shaytan does not get it.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Lick your fingers clean before washing them.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:-translate-y-1 transition-transform group">
+                        <div class="w-12 h-12 bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">Interacting with Others</h3>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Smile! "Your smile for your brother is charity."</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Be the first to initiate the greeting of <em>Salam</em>.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Give full attention by turning your entire body toward the speaker, not just your head.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Speak distinctly and calmly so you are easily understood.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:-translate-y-1 transition-transform group">
+                        <div class="w-12 h-12 bg-teal-100 dark:bg-teal-900/40 text-teal-600 dark:text-teal-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">Entering/Leaving House</h3>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Say <em>Bismillah</em> upon entering so Shaytan cannot sleep there.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Say <em>Salam</em> to your family upon entering.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Enter with your right foot first.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Leave with your left foot first.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:-translate-y-1 transition-transform group">
+                        <div class="w-12 h-12 bg-fuchsia-100 dark:bg-fuchsia-900/40 text-fuchsia-600 dark:text-fuchsia-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">Clothing & Appearance</h3>
+                        <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Put on clothes and shoes starting with the right side.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Take off clothes and shoes starting with the left side.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Use the Miswak (tooth stick) frequently, especially before prayer.</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 font-bold mt-0.5">✓</span> Wear white clothing when possible.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="hadith-nawawi" class="hadith-sub-content hidden animate-[fadeIn_0.3s_ease-out]">
+                <p class="text-gray-600 dark:text-gray-300 mb-8 transition-colors">The definitive collection of the 42 most comprehensive statements of the Prophet (ﷺ), compiled by Imam An-Nawawi.</p>
+
+                <div id="nawawi-accordion-container" class="space-y-4">
+                    </div>
+            </div>
+            
+        </section>
+
+<section id="sunnah" class="tab-content hidden">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-white transition-colors">Daily Sunnahs</h2>
+                <span class="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm uppercase tracking-wider">Lifestyle Tracker</span>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 mb-8 transition-colors">Revive the beautiful, everyday habits of the Prophet (ﷺ) to transform mundane routines into acts of worship.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:-translate-y-1 transition-transform group">
+                    <div class="w-12 h-12 bg-sky-100 dark:bg-sky-900/40 text-sky-600 dark:text-sky-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">Drinking Water</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-4">
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Sit down while drinking.</li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Say <em>Bismillah</em> before starting.</li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Drink in 3 separate breaths (pausing to pull the cup away).</li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Say <em>Alhamdulillah</em> when finished.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:-translate-y-1 transition-transform group">
+                    <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">Going to Sleep</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-4">
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Perform Wudu (ablution) before bed.</li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Dust off the bed three times.</li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Sleep on your right side.</li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Place your right hand under your right cheek.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 p-6 hover:-translate-y-1 transition-transform group">
+                    <div class="w-12 h-12 bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-gray-800 dark:text-white mb-2">Interacting with Others</h3>
+                    <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-2 mb-4">
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Smile! "Your smile for your brother is charity."</li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Initiate the greeting of <em>Salam</em>.</li>
+                        <li class="flex items-start gap-2"><span class="text-emerald-500 mt-0.5">✓</span> Give full attention by turning your entire body toward the speaker, not just your head.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="nawawi40" class="tab-content hidden">
+            <div class="flex justify-between items-center mb-2">
+                <h2 class="text-3xl font-bold text-gray-800 dark:text-white transition-colors">An-Nawawi's 40 Hadith</h2>
+                <span class="bg-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm uppercase tracking-wider">Karaoke Memorizer</span>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300 mb-8 transition-colors">The definitive collection of the 42 most comprehensive statements of the Prophet (ﷺ). Play the audio to highlight the Arabic text as you read along.</p>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-emerald-200 dark:border-emerald-800/50 overflow-hidden mb-8 transition-colors">
+                <div class="bg-emerald-50 dark:bg-emerald-900/30 px-6 py-4 border-b border-emerald-100 dark:border-emerald-800/50 flex justify-between items-center transition-colors">
+                    <div>
+                        <h3 class="font-bold text-lg text-emerald-800 dark:text-emerald-400">Hadith 1: Intentions</h3>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-300 mt-0.5">Yahya bin Sa’id Al-Ansari</p>
+                    </div>
+                    <span class="text-xs font-bold bg-white dark:bg-slate-700 text-emerald-600 dark:text-emerald-400 px-3 py-1 rounded-full shadow-sm border border-emerald-100 dark:border-slate-600">Sahih Bukhari & Muslim</span>
+                </div>
+                
+                <div class="p-6 md:p-8">
+                     <div class="font-arabic text-3xl md:text-4xl text-right text-gray-800 dark:text-white leading-loose mb-8 relative" dir="rtl">
+                         <span class="inline-block hover:text-emerald-500 transition-colors duration-200 cursor-pointer p-1 rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/30">إِنَّمَا</span>
+                         <span class="inline-block hover:text-emerald-500 transition-colors duration-200 cursor-pointer p-1 rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/30">الْأَعْمَالُ</span>
+                         <span class="inline-block hover:text-emerald-500 transition-colors duration-200 cursor-pointer p-1 rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/30">بِالنِّيَّاتِ،</span>
+                         <span class="inline-block hover:text-emerald-500 transition-colors duration-200 cursor-pointer p-1 rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/30">وَإِنَّمَا</span>
+                         <span class="inline-block hover:text-emerald-500 transition-colors duration-200 cursor-pointer p-1 rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/30">لِكُلِّ</span>
+                         <span class="inline-block hover:text-emerald-500 transition-colors duration-200 cursor-pointer p-1 rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/30">امْرِئٍ</span>
+                         <span class="inline-block hover:text-emerald-500 transition-colors duration-200 cursor-pointer p-1 rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/30">مَا</span>
+                         <span class="inline-block hover:text-emerald-500 transition-colors duration-200 cursor-pointer p-1 rounded hover:bg-emerald-50 dark:hover:bg-emerald-900/30">نَوَى...</span>
+                     </div>
+                     
+                     <div class="border-t border-gray-100 dark:border-slate-700 pt-6 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+                         <div class="text-gray-700 dark:text-gray-300 text-[15px] sm:text-base leading-loose text-justify first-letter:text-4xl first-letter:font-bold first-letter:text-emerald-500 dark:first-letter:text-emerald-400 first-letter:mr-1.5 first-letter:float-left first-letter:leading-tight">
+                             "Actions are (judged) by motives (niyyah), so each man will have what he intended. Thus, he whose migration (hijrah) was to Allah and His Messenger, his migration is to Allah and His Messenger..."
+                         </div>
+                         
+                         <button class="shrink-0 flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-full shadow-md transition-transform hover:scale-105 focus:outline-none">
+                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                             Play & Memorize
+                         </button>
+                     </div>
+                </div>
+            </div>
+        </section>
  
 
 <!-- ================= SECTION: QUIZ ================= -->
@@ -3133,7 +3500,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
             <div id="quiz-container" class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 p-6 md:p-8 transition-colors">
                 <form id="quiz-form" onsubmit="submitQuiz(event)">
                     <!-- Questions injected by JS -->
@@ -3151,7 +3517,30 @@
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Tajwid Masterclass is based on the transmission of <span class="font-semibold text-brand-600 dark:text-brand-400">Imam Hafs 'an 'Asim</span>.</p>
             <p class="text-xs text-gray-400 dark:text-gray-500">Interactive audio recitations graciously provided by <a href="[https://everyayah.com](https://everyayah.com)" target="_blank" class="hover:text-brand-500 dark:hover:text-brand-400 underline transition-colors">EveryAyah.com</a>.</p>
         </footer>
+<div id="sanad-modal" class="fixed inset-0 z-[200] bg-slate-900/95 backdrop-blur-sm flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+            <div class="bg-white dark:bg-slate-800 w-full max-w-2xl h-[85vh] md:h-[80vh] md:rounded-3xl shadow-2xl flex flex-col overflow-hidden transform scale-95 transition-transform duration-300" id="sanad-modal-content">
+                
+                <div class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-gray-50 dark:bg-slate-800/80">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white" id="sanad-modal-title">Chain of Narration (Sanad)</h3>
+                        <p class="text-xs text-sky-600 dark:text-sky-400 font-bold uppercase tracking-wider mt-1" id="sanad-modal-subtitle">Hadith Reference</p>
+                    </div>
+                    <button onclick="closeSanadVisualizer()" class="w-10 h-10 bg-gray-200 dark:bg-slate-700 text-gray-600 dark:text-gray-300 hover:bg-red-500 hover:text-white rounded-full flex items-center justify-center transition-colors focus:outline-none">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
 
+                <div class="flex-1 overflow-y-auto p-6 md:p-10 bg-slate-50 dark:bg-slate-900 relative" id="sanad-canvas">
+                    <div class="absolute left-8 md:left-1/2 top-10 bottom-10 w-1 bg-gradient-to-b from-amber-400 via-sky-400 to-purple-500 rounded-full opacity-30 hidden" id="sanad-spine"></div>
+                    
+                    <div id="sanad-nodes-container" class="relative z-10 flex flex-col gap-8 w-full max-w-lg mx-auto"></div>
+                </div>
+                
+                <div class="px-6 py-4 border-t border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/80 text-center">
+                    <p class="text-xs text-gray-500 dark:text-gray-400 italic">"The Sanad is from the religion. If it were not for the Sanad, anyone would say whatever they wanted." — Abdullah ibn Al-Mubarak</p>
+                </div>
+            </div>
+        </div>
     </main>
  
     <script>
@@ -4044,6 +4433,258 @@
             
             const playFullText = document.getElementById('play-full-text');
             if(playFullText) playFullText.innerText = "Play Full Recitation";
+        }
+        
+
+        
+        // The Malay-to-English Dictionary Bridge
+        // The Malay-to-English Dictionary Bridge
+        const malayDict = {
+            "sabar": "patience", "ilmu": "knowledge", "solat": "prayer", "sedekah": "charity",
+            "syurga": "paradise", "neraka": "hellfire", "ibu": "mother", "bapa": "father",
+            "marah": "anger", "senyum": "smile", "puasa": "fasting", "zakat": "charity",
+            "kasih": "mercy", "sayang": "mercy", "dosa": "sin", "pahala": "reward",
+            "niat": "intention", "hati": "heart", "doa": "supplication", "jujur": "honest",
+            "akhirat": "hereafter", "barzakh": "grave", "kubur": "grave", "rezeki": "provision",
+            "keluarga": "family", "taubat": "repentance", "kiamat": "resurrection",
+            "jiran": "neighbor", "syukur": "gratitude", "fitnah": "slander", "makanan": "food"
+        };
+        let currentHadithBook = 'sahih-bukhari'; // Default to Bukhari
+
+        function setHadithFilter(bookCode, btnElement) {
+            // 1. Update the filter memory
+            currentHadithBook = bookCode;
+
+            // 2. Reset ALL buttons to gray (inactive)
+            const allBtns = document.querySelectorAll('.hadith-filter-btn');
+            allBtns.forEach(btn => {
+                btn.classList.remove('active', 'bg-purple-100', 'text-purple-700', 'dark:bg-purple-900/40', 'dark:text-purple-300', 'border-purple-200', 'dark:border-purple-800');
+                btn.classList.add('bg-gray-100', 'text-gray-500', 'dark:bg-slate-700', 'dark:text-gray-400', 'border-gray-200', 'dark:border-slate-600');
+            });
+
+            // 3. Set the ONE clicked button to purple (active)
+            btnElement.classList.remove('bg-gray-100', 'text-gray-500', 'dark:bg-slate-700', 'dark:text-gray-400', 'border-gray-200', 'dark:border-slate-600');
+            btnElement.classList.add('active', 'bg-purple-100', 'text-purple-700', 'dark:bg-purple-900/40', 'dark:text-purple-300', 'border-purple-200', 'dark:border-purple-800');
+
+            // 4. Automatically re-trigger the search so the user doesn't have to hit enter again!
+            if (document.getElementById('hadith-search-input').value.trim() !== '') {
+                searchHadith();
+            }
+        }
+        function clearHadithSearch() {
+            // Empty the search bar
+            document.getElementById('hadith-search-input').value = '';
+            
+            // Trigger the engine (which automatically brings the dashboard back if the input is empty)
+            searchHadith();
+        }
+
+        // The trigger for the Thematic Dashboard tiles
+        function searchTheme(keyword) {
+            document.getElementById('hadith-search-input').value = keyword;
+            searchHadith();
+        }
+        // Upgrades plain text by highlighting the Prophet's name and dynamic search terms
+        function beautifyHadithText(text, searchQuery = "") {
+            if (!text) return "";
+            
+            // 1. Highlight mentions of the Prophet in Gold/Amber
+            let richText = text.replace(/(Allah's Messenger \(ﷺ\)|The Prophet \(ﷺ\)|Messenger of Allah \(ﷺ\)|Prophet \(ﷺ\))/gi, 
+                '<span class="text-amber-600 dark:text-amber-400 font-semibold">$1</span>');
+            
+            // 2. Dynamic Search Term Highlighting
+            if (searchQuery && searchQuery.trim() !== "") {
+                const safeQuery = searchQuery.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                // Uses negative lookahead to prevent accidentally highlighting HTML attributes
+                const regex = new RegExp(`(${safeQuery})(?![^<]*>)`, 'gi');
+                richText = richText.replace(regex, '<mark class="bg-purple-200 dark:bg-purple-800/60 text-purple-900 dark:text-purple-100 rounded px-1 font-semibold">$1</mark>');
+            }
+            
+            return richText;
+        }
+
+       async function searchHadith() {
+            const rawQuery = document.getElementById('hadith-search-input').value.toLowerCase().trim();
+            const resultsContainer = document.getElementById('hadith-results');
+            const loader = document.getElementById('hadith-loader');
+            const dashboard = document.getElementById('hadith-dashboard');
+            
+            // If the search bar is cleared, bring the dashboard back and hide results!
+            if (!rawQuery) {
+                if (dashboard) dashboard.classList.remove('hidden');
+                resultsContainer.innerHTML = '';
+                return;
+            }
+
+            // 1. Show loader, hide old results AND hide the dashboard
+            resultsContainer.classList.add('hidden');
+            if (dashboard) dashboard.classList.add('hidden');
+            loader.classList.remove('hidden');
+
+            // 2. Translate Malay to English if it exists in our dictionary
+            const query = malayDict[rawQuery] ? malayDict[rawQuery] : rawQuery;
+
+            try {
+                // 3. THE REAL API CALL
+                let apiUrl = `https://hadithapi.com/api/hadiths?apiKey=$2y$10$ndtilY6wzSdOkdfyBVxFuqIrE3nnHkpRk31X6MLEK7I8Io2Mq&hadithEnglish=${encodeURIComponent(query)}`;
+                
+                // If the user clicked a specific book, attach it to the API URL!
+                if (currentHadithBook !== '') {
+                    apiUrl += `&book=${currentHadithBook}`;
+                }
+                
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                // 4. Check if the API found anything
+                if (!data.hadiths || data.hadiths.data.length === 0) {
+                    renderHadithResults([], query); 
+                    return;
+                }
+
+                // 5. Transform the API's messy data and extract the Real Sahabi
+                const apiResults = data.hadiths.data.slice(0, 10).map(h => {
+                    // Regex to hunt down the Sahabi's name in the English text
+                    const narratorMatch = h.hadithEnglish.match(/(?:Narrated|Narrated by|It was narrated from|It is related from) (.*?)(?:that|said|:|,)/i);
+                    const realSahabi = narratorMatch ? narratorMatch[1].trim() : "A Companion (Sahabi)";
+
+                    return {
+                        book: h.book.bookName,
+                        number: h.hadithNumber,
+                        arabic: h.hadithArabic,
+                        en: h.hadithEnglish,
+                        grade: h.status || "Check Source",
+                        sahabi: realSahabi // <-- NEW: We saved the extracted name!
+                    };
+                });
+
+                // 6. Send it to your UI renderer, passing the query for dynamic highlighting
+                renderHadithResults(apiResults, query);
+
+            } catch (error) {
+                console.error("API Error:", error);
+                resultsContainer.innerHTML = `
+                    <div class="text-center py-12 text-red-500">
+                        <svg class="w-12 h-12 mx-auto mb-3 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <p class="text-lg font-bold">Connection Failed</p>
+                        <p class="text-sm mt-1 text-gray-500">Could not connect to the Hadith database. Check your internet or API key.</p>
+                    </div>`;
+            } finally {
+                // 7. Turn off the loading spinner
+                loader.classList.add('hidden');
+                resultsContainer.classList.remove('hidden');
+            }
+        }
+
+        function getGradeTooltip(grade) {
+            const g = (grade || "").toLowerCase();
+            if (g.includes('sahih')) return "Authentic: A highly reliable narration with an unbroken chain of trustworthy transmitters.";
+            if (g.includes('hasan')) return "Good: A reliable narration, slightly lower in transmitter memory precision than Sahih.";
+            if (g.includes('daif') || g.includes('da\'if') || g.includes('weak')) return "Weak: Has a broken chain or a narrator with poor memory. Accepted for good deeds, but not for establishing law.";
+            return "The scholarly classification of this narration's reliability.";
+        }
+
+        function renderHadithResults(results, searchQuery = "") {
+            const container = document.getElementById('hadith-results');
+            container.innerHTML = '';
+
+            if (results.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-gray-500">
+                        <p class="text-lg font-medium">No results found for your search.</p>
+                        <p class="text-sm mt-2">Try searching for: <b>patience, knowledge, or prayer</b></p>
+                    </div>`;
+                return;
+            }
+
+            results.forEach(h => {
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-700 hover:shadow-md transition-shadow";
+                
+                const beautifulEnglish = beautifyHadithText(h.en, searchQuery);
+
+                // Feature 4: Authenticity Visual Dashboard Logic
+                let gradeLevel = 0;
+                let gradeColor = 'gray';
+                const g = (h.grade || "").toLowerCase();
+                if (g.includes('sahih')) { gradeLevel = 100; gradeColor = 'emerald'; }
+                else if (g.includes('hasan')) { gradeLevel = 75; gradeColor = 'sky'; }
+                else if (g.includes('daif') || g.includes('weak')) { gradeLevel = 35; gradeColor = 'rose'; }
+
+                card.innerHTML = `
+                    <div class="relative flex justify-between items-center bg-gray-50 dark:bg-slate-900/50 px-6 py-3 border-b border-gray-200 dark:border-slate-700 z-10 rounded-t-2xl">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300 font-bold px-3 py-1 rounded text-xs tracking-wider uppercase">${h.book}</span>
+                            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">Hadith ${h.number}</span>
+                        </div>
+                        
+                        <div class="relative group cursor-help flex flex-col items-end">
+                            <span class="flex items-center gap-1 text-xs font-bold text-${gradeColor}-600 dark:text-${gradeColor}-400 bg-${gradeColor}-50 dark:bg-${gradeColor}-900/30 border border-${gradeColor}-200 dark:border-${gradeColor}-800/50 px-2 py-1 rounded uppercase transition-colors mb-1">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                ${h.grade}
+                            </span>
+                            <div class="w-16 h-1.5 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden flex">
+                                <div class="h-full bg-${gradeColor}-500 rounded-full" style="width: ${gradeLevel}%"></div>
+                            </div>
+                            
+                            <div class="absolute top-full mt-2 right-0 w-64 p-4 bg-slate-900 dark:bg-slate-700 text-white text-[11px] leading-relaxed rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 normal-case tracking-normal text-left font-medium pointer-events-none">
+                                <div class="mb-2 pb-2 border-b border-slate-600 flex justify-between items-center">
+                                    <span class="font-bold text-gray-300 uppercase tracking-widest text-[9px]">Classification</span>
+                                    <span class="font-bold text-${gradeColor}-400">Strength: ${gradeLevel}%</span>
+                                </div>
+                                ${getGradeTooltip(h.grade)}
+                                <div class="absolute w-3 h-3 bg-slate-900 dark:bg-slate-700 transform rotate-45 right-4 -top-1.5"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative p-6 sm:p-8 z-10 rounded-b-2xl overflow-hidden">
+                        <div class="absolute top-4 left-6 text-[120px] leading-none font-serif text-gray-100 dark:text-slate-700/30 select-none z-0 pointer-events-none transform -translate-y-4 -translate-x-2">"</div>
+
+                        <div class="relative z-10">
+                            <div class="flex flex-wrap items-center gap-3 mb-6">
+                                <button onclick="toggleArabic(this)" class="text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/30 px-4 py-2 rounded-full border border-purple-200 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors flex items-center gap-2 focus:outline-none shadow-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                    <span class="btn-text">Read Arabic Text</span>
+                                </button>
+                                
+                                <button onclick="openSanadVisualizer('${h.book}', ${h.number}, '${(h.sahabi || '').replace(/'/g, "\\'")}')" class="text-xs font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/30 px-4 py-2 rounded-full border border-sky-200 dark:border-sky-800 hover:bg-sky-100 dark:hover:bg-sky-900/50 transition-colors flex items-center gap-2 focus:outline-none shadow-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                                    <span>Visualize Sanad</span>
+                                </button>
+                            </div>
+
+                            <div class="arabic-text-container hidden mb-8">
+                                <p class="font-arabic text-3xl md:text-4xl text-gray-800 dark:text-white leading-loose text-right drop-shadow-sm" dir="rtl">${h.arabic}</p>
+                            </div>
+
+                            <div class="border-t border-gray-100 dark:border-slate-700/50 pt-6">
+                                <p class="text-gray-700 dark:text-gray-300 text-[15px] sm:text-base leading-loose text-justify first-letter:text-4xl first-letter:font-bold first-letter:text-purple-500 dark:first-letter:text-purple-400 first-letter:mr-1.5 first-letter:float-left first-letter:leading-tight mt-2">${beautifulEnglish}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        function toggleArabic(btn) {
+            const container = btn.nextElementSibling;
+            const textSpan = btn.querySelector('.btn-text');
+            
+            if (container.classList.contains('hidden')) {
+                // Open it
+                container.classList.remove('hidden');
+                textSpan.innerText = "Hide Arabic Text";
+                btn.classList.replace('text-purple-600', 'text-slate-600');
+                btn.classList.replace('bg-purple-50', 'bg-slate-100');
+            } else {
+                // Close it
+                container.classList.add('hidden');
+                textSpan.innerText = "Read Arabic Text";
+                btn.classList.replace('text-slate-600', 'text-purple-600');
+                btn.classList.replace('bg-slate-100', 'bg-purple-50');
+            }
         }
         /* ================= QUIZ LOGIC ================= */
         const quizData = [
@@ -5147,9 +5788,9 @@ try {
                 // Check browser storage to see if this specific tab is already mastered
                 const isMastered = localStorage.getItem('tajwid_mastered_' + tabId) === 'true';
 
-                // Create the universal button automatically
                 const btnContainer = document.createElement('div');
-                btnContainer.className = 'mt-8 flex justify-center pb-2';
+              // Adds a subtle dividing line and pushes it to the bottom of the section
+                 btnContainer.className = 'mt-12 pt-8 border-t border-gray-200 dark:border-slate-700/50 flex justify-center pb-6 w-full';
                 
                 btnContainer.innerHTML = `
                     <button onclick="toggleGlobalMastery('${tabId}', this)" class="mastery-btn group relative px-8 py-3 font-bold text-white rounded-full overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 ${isMastered ? 'bg-emerald-500 focus:ring-emerald-400' : 'bg-gray-400 dark:bg-slate-600 hover:bg-emerald-500 focus:ring-gray-400'}">
@@ -5232,6 +5873,368 @@ try {
 
         // Trigger the builder 0.3 seconds after the page loads
         setTimeout(initGlobalMastery, 300);
+        
+        /* ================= HADITH HUB SUB-NAVIGATION LOGIC ================= */
+        function switchHadithSubTab(tabId, btnElement) {
+            // Hide all sub-contents
+            document.querySelectorAll('.hadith-sub-content').forEach(el => el.classList.add('hidden'));
+            
+            // Reset all sub-buttons to inactive styling
+            document.querySelectorAll('.hadith-sub-btn').forEach(btn => {
+                btn.classList.remove('border-purple-500', 'text-purple-600', 'dark:text-purple-400', 'active');
+                btn.classList.add('border-transparent', 'text-gray-500', 'dark:text-gray-400');
+            });
+            
+            // Show target content
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            // Set active styling on clicked button
+            if(btnElement) {
+                btnElement.classList.remove('border-transparent', 'text-gray-500', 'dark:text-gray-400');
+                btnElement.classList.add('border-purple-500', 'text-purple-600', 'dark:text-purple-400', 'active');
+            }
+            
+            // If they click the Nawawi tab for the first time, render the cards
+            if(tabId === 'hadith-nawawi' && document.getElementById('nawawi-accordion-container').innerHTML.trim() === '') {
+                renderNawawiHadiths();
+            }
+        }
+
+        /* ================= NAWAWI 40 RENDERER ================= */
+        // I have populated the first 5. Add the rest to this array following the exact same pattern!
+        const nawawiData = [
+            {
+                num: 1,
+                title: "Deeds are by Intentions",
+                narrator: "Umar bin Al-Khattab",
+                arabic: "إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ، وَمَنْ كَانَتْ هِجْرَتُهُ لِدُنْيَا يُصِيبُهَا أَوِ امْرَأَةٍ يَنْكِحُهَا، فَهِجْرَتُهُ إِلَى مَا هَاجَرَ إِلَيْهِ",
+                english: "Actions are judged by intentions, so each man will have what he intended. Thus, he whose migration was to Allah and His Messenger, his migration is to Allah and His Messenger; but he whose migration was for some worldly thing he might gain, or for a wife he might marry, his migration is to that for which he migrated."
+            },
+            {
+                num: 2,
+                title: "The Hadith of Jibril (Islam, Iman, Ihsan)",
+                narrator: "Umar bin Al-Khattab",
+                arabic: "بَيْنَمَا نَحْنُ جُلُوسٌ عِنْدَ رَسُولِ اللَّهِ صلى الله عليه وسلم ذَاتَ يَوْمٍ، إِذْ طَلَعَ عَلَيْنَا رَجُلٌ شَدِيدُ بَيَاضِ الثِّيَابِ، شَدِيدُ سَوَادِ الشَّعَرِ، لاَ يُرَى عَلَيْهِ أَثَرُ السَّفَرِ، وَلاَ يَعْرِفُهُ مِنَّا أَحَدٌ...",
+                english: "While we were sitting with the Messenger of Allah (ﷺ) one day, a man appeared before us whose clothes were exceedingly white and whose hair was exceedingly black; no signs of travel were to be seen on him, and none of us knew him... (He asked about Islam, Iman, and Ihsan, and the Hour)."
+            },
+            {
+                num: 3,
+                title: "The Pillars of Islam",
+                narrator: "Ibn Umar",
+                arabic: "بُنِيَ الإِسْلامُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لا إِلَهَ إِلا اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَإِقَامِ الصَّلاةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ",
+                english: "Islam has been built on five [pillars]: testifying that there is no deity worthy of worship except Allah and that Muhammad is the Messenger of Allah, establishing the salah (prayer), paying the zakat (obligatory charity), making the hajj (pilgrimage) to the House, and fasting in Ramadhan."
+            },
+            {
+                num: 4,
+                title: "Creation of the Human Being",
+                narrator: "Abdullah bin Masud",
+                arabic: "إِنَّ أَحَدَكُمْ يُجْمَعُ خَلْقُهُ فِي بَطْنِ أُمِّهِ أَرْبَعِينَ يَوْمًا نُطْفَةً، ثُمَّ يَكُونُ عَلَقَةً مِثْلَ ذَلِكَ، ثُمَّ يَكُونُ مُضْغَةً مِثْلَ ذَلِكَ، ثُمَّ يُرْسَلُ إِلَيْهِ الْمَلَكُ فَيَنْفُخُ فِيهِ الرُّوحَ، وَيُؤْمَرُ بِأَرْبَعِ كَلِمَاتٍ: بِكَتْبِ رِزْقِهِ، وَأَجَلِهِ، وَعَمَلِهِ، وَشَقِيٌّ أَوْ سَعِيدٌ. فَوَاللَّهِ الَّذِي لا إِلَهَ غَيْرُهُ، إِنَّ أَحَدَكُمْ لَيَعْمَلُ بِعَمَلِ أَهْلِ الْجَنَّةِ حَتَّى مَا يَكُونَ بَيْنَهُ وَبَيْنَهَا إِلا ذِرَاعٌ، فَيَسْبِقُ عَلَيْهِ الْكِتَابُ، فَيَعْمَلُ بِعَمَلِ أَهْلِ النَّارِ فَيَدْخُلُهَا، وَإِنَّ أَحَدَكُمْ لَيَعْمَلُ بِعَمَلِ أَهْلِ النَّارِ حَتَّى مَا يَكُونَ بَيْنَهُ وَبَيْنَهَا إِلا ذِرَاعٌ، فَيَسْبِقُ عَلَيْهِ الْكِتَابُ، فَيَعْمَلُ بِعَمَلِ أَهْلِ الْجَنَّةِ فَيَدْخُلُهَا",
+                english: "Verily the creation of each one of you is brought together in his mother's womb for forty days in the form of a nutfah (a drop), then he becomes an 'alaqah (clot of blood) for a like period, then a mudghah (morsel of flesh) for a like period, then there is sent to him the angel who blows his soul into him and who is bidden with four matters: to write down his sustenance, his life span, his actions, and whether he will be happy or unhappy (i.e., whether or not he will enter Paradise). By Allah, other than Whom there is no deity, verily one of you performs the actions of the people of Paradise until there is but an arms length between him and it, and that which has been written overtakes him, and so he acts with the actions of the people of the Hellfire and thus enters it; and verily one of you performs the actions of the people of the Hellfire, until there is but an arms length between him and it, and that which has been written overtakes him and so he acts with the actions of the people of Paradise and thus he enters it."
+            },
+            {
+                num: 5,
+                title: "Rejection of Bid'ah (Innovation)",
+                narrator: "Aishah",
+                arabic: "مَنْ أَحْدَثَ فِي أَمْرِنَا هَذَا مَا لَيْسَ مِنْهُ فَهُوَ رَدٌّ",
+                english: "He who innovates something in this matter of ours [i.e., Islam] that is not of it will have it rejected."
+            },
+            {
+                num: 6,
+                title: "The Lawful and Unlawful are Clear",
+                narrator: "An-Nu'man bin Bashir",
+                arabic: "إِنَّ الْحَلالَ بَيِّنٌ وَإِنَّ الْحَرَامَ بَيِّنٌ، وَبَيْنَهُمَا أُمُورٌ مُشْتَبِهَاتٌ لا يَعْلَمُهُنَّ كَثِيرٌ مِنَ النَّاسِ، فَمَنِ اتَّقَى الشُّبُهَاتِ اسْتَبْرَأَ لِدِينِهِ وَعِرْضِهِ، وَمَنْ وَقَعَ فِي الشُّبُهَاتِ وَقَعَ فِي الْحَرَامِ، كَالرَّاعِي يَرْعَى حَوْلَ الْحِمَى يُوشِكُ أَنْ يَرْتَعَ فِيهِ. أَلا وَإِنَّ لِكُلِّ مَلِكٍ حِمًى، أَلا وَإِنَّ حِمَى اللَّهِ مَحَارِمُهُ. أَلا وَإِنَّ فِي الْجَسَدِ مُضْغَةً، إِذَا صَلَحَتْ صَلَحَ الْجَسَدُ كُلُّهُ، وَإِذَا فَسَدَتْ فَسَدَ الْجَسَدُ كُلُّهُ، أَلا وَهِيَ الْقَلْبُ",
+                english: "That which is lawful is clear and that which is unlawful is clear, and between the two of them are doubtful matters about which many people do not know. Thus he who avoids doubtful matters clears himself in regard to his religion and his honor, but he who falls into doubtful matters [eventually] falls into that which is unlawful, like the shepherd who pastures around a sanctuary, all but grazing therein. Truly every king has a sanctuary, and truly Allah's sanctuary is His prohibitions. Truly in the body there is a morsel of flesh, which, if it be whole, all the body is whole, and which, if it is diseased, all of [the body] is diseased. Truly, it is the heart."
+            },
+            {
+                num: 7,
+                title: "Religion is Sincere Advice",
+                narrator: "Tamim Ad-Dari",
+                arabic: "الدِّينُ النَّصِيحَةُ. قُلْنَا: لِمَنْ؟ قَالَ: لِلَّهِ، وَلِكِتَابِهِ، وَلِرَسُولِهِ، وَلأَئِمَّةِ الْمُسْلِمِينَ وَعَامَّتِهِمْ",
+                english: "The Prophet (ﷺ) said, 'Religion is sincerity (Al-Nasihah).' We said, 'To whom?' He said, 'To Allah, His Book, His Messenger, the leaders of the Muslims, and their common folk.'"
+            },
+            {
+                num: 8,
+                title: "The Sanctity of a Muslim",
+                narrator: "Ibn Umar",
+                arabic: "أُمِرْتُ أَنْ أُقَاتِلَ النَّاسَ حَتَّى يَشْهَدُوا أَنْ لا إِلَهَ إِلا اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَيُقِيمُوا الصَّلاةَ، وَيُؤْتُوا الزَّكَاةَ، فَإِذَا فَعَلُوا ذَلِكَ عَصَمُوا مِنِّي دِمَاءَهُمْ وَأَمْوَالَهُمْ إِلا بِحَقِّ الإِسْلامِ، وَحِسَابُهُمْ عَلَى اللَّهِ تَعَالَى",
+                english: "I have been ordered to fight against the people until they testify that there is none worthy of worship except Allah and that Muhammad is the Messenger of Allah, and until they establish the prayer and pay the Zakat. And if they do that then they will have gained protection from me for their lives and property, unless [they commit acts that are punishable] in Islam, and their reckoning will be with Allah the Almighty."
+            },
+            {
+                num: 9,
+                title: "Obligations are According to Ability",
+                narrator: "Abu Hurairah",
+                arabic: "مَا نَهَيْتُكُمْ عَنْهُ فَاجْتَنِبُوهُ، وَمَا أَمَرْتُكُمْ بِهِ فَأْتُوا مِنْهُ مَا اسْتَطَعْتُمْ...",
+                english: "What I have forbidden you, avoid; what I have ordered you [to do], do as much of it as you can. For verily, it was only the excessive questioning and disagreeing with their prophets that destroyed those who were before you."
+            },
+            {
+                num: 10,
+                title: "Allah is Pure and Accepts Only the Pure",
+                narrator: "Abu Hurairah",
+                arabic: "إِنَّ اللَّهَ طَيِّبٌ لا يَقْبَلُ إِلا طَيِّبًا، وَإِنَّ اللَّهَ أَمَرَ الْمُؤْمِنِينَ بِمَا أَمَرَ بِهِ الْمُرْسَلِينَ، فَقَالَ تَعَالَى: ﴿يَا أَيُّهَا الرُّسُلُ كُلُوا مِنَ الطَّيِّبَاتِ وَاعْمَلُوا صَالِحًا﴾، وَقَالَ تَعَالَى: ﴿يَا أَيُّهَا الَّذِينَ آمَنُوا كُلُوا مِنْ طَيِّبَاتِ مَا رَزَقْنَاكُمْ﴾ ثُمَّ ذَكَرَ الرَّجُلَ يُطِيلُ السَّفَرَ أَشْعَثَ أَغْبَرَ، يَمُدُّ يَدَيْهِ إِلَى السَّمَاءِ: يَا رَبِّ، يَا رَبِّ، وَمَطْعَمُهُ حَرَامٌ، وَمَشْرَبُهُ حَرَامٌ، وَمَلْبَسُهُ حَرَامٌ، وَغُذِيَ بِالْحَرَامِ، فَأَنَّى يُسْتَجَابُ لِذَلِكَ؟",
+                english: "Allah the Almighty is Good and accepts only that which is good. And verily Allah has commanded the believers to do that which He has commanded the Messengers. So the Almighty has said: 'O (you) Messengers! Eat of the tayyibaat [all kinds of halal (legal) foods], and perform righteous deeds.' [23:51] and the Almighty has said: 'O you who believe! Eat of the lawful things that We have provided you.' [2:172] Then he (ﷺ) mentioned [the case] of a man who, having journeyed far, is disheveled and dusty, and who spreads out his hands to the sky saying 'O Lord! O Lord!,' while his food is haram (unlawful), his drink is haram, his clothing is haram, and he has been nourished with haram, so how can [his supplication] be answered?"
+            },
+            {
+                num: 11,
+                title: "Leaving Doubt",
+                narrator: "Al-Hasan bin Ali",
+                arabic: "دَعْ مَا يَرِيبُكَ إِلَى مَا لا يَرِيبُكَ",
+                english: "Leave that which makes you doubt for that which does not make you doubt."
+            },
+            {
+                num: 12,
+                title: "Leaving What Does Not Concern You",
+                narrator: "Abu Hurairah",
+                arabic: "مِنْ حُسْنِ إِسْلامِ الْمَرْءِ تَرْكُهُ مَا لا يَعْنِيهِ",
+                english: "Part of the perfection of one's Islam is his leaving that which does not concern him."
+            },
+            {
+                num: 13,
+                title: "Love for Your Brother What You Love for Yourself",
+                narrator: "Anas bin Malik",
+                arabic: "لا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ",
+                english: "None of you [truly] believes until he loves for his brother that which he loves for himself."
+            },
+            {
+                num: 14,
+                title: "Prohibition of Spilling Muslim Blood",
+                narrator: "Ibn Mas'ud",
+                arabic: "لا يَحِلُّ دَمُ امْرِئٍ مُسْلِمٍ إِلا بِإِحْدَى ثَلاثٍ: الثَّيِّبُ الزَّانِي، وَالنَّفْسُ بِالنَّفْسِ، وَالتَّارِكُ لِدِينِهِ الْمُفَارِقُ لِلْجَمَاعَةِ",
+                english: "It is not permissible to spill the blood of a Muslim except in three [instances]: the married person who commits adultery, a life for a life, and the one who forsakes his religion and separates from the community."
+            },
+            {
+                num: 15,
+                title: "Islamic Manners (Speech & Hospitality)",
+                narrator: "Abu Hurairah",
+                arabic: "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ، وَمَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيُكْرِمْ جَارَهُ...",
+                english: "Let him who believes in Allah and the Last Day speak good, or keep silent; and let him who believes in Allah and the Last Day be generous to his neighbor; and let him who believes in Allah and the Last Day be generous to his guest."
+            },
+            {
+                num: 16,
+                title: "Do Not Become Angry",
+                narrator: "Abu Hurairah",
+                arabic: "أَنَّ رَجُلا قَالَ لِلنَّبِيِّ صلى الله عليه وسلم: أَوْصِنِي. قَالَ: لا تَغْضَبْ. فَرَدَّدَ مِرَارًا، قَالَ: لا تَغْضَبْ",
+                english: "A man said to the Prophet (ﷺ), 'Counsel me,' so he said, 'Do not become angry.' The man repeated [his request] several times, and he said, 'Do not become angry.'"
+            },
+            {
+                num: 17,
+                title: "Excellence (Ihsan) in All Things",
+                narrator: "Shaddad bin Aws",
+                arabic: "إِنَّ اللَّهَ كَتَبَ الإِحْسَانَ عَلَى كُلِّ شَيْءٍ، فَإِذَا قَتَلْتُمْ فَأَحْسِنُوا الْقِتْلَةَ، وَإِذَا ذَبَحْتُمْ فَأَحْسِنُوا الذِّبْحَةَ...",
+                english: "Verily Allah has prescribed Ihsan (proficiency, perfection) in all things. So if you kill then kill well; and if you slaughter, then slaughter well. Let each one of you sharpen his blade and let him spare suffering to the animal he slaughters."
+            },
+            {
+                num: 18,
+                title: "Piety and Good Character",
+                narrator: "Abu Dharr & Mu'adh bin Jabal",
+                arabic: "اتَّقِ اللَّهَ حَيْثُمَا كُنْتَ، وَأَتْبِعِ السَّيِّئَةَ الْحَسَنَةَ تَمْحُهَا، وَخَالِقِ النَّاسَ بِخُلُقٍ حَسَنٍ",
+                english: "Fear Allah wherever you are, and follow up a bad deed with a good one and it will wipe it out, and behave well towards people."
+            },
+            {
+                num: 19,
+                title: "Be Mindful of Allah",
+                narrator: "Ibn Abbas",
+                arabic: "يَا غُلامُ إِنِّي أُعَلِّمُكَ كَلِمَاتٍ: احْفَظِ اللَّهَ يَحْفَظْكَ، احْفَظِ اللَّهَ تَجِدْهُ تُجَاهَكَ، إِذَا سَأَلْتَ فَاسْأَلِ اللَّهَ، وَإِذَا اسْتَعَنْتَ فَاسْتَعِنْ بِاللَّهِ، وَاعْلَمْ أَنَّ الأُمَّةَ لَوِ اجْتَمَعَتْ عَلَى أَنْ يَنْفَعُوكَ بِشَيْءٍ لَمْ يَنْفَعُوكَ إِلا بِشَيْءٍ قَدْ كَتَبَهُ اللَّهُ لَكَ، وَلَوِ اجْتَمَعُوا عَلَى أَنْ يَضُرُّوكَ بِشَيْءٍ لَمْ يَضُرُّوكَ إِلا بِشَيْءٍ قَدْ كَتَبَهُ اللَّهُ عَلَيْكَ، رُفِعَتِ الأَقْلامُ وَجَفَّتِ الصُّحُفُ",
+                english: "O young man, I shall teach you some words [of advice]: Be mindful of Allah, and Allah will protect you. Be mindful of Allah, and you will find Him in front of you. If you ask, ask of Allah; if you seek help, seek help of Allah. Know that if the Nation were to gather together to benefit you with anything, it would benefit you only with something that Allah had already prescribed for you, and that if they gather together to harm you with anything, they would harm you only with something Allah had already prescribed for you. The pens have been lifted and the pages have dried."
+            },
+            {
+                num: 20,
+                title: "Modesty is from Faith",
+                narrator: "Abu Mas'ud Al-Badri",
+                arabic: "إِنَّ مِمَّا أَدْرَكَ النَّاسُ مِنْ كَلامِ النُّبُوَّةِ الأُولَى: إِذَا لَمْ تَسْتَحِ فَاصْنَعْ مَا شِئْتَ",
+                english: "Among the words people obtained from the First Prophecy are: 'If you feel no shame, then do as you wish.'"
+            },
+            {
+                num: 21,
+                title: "Uprightness and Steadfastness",
+                narrator: "Sufyan bin Abdullah",
+                arabic: "قُلْتُ: يَا رَسُولَ اللَّهِ، قُلْ لِي فِي الإِسْلامِ قَوْلا لا أَسْأَلُ عَنْهُ أَحَدًا غَيْرَكَ. قَالَ: قُلْ آمَنْتُ بِاللَّهِ ثُمَّ اسْتَقِمْ",
+                english: "I said, 'O Messenger of Allah, tell me something about Islam which I can ask of no one but you.' He (ﷺ) said, 'Say I believe in Allah — and then be steadfast.'"
+            },
+            {
+                num: 22,
+                title: "Entering Paradise",
+                narrator: "Jabir bin Abdullah",
+                arabic: "أَنَّ رَجُلا سَأَلَ رَسُولَ اللَّهِ صلى الله عليه وسلم، فَقَالَ: أَرَأَيْتَ إِذَا صَلَّيْتُ الْمَكْتُوبَاتِ، وَصُمْتُ رَمَضَانَ، وَأَحْلَلْتُ الْحَلالَ، وَحَرَّمْتُ الْحَرَامَ، وَلَمْ أَزِدْ عَلَى ذَلِكَ شَيْئًا، أَأَدْخُلُ الْجَنَّةَ؟ قَالَ: نَعَمْ",
+                english: "A man asked the Messenger of Allah (ﷺ): 'Do you think that if I perform the obligatory prayers, fast in Ramadhan, treat as lawful that which is lawful and treat as forbidden that which is forbidden, and do nothing further than that, I shall enter Paradise?' He (ﷺ) said: 'Yes.'"
+            },
+            {
+                num: 23,
+                title: "Purity is Half of Faith",
+                narrator: "Abu Malik Al-Ash'ari",
+                arabic: "الطُّهُورُ شَطْرُ الإِيمَانِ، وَالْحَمْدُ لِلَّهِ تَمْلأُ الْمِيزَانَ، وَسُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ تَمْلآنِ - أَوْ تَمْلأُ - مَا بَيْنَ السَّمَاوَاتِ وَالأَرْضِ، وَالصَّلاةُ نُورٌ، وَالصَّدَقَةُ بُرْهَانٌ، وَالصَّبْرُ ضِيَاءٌ، وَالْقُرْآنُ حُجَّةٌ لَكَ أَوْ عَلَيْكَ، كُلُّ النَّاسِ يَغْدُو، فَبَائِعٌ نَفْسَهُ فَمُعْتِقُهَا أَوْ مُوبِقُهَا",
+                english: "Purity is half of iman (faith). 'Al-hamdu lillah' (praise be to Allah) fills the scales, and 'subhan-Allah' and 'Al-hamdulillah' fill that which is between heaven and earth. And the salah (prayer) is a light, and charity is a proof, and patience is illumination, and the Qur'an is a proof either for you or against you. Every person starts his day as a vendor of his soul, either freeing it or causing its ruin."
+            },
+            {
+                num: 24,
+                title: "Prohibition of Oppression",
+                narrator: "Abu Dharr (Hadith Qudsi)",
+                arabic: "يَا عِبَادِي إِنِّي حَرَّمْتُ الظُّلْمَ عَلَى نَفْسِي وَجَعَلْتُهُ بَيْنَكُمْ مُحَرَّمًا فَلا تَظَالَمُوا، يَا عِبَادِي كُلُّكُمْ ضَالٌّ إِلا مَنْ هَدَيْتُهُ فَاسْتَهْدُونِي أَهْدِكُمْ، يَا عِبَادِي كُلُّكُمْ جَائِعٌ إِلا مَنْ أَطْعَمْتُهُ فَاسْتَطْعِمُونِي أُطْعِمْكُمْ، يَا عِبَادِي كُلُّكُمْ عَارٍ إِلا مَنْ كَسَوْتُهُ فَاسْتَكْسُونِي أَكْسُكُمْ، يَا عِبَادِي إِنَّكُمْ تُخْطِئُونَ بِاللَّيْلِ وَالنَّهَارِ وَأَنَا أَغْفِرُ الذُّنُوبَ جَمِيعًا فَاسْتَغْفِرُونِي أَغْفِرْ لَكُمْ، يَا عِبَادِي إِنَّكُمْ لَنْ تَبْلُغُوا ضَرِّي فَتَضُرُّونِي وَلَنْ تَبْلُغُوا نَفْعِي فَتَنْفَعُونِي، يَا عِبَادِي لَوْ أَنَّ أَوَّلَكُمْ وَآخِرَكُمْ وَإِنْسَكُمْ وَجِنَّكُمْ كَانُوا عَلَى أَتْقَى قَلْبِ رَجُلٍ وَاحِدٍ مِنْكُمْ مَا زَادَ ذَلِكَ فِي مُلْكِي شَيْئًا، يَا عِبَادِي لَوْ أَنَّ أَوَّلَكُمْ وَآخِرَكُمْ وَإِنْسَكُمْ وَجِنَّكُمْ كَانُوا عَلَى أَفْجَرِ قَلْبِ رَجُلٍ وَاحِدٍ مَا نَقَصَ ذَلِكَ مِنْ مُلْكِي شَيْئًا، يَا عِبَادِي لَوْ أَنَّ أَوَّلَكُمْ وَآخِرَكُمْ وَإِنْسَكُمْ وَجِنَّكُمْ قَامُوا فِي صَعِيدٍ وَاحِدٍ فَسَأَلُونِي فَأَعْطَيْتُ كُلَّ إِنْسَانٍ مَسْأَلَتَهُ مَا نَقَصَ ذَلِكَ مِمَّا عِنْدِي إِلا كَمَا يَنْقُصُ الْمِخْيَطُ إِذَا أُدْخِلَ الْبَحْرَ، يَا عِبَادِي إِنَّمَا هِيَ أَعْمَالُكُمْ أُحْصِيهَا لَكُمْ ثُمَّ أُوَفِّيكُمْ إِيَّاهَا، فَمَنْ وَجَدَ خَيْرًا فَلْيَحْمَدِ اللَّهَ وَمَنْ وَجَدَ غَيْرَ ذَلِكَ فَلا يَلُومَنَّ إِلا نَفْسَهُ",
+                english: "O My servants, I have forbidden oppression for Myself and have made it forbidden amongst you, so do not oppress one another. O My servants, all of you are astray except for those I have guided, so seek guidance of Me and I shall guide you. O My servants, all of you are hungry except for those I have fed, so seek food of Me and I shall feed you. O My servants, all of you are naked except for those I have clothed, so seek clothing of Me and I shall clothe you. O My servants, you sin by night and by day, and I forgive all sins, so seek forgiveness of Me and I shall forgive you. O My servants, you will not attain harming Me so as to harm Me, and you will not attain benefiting Me so as to benefit Me. O My servants, were the first of you and the last of you, the human of you and the jinn of you to be as pious as the most pious heart of any one man of you, that would not increase My kingdom in anything. O My servants, were the first of you and the last of you, the human of you and the jinn of you to be as wicked as the most wicked heart of any one man of you, that would not decrease My kingdom in anything. O My servants, were the first of you and the last of you, the human of you and the jinn of you to rise up in one place and make a request of Me, and were I to give everyone what he requested, that would not decrease what I have, any more than a needle decreases the sea if put into it. O My servants, it is but your deeds that I reckon up for you and then recompense you for, so let him who finds good praise Allah, and let him who finds other than that blame no one but himself."
+            },
+            {
+                num: 25,
+                title: "Charity is in Many Forms",
+                narrator: "Abu Dharr",
+                arabic: "أَنَّ نَاسًا مِنْ أَصْحَابِ النَّبِيِّ صلى الله عليه وسلم قَالُوا لِلنَّبِيِّ صلى الله عليه وسلم: يَا رَسُولَ اللَّهِ، ذَهَبَ أَهْلُ الدُّثُورِ بِالأُجُورِ، يُصَلُّونَ كَمَا نُصَلِّي، وَيَصُومُونَ كَمَا نَصُومُ، وَيَتَصَدَّقُونَ بِفُضُولِ أَمْوَالِهِمْ. قَالَ: أَوَلَيْسَ قَدْ جَعَلَ اللَّهُ لَكُمْ مَا تَصَّدَّقُونَ؟ إِنَّ بِكُلِّ تَسْبِيحَةٍ صَدَقَةً، وَكُلِّ تَكْبِيرَةٍ صَدَقَةً، وَكُلِّ تَحْمِيدَةٍ صَدَقَةً، وَكُلِّ تَهْلِيلَةٍ صَدَقَةً، وَأَمْرٌ بِالْمَعْرُوفِ صَدَقَةٌ، وَنَهْيٌ عَنْ مُنْكَرٍ صَدَقَةٌ، وَفِي بُضْعِ أَحَدِكُمْ صَدَقَةٌ. قَالُوا: يَا رَسُولَ اللَّهِ، أَيَأْتِي أَحَدُنَا شَهْوَتَهُ وَيَكُونُ لَهُ فِيهَا أَجْرٌ؟ قَالَ: أَرَأَيْتُمْ لَوْ وَضَعَهَا فِي حَرَامٍ أَكَانَ عَلَيْهِ فِيهَا وِزْرٌ؟ فَكَذَلِكَ إِذَا وَضَعَهَا فِي الْحَلالِ كَانَ لَهُ أَجْرٌ",
+                english: "Some of the Companions of the Messenger of Allah (ﷺ) said to him: 'O Messenger of Allah, the affluent have made off with the rewards; they pray as we pray, they fast as we fast, and they give [much] in charity by virtue of their wealth.' He (ﷺ) said: 'Has not Allah made things for you to give in charity? Verily every tasbeehah (saying subhan-Allah) is a charity, every takbeerah (saying Allahu akbar) is a charity, every tahmeedah (saying al-hamdu lillah) is a charity, and every tahleelah (saying la ilaha illAllah) is a charity; to enjoin a good action is a charity, to forbid an evil action is a charity, and in the sexual act of each of you there is a charity.' They said: 'O Messenger of Allah, when one of us fulfills his sexual desire will he have some reward for that?' He (ﷺ) said: 'Do you not see that if he were to act upon it unlawfully he would be sinning? Likewise, if he acts upon it lawfully he will have a reward.'"
+            },
+            {
+                num: 26,
+                title: "Charity on Every Joint",
+                narrator: "Abu Hurairah",
+                arabic: "كُلُّ سُلامَى مِنَ النَّاسِ عَلَيْهِ صَدَقَةٌ، كُلَّ يَوْمٍ تَطْلُعُ فِيهِ الشَّمْسُ تَعْدِلُ بَيْنَ اثْنَيْنِ صَدَقَةٌ، وَتُعِينُ الرَّجُلَ فِي دَابَّتِهِ فَتَحْمِلُهُ عَلَيْهَا أَوْ تَرْفَعُ لَهُ عَلَيْهَا مَتَاعَهُ صَدَقَةٌ، وَالْكَلِمَةُ الطَّيِّبَةُ صَدَقَةٌ، وَبِكُلِّ خُطْوَةٍ تَمْشِيهَا إِلَى الصَّلاةِ صَدَقَةٌ، وَتُمِيطُ الأَذَى عَنِ الطَّرِيقِ صَدَقَةٌ",
+                english: "Every joint of a person must perform a charity each day that the sun rises: to judge justly between two people is a charity. To help a man with his mount, lifting him onto it or hoisting up his belongings onto it, is a charity. And the good word is a charity. And every step that you take towards the prayer is a charity, and removing a harmful object from the road is a charity."
+            },
+            {
+                num: 27,
+                title: "Righteousness is Good Character",
+                narrator: "An-Nawwas bin Sam'an",
+                arabic: "الْبِرُّ حُسْنُ الْخُلُقِ، وَالإِثْمُ مَا حَاكَ فِي نَفْسِكَ وَكَرِهْتَ أَنْ يَطَّلِعَ عَلَيْهِ النَّاسُ",
+                english: "Righteousness is in good character, and wrongdoing is that which wavers in your soul, and which you dislike people finding out about."
+            },
+            {
+                num: 28,
+                title: "Adhering to the Sunnah",
+                narrator: "Abu Najih Al-Irbad bin Sariyah",
+                arabic: "وَعَظَنَا رَسُولُ اللَّهِ صلى الله عليه وسلم مَوْعِظَةً وَجِلَتْ مِنْهَا الْقُلُوبُ، وَذَرَفَتْ مِنْهَا الْعُيُونُ، فَقُلْنَا: يَا رَسُولَ اللَّهِ، كَأَنَّهَا مَوْعِظَةُ مُوَدِّعٍ فَأَوْصِنَا. قَالَ: أُوصِيكُمْ بِتَقْوَى اللَّهِ عَزَّ وَجَلَّ، وَالسَّمْعِ وَالطَّاعَةِ وَإِنْ تَأَمَّرَ عَلَيْكُمْ عَبْدٌ، فَإِنَّهُ مَنْ يَعِشْ مِنْكُمْ فَسَيَرَى اخْتِلافًا كَثِيرًا، فَعَلَيْكُمْ بِسُنَّتِي وَسُنَّةِ الْخُلَفَاءِ الرَّاشِدِينَ الْمَهْدِيِّينَ، عَضُّوا عَلَيْهَا بِالنَّوَاجِذِ، وَإِيَّاكُمْ وَمُحْدَثَاتِ الأُمُورِ، فَإِنَّ كُلَّ بِدْعَةٍ ضَلالَةٌ",
+                english: "The Messenger of Allah (ﷺ) gave us a sermon by which our hearts were filled with fear and tears came to our eyes. So we said, 'O Messenger of Allah! It is as though this is a farewell sermon, so counsel us.' He (ﷺ) said, 'I counsel you to have taqwa (fear) of Allah, and to listen and obey [your leader], even if a slave were to become your amir. Verily he among you who lives long will see great controversy, so you must keep to my Sunnah and to the Sunnah of the Khulafa ar-Rashideen (the rightly guided caliphs), those who guide to the right way. Cling to it stubbornly [literally: with your molar teeth]. Beware of newly invented matters [in the religion], for verily every bid'ah (innovation) is misguidance.'"
+            },
+            {
+                num: 29,
+                title: "The Gates of Goodness",
+                narrator: "Mu'adh bin Jabal",
+                arabic: "قُلْتُ: يَا رَسُولَ اللَّهِ، أَخْبِرْنِي بِعَمَلٍ يُدْخِلُنِي الْجَنَّةَ وَيُبَاعِدُنِي عَنِ النَّارِ. قَالَ: لَقَدْ سَأَلْتَ عَنْ عَظِيمٍ، وَإِنَّهُ لَيَسِيرٌ عَلَى مَنْ يَسَّرَهُ اللَّهُ عَلَيْهِ: تَعْبُدُ اللَّهَ لا تُشْرِكُ بِهِ شَيْئًا، وَتُقِيمُ الصَّلاةَ، وَتُؤْتِي الزَّكَاةَ، وَتَصُومُ رَمَضَانَ، وَتَحُجُّ الْبَيْتَ. ثُمَّ قَالَ: أَلا أَدُلُّكَ عَلَى أَبْوَابِ الْخَيْرِ؟ الصَّوْمُ جُنَّةٌ، وَالصَّدَقَةُ تُطْفِئُ الْخَطِيئَةَ كَمَا يُطْفِئُ الْمَاءُ النَّارَ، وَصَلاةُ الرَّجُلِ مِنْ جَوْفِ اللَّيْلِ. قَالَ: ثُمَّ تَلا: ﴿تَتَجَافَى جُنُوبُهُمْ عَنِ الْمَضَاجِعِ﴾ حَتَّى بَلَغَ ﴿يَعْمَلُونَ﴾. ثُمَّ قَالَ: أَلا أُخْبِرُكَ بِرَأْسِ الأَمْرِ كُلِّهِ وَعَمُودِهِ، وَذِرْوَةِ سَنَامِهِ؟ قُلْتُ: بَلَى يَا رَسُولَ اللَّهِ. قَالَ: رَأْسُ الأَمْرِ الإِسْلامُ، وَعَمُودُهُ الصَّلاةُ، وَذِرْوَةُ سَنَامِهِ الْجِهَادُ. ثُمَّ قَالَ: أَلا أُخْبِرُكَ بِمَلاكِ ذَلِكَ كُلِّهِ؟ قُلْتُ: بَلَى يَا نَبِيَّ اللَّهِ. فَأَخَذَ بِلِسَانِهِ وَقَالَ: كُفَّ عَلَيْكَ هَذَا. فَقُلْتُ: يَا نَبِيَّ اللَّهِ، وَإِنَّا لَمُؤَاخَذُونَ بِمَا نَتَكَلَّمُ بِهِ؟ فَقَالَ: ثَكِلَتْكَ أُمُّكَ يَا مُعَاذُ، وَهَلْ يَكُبُّ النَّاسَ فِي النَّارِ عَلَى وُجُوهِهِمْ - أَوْ عَلَى مَنَاخِرِهِمْ - إِلا حَصَائِدُ أَلْسِنَتِهِمْ",
+                english: "I said: 'O Messenger of Allah, tell me of an act which will take me into Paradise and will keep me away from the Hellfire.' He said: 'You have asked me about a great matter, yet it is easy for him for whom Allah makes it easy: worship Allah, without associating any partners with Him; establish the prayer; pay the Zakat; fast in Ramadhan; and make the pilgrimage to the House.' Then he said: 'Shall I not guide you to the gates of goodness? Fasting is a shield; charity extinguishes sin as water extinguishes fire; and a man's prayer in the middle of the night.' Then he recited: 'Who forsake their beds to cry unto their Lord in fear and hope, and spend of that We have bestowed on them. No soul knows what is kept hid for them of joy, as a reward for what they used to do.' [32:16-17] Then he said: 'Shall I not tell you of the peak of the matter, its pillar, and its topmost part?' I said: 'Yes, O Messenger of Allah.' He said: 'The peak of the matter is Islam; the pillar is prayer; and its topmost part is jihad.' Then he said: 'Shall I not tell you of the controlling of all that?' I said: 'Yes, O Prophet of Allah,' and he took hold of his tongue and said: 'Restrain this.' I said: 'O Prophet of Allah, will what we say be held against us?' He said: 'May your mother be bereaved of you, O Mu'adh! Is there anything that topples people on their faces - or on their noses - into Hellfire other than the jests of their tongues?'"
+            },
+            {
+                num: 30,
+                title: "Allah's Limits and Prohibitions",
+                narrator: "Abu Tha'labah Al-Khushani",
+                arabic: "إِنَّ اللَّهَ تَعَالَى فَرَضَ فَرَائِضَ فَلا تُضَيِّعُوهَا، وَحَدَّ حُدُودًا فَلا تَعْتَدُوهَا، وَحَرَّمَ أَشْيَاءَ فَلا تَنْتَهِكُوهَا، وَسَكَتَ عَنْ أَشْيَاءَ رَحْمَةً لَكُمْ غَيْرَ نِسْيَانٍ فَلا تَبْحَثُوا عَنْهَا",
+                english: "Verily Allah the Almighty has laid down religious obligations, so do not neglect them. He has set boundaries, so do not overstep them. He has prohibited some things, so do not violate them; about some things He was silent—out of compassion for you, not forgetfulness—so seek not after them."
+            },
+            {
+                num: 31,
+                title: "True Asceticism (Zuhd)",
+                narrator: "Sahl bin Sa'd",
+                arabic: "جَاءَ رَجُلٌ إِلَى النَّبِيِّ صلى الله عليه وسلم، فَقَالَ: يَا رَسُولَ اللَّهِ، دُلَّنِي عَلَى عَمَلٍ إِذَا عَمِلْتُهُ أَحَبَّنِي اللَّهُ وَأَحَبَّنِي النَّاسُ. فَقَالَ: ازْهَدْ فِي الدُّنْيَا يُحِبَّكَ اللَّهُ، وَازْهَدْ فِيمَا عِنْدَ النَّاسِ يُحِبَّكَ النَّاسُ",
+                english: "A man came to the Prophet (ﷺ) and said: 'O Messenger of Allah, direct me to an act which, if I do it, [will cause] Allah to love me and the people to love me.' He said: 'Renounce the world and Allah will love you, and renounce what the people possess and the people will love you.'"
+            },
+            {
+                num: 32,
+                title: "No Harming or Reciprocating Harm",
+                narrator: "Abu Sa'id Al-Khudri",
+                arabic: "لا ضَرَرَ وَلا ضِرَارَ",
+                english: "There should be neither harming (darar) nor reciprocating harm (dirar)."
+            },
+            {
+                num: 33,
+                title: "The Burden of Proof",
+                narrator: "Ibn Abbas",
+                arabic: "لَوْ يُعْطَى النَّاسُ بِدَعْوَاهُمْ، لادَّعَى رِجَالٌ أَمْوَالَ قَوْمٍ وَدِمَاءَهُمْ، وَلَكِنَّ الْبَيِّنَةَ عَلَى الْمُدَّعِي وَالْيَمِينَ عَلَى مَنْ أَنْكَرَ",
+                english: "Were people to be given everything they claimed, men would [unjustly] claim the wealth and blood of [other] people. But, the burden of proof is upon the claimant, and the taking of an oath is upon him who denies."
+            },
+            {
+                num: 34,
+                title: "Forbidding Evil with the Hands, Tongue, and Heart",
+                narrator: "Abu Sa'id Al-Khudri",
+                arabic: "مَنْ رَأَى مِنْكُمْ مُنْكَرًا فَلْيُغَيِّرْهُ بِيَدِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِلِسَانِهِ، فَإِنْ لَمْ يَسْتَطِعْ فَبِقَلْبِهِ، وَذَلِكَ أَضْعَفُ الإِيمَانِ",
+                english: "Whoever among you sees an evil, let him change it with his hand; if he cannot, then with his tongue; if he cannot, then with his heart—and that is the weakest of faith."
+            },
+            {
+                num: 35,
+                title: "Brotherhood in Islam",
+                narrator: "Abu Hurairah",
+                arabic: "لا تَحَاسَدُوا، وَلا تَنَاجَشُوا، وَلا تَبَاغَضُوا، وَلا تَدَابَرُوا، وَلا يَبِعْ بَعْضُكُمْ عَلَى بَيْعِ بَعْضٍ، وَكُونُوا عِبَادَ اللَّهِ إِخْوَانًا، الْمُسْلِمُ أَخُو الْمُسْلِمِ، لا يَظْلِمُهُ وَلا يَخْذُلُهُ وَلا يَحْقِرُهُ، التَّقْوَى هَاهُنَا، وَيُشِيرُ إِلَى صَدْرِهِ ثَلاثَ مَرَّاتٍ، بِحَسْبِ امْرِئٍ مِنَ الشَّرِّ أَنْ يَحْقِرَ أَخَاهُ الْمُسْلِمَ، كُلُّ الْمُسْلِمِ عَلَى الْمُسْلِمِ حَرَامٌ: دَمُهُ وَمَالُهُ وَعِرْضُهُ",
+                english: "Do not envy one another, do not artificially raise prices against one another, do not hate one another, do not turn your backs on one another, do not undercut one another in business transactions. And be, O servants of Allah, brethren. A Muslim is the brother of a Muslim. He does not oppress him, nor does he fail him, nor does he lie to him, nor does he hold him in contempt. Taqwa (piety) is right here [and he pointed to his breast three times]. It is evil enough for a man to hold his brother Muslim in contempt. The whole of a Muslim is inviolable for another Muslim: his blood, his property, and his honor."
+            },
+            {
+                num: 36,
+                title: "The Excellence of Gathering to Read the Quran and Assisting Others",
+                narrator: "Abu Hurairah",
+                arabic: "مَنْ نَفَّسَ عَنْ مُؤْمِنٍ كُرْبَةً مِنْ كُرَبِ الدُّنْيَا، نَفَّسَ اللَّهُ عَنْهُ كُرْبَةً مِنْ كُرَبِ يَوْمِ الْقِيَامَةِ، وَمَنْ يَسَّرَ عَلَى مُعْسِرٍ، يَسَّرَ اللَّهُ عَلَيْهِ فِي الدُّنْيَا وَالآخِرَةِ، وَمَنْ سَتَرَ مُسْلِمًا، سَتَرَهُ اللَّهُ فِي الدُّنْيَا وَالآخِرَةِ، وَاللَّهُ فِي عَوْنِ الْعَبْدِ مَا كَانَ الْعَبْدُ فِي عَوْنِ أَخِيهِ، وَمَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا، سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ، وَمَا اجْتَمَعَ قَوْمٌ فِي بَيْتٍ مِنْ بُيُوتِ اللَّهِ، يَتْلُونَ كِتَابَ اللَّهِ، وَيَتَدَارَسُونَهُ بَيْنَهُمْ، إِلا نَزَلَتْ عَلَيْهِمُ السَّكِينَةُ، وَغَشِيَتْهُمُ الرَّحْمَةُ، وَحَفَّتْهُمُ الْمَلائِكَةُ، وَذَكَرَهُمُ اللَّهُ فِيمَنْ عِنْدَهُ، وَمَنْ بَطَّأَ بِهِ عَمَلُهُ، لَمْ يُسْرِعْ بِهِ نَسَبُهُ",
+                english: "Whoever relieves a believer's distress of the distressful aspects of this world, Allah will rescue him from a difficulty of the difficulties of the Hereafter. Whoever alleviates [the situation of] one in dire straits, Allah will alleviate his lot in this world and in the Hereafter. Whoever conceals [the faults of] a Muslim, Allah will conceal [his faults] in this world and in the Hereafter. Allah is helping the servant as long as the servant is helping his brother. Whoever follows a path to seek knowledge therein, Allah will make easy for him a path to Paradise. No people gather together in one of the Houses of Allah, reciting the Book of Allah and studying it among themselves, except that tranquility descends upon them, mercy covers them, the angels surround them, and Allah mentions them amongst those who are with Him. And whoever is slowed down by his actions, will not be hastened forward by his lineage."
+            },
+            {
+                num: 37,
+                title: "The Record of Good and Bad Deeds",
+                narrator: "Ibn Abbas",
+                arabic: "إِنَّ اللَّهَ كَتَبَ الْحَسَنَاتِ وَالسَّيِّئَاتِ ثُمَّ بَيَّنَ ذَلِكَ: فَمَنْ هَمَّ بِحَسَنَةٍ فَلَمْ يَعْمَلْهَا كَتَبَهَا اللَّهُ لَهُ عِنْدَهُ حَسَنَةً كَامِلَةً، وَإِنْ هَمَّ بِهَا فَعَمِلَهَا كَتَبَهَا اللَّهُ لَهُ عِنْدَهُ عَشْرَ حَسَنَاتٍ إِلَى سَبْعِمِائَةِ ضِعْفٍ إِلَى أَضْعَافٍ كَثِيرَةٍ، وَمَنْ هَمَّ بِسَيِّئَةٍ فَلَمْ يَعْمَلْهَا كَتَبَهَا اللَّهُ لَهُ عِنْدَهُ حَسَنَةً كَامِلَةً، وَإِنْ هَمَّ بِهَا فَعَمِلَهَا كَتَبَهَا اللَّهُ سَيِّئَةً وَاحِدَةً",
+                english: "Verily Allah has recorded the good deeds and the evil deeds. Then He clarified that: Whosoever intends to do a good deed but does not do it, Allah records it with Himself as a complete good deed; but if he intends it and does it, Allah records it with Himself as ten good deeds, up to seven hundred times, or more than that. But if he intends to do an evil deed and does not do it, Allah records it with Himself as a complete good deed; but if he intends it and does it, Allah records it down as one single evil deed."
+            },
+            {
+                num: 38,
+                title: "Worship and the Friends of Allah (Awliya)",
+                narrator: "Abu Hurairah",
+                arabic: "إِنَّ اللَّهَ تَعَالَى قَالَ: مَنْ عَادَى لِي وَلِيًّا فَقَدْ آذَنْتُهُ بِالْحَرْبِ، وَمَا تَقَرَّبَ إِلَيَّ عَبْدِي بِشَيْءٍ أَحَبَّ إِلَيَّ مِمَّا افْتَرَضْتُهُ عَلَيْهِ، وَمَا يَزَالُ عَبْدِي يَتَقَرَّبُ إِلَيَّ بِالنَّوَافِلِ حَتَّى أُحِبَّهُ، فَإِذَا أَحْبَبْتُهُ كُنْتُ سَمْعَهُ الَّذِي يَسْمَعُ بِهِ، وَبَصَرَهُ الَّذِي يُبْصِرُ بِهِ، وَيَدَهُ الَّتِي يَبْطِشُ بِهَا، وَرِجْلَهُ الَّتِي يَمْشِي بِهَا، وَإِنْ سَأَلَنِي لأُعْطِيَنَّهُ، وَلَئِنِ اسْتَعَاذَنِي لأُعِيذَنَّهُ",
+                english: "Allah the Almighty said: 'Whosoever shows enmity to someone devoted to Me, I shall be at war with him. My servant draws not near to Me with anything more loved by Me than the religious duties I have enjoined upon him, and My servant continues to draw near to Me with supererogatory works so that I shall love him. When I love him I am his hearing with which he hears, his seeing with which he sees, his hand with which he strikes and his foot with which he walks. Were he to ask [something] of Me, I would surely give it to him, and were he to ask Me for refuge, I would surely grant him it.'"
+            },
+            {
+                num: 39,
+                title: "Forgiveness of Mistakes, Forgetfulness, and Coercion",
+                narrator: "Ibn Abbas",
+                arabic: "إِنَّ اللَّهَ تَجَاوَزَ لِي عَنْ أُمَّتِي الْخَطَأَ وَالنِّسْيَانَ وَمَا اسْتُكْرِهُوا عَلَيْهِ",
+                english: "Verily Allah has pardoned [or been lenient with] for me my ummah: their mistakes, their forgetfulness, and that which they have been forced to do under duress."
+            },
+            {
+                num: 40,
+                title: "Be in This World as a Traveler",
+                narrator: "Ibn Umar",
+                arabic: "أَخَذَ رَسُولُ اللَّهِ صلى الله عليه وسلم بِمَنْكِبِي، فَقَالَ: كُنْ فِي الدُّنْيَا كَأَنَّكَ غَرِيبٌ أَوْ عَابِرُ سَبِيلٍ",
+                english: "The Messenger of Allah (ﷺ) took hold of my shoulder and said: 'Be in this world as though you were a stranger or a wayfarer.'"
+            },
+            {
+                num: 41,
+                title: "Submitting to the Revelation",
+                narrator: "Abu Muhammad Abdullah bin Amr bin Al-Aas",
+                arabic: "لا يُؤْمِنُ أَحَدُكُمْ حَتَّى يَكُونَ هَوَاهُ تَبَعًا لِمَا جِئْتُ بِهِ",
+                english: "None of you [truly] believes until his desires are subservient to that which I have brought."
+            },
+            {
+                num: 42,
+                title: "The Vastness of Allah's Forgiveness",
+                narrator: "Anas bin Malik",
+                arabic: "قَالَ اللَّهُ تَبَارَكَ وَتَعَالَى: يَا ابْنَ آدَمَ إِنَّكَ مَا دَعَوْتَنِي وَرَجَوْتَنِي غَفَرْتُ لَكَ عَلَى مَا كَانَ فِيكَ وَلا أُبَالِي، يَا ابْنَ آدَمَ لَوْ بَلَغَتْ ذُنُوبُكَ عَنَانَ السَّمَاءِ ثُمَّ اسْتَغْفَرْتَنِي غَفَرْتُ لَكَ وَلا أُبَالِي، يَا ابْنَ آدَمَ إِنَّكَ لَوْ أَتَيْتَنِي بِقُرَابِ الأَرْضِ خَطَايَا ثُمَّ لَقِيتَنِي لا تُشْرِكُ بِي شَيْئًا لأَتَيْتُكَ بِقُرَابِهَا مَغْفِرَةً",
+                english: "Allah the Almighty said: 'O son of Adam, so long as you call upon Me and ask of Me, I shall forgive you for what you have done, and I shall not mind. O son of Adam, were your sins to reach the clouds of the sky and were you then to ask forgiveness of Me, I would forgive you. O son of Adam, were you to come to Me with sins nearly as great as the earth and were you then to face Me, ascribing no partner to Me, I would bring you forgiveness nearly as great as it.'"
+            }
+        ];
+
+        function renderNawawiHadiths() {
+            const container = document.getElementById('nawawi-accordion-container');
+            container.innerHTML = ''; // Clear it
+
+            nawawiData.forEach(hadith => {
+                const card = document.createElement('div');
+                // Added accordion functionality
+                card.className = "accordion-item bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-emerald-100 dark:border-emerald-800/50 transition-colors mb-4 overflow-hidden";
+                
+                // We use your existing beautifyHadithText function to make the English look great!
+                const beautifulEnglish = beautifyHadithText(hadith.english);
+
+                card.innerHTML = `
+                    <button class="accordion-header w-full flex justify-between items-center px-6 py-4 bg-emerald-50 dark:bg-emerald-900/30 text-left focus:outline-none transition-colors" onclick="toggleAccordion(this)">
+                        <div>
+                            <h3 class="font-bold text-lg text-emerald-800 dark:text-emerald-400">Hadith ${hadith.num}: ${hadith.title}</h3>
+                            <p class="text-xs text-emerald-600 dark:text-emerald-300 mt-0.5 font-medium">Narrated by ${hadith.narrator}</p>
+                        </div>
+                        <svg class="accordion-icon w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    
+                    <div class="accordion-content px-6 md:px-8">
+                        <div class="pt-6 pb-2">
+                             <p class="font-arabic text-3xl md:text-4xl text-right text-gray-800 dark:text-white leading-[2.5] mb-8" dir="rtl">${hadith.arabic}</p>
+                             
+                             <div class="border-t border-gray-100 dark:border-slate-700/50 pt-6 flex flex-col md:flex-row gap-6 items-start justify-between">
+                                 <p class="text-gray-700 dark:text-gray-300 text-[15px] sm:text-base leading-loose text-justify first-letter:text-4xl first-letter:font-bold first-letter:text-emerald-500 dark:first-letter:text-emerald-400 first-letter:mr-1.5 first-letter:float-left first-letter:leading-tight">
+                                     ${beautifulEnglish}
+                                 </p>
+                             </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
 /* ================= MASTERY PROGRESS BAR LOGIC ================= */
         function recalculateProgress() {
             const allTabs = document.querySelectorAll('section.tab-content');
@@ -5608,6 +6611,122 @@ let tooltipTimer;
                 word.style.filter = 'none';
                 word.style.transform = 'scale(1)';
             });
+        }
+/* ================= INTERACTIVE SANAD VISUALIZER LOGIC ================= */
+        
+        function openSanadVisualizer(bookName, hadithNumber, sahabiName) {
+            const modal = document.getElementById('sanad-modal');
+            const content = document.getElementById('sanad-modal-content');
+            const title = document.getElementById('sanad-modal-subtitle');
+            const canvas = document.getElementById('sanad-nodes-container');
+            const spine = document.getElementById('sanad-spine');
+            
+            // 1. Update text
+            title.innerText = `${bookName} • Hadith ${hadithNumber}`;
+            canvas.innerHTML = ''; 
+            spine.classList.add('hidden'); 
+            
+            // 2. Show Modal with animation
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+
+            // 3. Generate Dynamic 6-Node Sanad Data
+            const sanadNodes = [
+                { name: "Prophet Muhammad (ﷺ)", role: "The Messenger of Allah", color: "amber", icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" },
+                { name: sahabiName, role: "First Generation (Sahabi)", color: "emerald", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" },
+                { name: "Major Successor (Tabi'i)", role: "Second Generation", color: "teal", icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" },
+                { name: "Minor Successor (Tabi' al-Tabi'in)", role: "Third Generation", color: "cyan", icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" },
+                { name: "Hadith Scholar / Shaykh", role: "Direct Teacher of the Imam", color: "blue", icon: "M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15" },
+                { name: `Imam ${bookName.replace('Sahih ', '').replace('Sunan ', '').replace('Al-', '').replace('Abu ', '')}`, role: "Hadith Compiler", color: "purple", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" }
+            ];
+
+            // 4. Staggered Animation Engine
+            spine.classList.remove('hidden');
+            
+            sanadNodes.forEach((node, index) => {
+                const isLeft = index % 2 === 0;
+                
+                const html = `
+                    <div class="flex items-center w-full ${isLeft ? 'md:justify-start' : 'md:justify-end'} opacity-0 transform translate-y-8 transition-all duration-700" id="sanad-node-${index}">
+                        <div class="flex items-center gap-4 w-full md:w-[calc(50%+2rem)] ${isLeft ? 'md:flex-row' : 'md:flex-row-reverse'}">
+                            <div class="w-12 h-12 rounded-full border-4 border-white dark:border-slate-800 bg-${node.color}-500 text-white flex items-center justify-center shadow-lg z-10 shrink-0 mx-2 md:mx-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${node.icon}"></path></svg>
+                            </div>
+                            
+                            <div class="bg-white dark:bg-slate-700/50 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-slate-600 flex-1 ${isLeft ? 'text-left' : 'md:text-right text-left'}">
+                                <span class="text-[10px] font-bold text-${node.color}-600 dark:text-${node.color}-400 uppercase tracking-widest">${node.role}</span>
+                                <h4 class="font-bold text-gray-800 dark:text-white text-base md:text-lg">${node.name}</h4>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                canvas.insertAdjacentHTML('beforeend', html);
+                
+                setTimeout(() => {
+                    const el = document.getElementById(`sanad-node-${index}`);
+                    if (el) {
+                        el.classList.remove('opacity-0', 'translate-y-8');
+                    }
+                }, 400 * (index + 1)); 
+            });
+        }
+
+        function closeSanadVisualizer() {
+            const modal = document.getElementById('sanad-modal');
+            const content = document.getElementById('sanad-modal-content');
+            
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+        /* ================= TAFSIR BRIDGE LOGIC ================= */
+        function triggerTafsirBridge() {
+            // 1. Get the current active Surah and Ayah from the input boxes
+            const rawSurahInput = document.getElementById('surah-search-input').value;
+            const surahId = document.getElementById('api-surah').value;
+            const ayahInput = document.getElementById('api-ayah').value.trim();
+
+            if (!surahId || !rawSurahInput) {
+                alert("Please select a specific Surah to search for its Tafsir context.");
+                return;
+            }
+
+            // Extract just the name from the input (e.g., "2. Surah Al-Baqarah" -> "Al-Baqarah")
+            let surahName = rawSurahInput.split('Surah ')[1] || rawSurahInput;
+            
+            // Build the query
+            let searchQuery = `Surah ${surahName}`;
+            if (ayahInput && !ayahInput.includes('-')) {
+                searchQuery += ` verse ${ayahInput}`;
+            }
+
+            // 2. Switch UI to the Hadith Hub automatically
+            switchTab('hadith');
+            
+            // Force the sub-tab to 'Search Engine'
+            const searchBtn = document.querySelector('.hadith-sub-btn[onclick*="hadith-search"]');
+            switchHadithSubTab('hadith-search', searchBtn);
+            
+            // 3. Reset filters to 'Sahih Bukhari' (best for Tafsir) and execute search
+            const bukhariBtn = document.querySelector('.hadith-filter-btn[onclick*="sahih-bukhari"]');
+            if (bukhariBtn) setHadithFilter('sahih-bukhari', bukhariBtn);
+            
+            // Push query into the search bar and fire
+            const searchBox = document.getElementById('hadith-search-input');
+            searchBox.value = searchQuery;
+            
+            // Scroll to top of Hadith section for UX
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            searchHadith();
         }
     </script>
 <!-- Floating Word-by-Word Tooltip -->
